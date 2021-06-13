@@ -3,18 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488B026632DE600D7A6FF /* SetViewController.swift */; };
+		0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* ColorModel.swift */; };
 		0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E526500D2E0091D80F /* AppDelegate.swift */; };
 		0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */; };
-		0DAAE4EA26500D2E0091D80F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E926500D2E0091D80F /* ViewController.swift */; };
+		0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E926500D2E0091D80F /* MainViewController.swift */; };
 		0DAAE4ED26500D2E0091D80F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DAAE4EB26500D2E0091D80F /* Main.storyboard */; };
 		0DAAE4EF26500D2F0091D80F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAAE4EE26500D2F0091D80F /* Assets.xcassets */; };
 		0DAAE4F226500D2F0091D80F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DAAE4F026500D2F0091D80F /* LaunchScreen.storyboard */; };
 		0DAAE4FD26500D2F0091D80F /* WordCamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4FC26500D2F0091D80F /* WordCamTests.swift */; };
 		0DAAE50826500D2F0091D80F /* WordCamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE50726500D2F0091D80F /* WordCamUITests.swift */; };
+		0DAAE51A26500F6B0091D80F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51926500F6B0091D80F /* Realm */; };
+		0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51B26500F6B0091D80F /* RealmSwift */; };
+		0DCB74C82650BF7F001A795C /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* WordModel.swift */; };
+		0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */; };
+		0DCB74D82650EEB0001A795C /* SetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74D72650EEB0001A795C /* SetsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D2488B026632DE600D7A6FF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		0D2488C026634EA600D7A6FF /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		0DAAE4E226500D2D0091D80F /* WordCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE4E526500D2E0091D80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0DAAE4E926500D2E0091D80F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0DAAE4E926500D2E0091D80F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0DAAE4EC26500D2E0091D80F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DAAE4EE26500D2F0091D80F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DAAE4F126500D2F0091D80F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +58,9 @@
 		0DAAE50326500D2F0091D80F /* WordCamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordCamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE50726500D2F0091D80F /* WordCamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCamUITests.swift; sourceTree = "<group>"; };
 		0DAAE50926500D2F0091D80F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DCB74C72650BF7E001A795C /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
+		0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		0DCB74D72650EEB0001A795C /* SetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */,
+				0DAAE51A26500F6B0091D80F /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +90,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D2488B826632E0400D7A6FF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
+				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0D2488B926632E1700D7A6FF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0DCB74C72650BF7E001A795C /* WordModel.swift */,
+				0DCB74D72650EEB0001A795C /* SetsModel.swift */,
+				0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */,
+				0D2488C026634EA600D7A6FF /* ColorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0DAAE4D926500D2D0091D80F = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +135,8 @@
 			children = (
 				0DAAE4E526500D2E0091D80F /* AppDelegate.swift */,
 				0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */,
-				0DAAE4E926500D2E0091D80F /* ViewController.swift */,
+				0D2488B926632E1700D7A6FF /* Model */,
+				0D2488B826632E0400D7A6FF /* Controller */,
 				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
 				0DAAE4EE26500D2F0091D80F /* Assets.xcassets */,
 				0DAAE4F026500D2F0091D80F /* LaunchScreen.storyboard */,
@@ -144,6 +179,10 @@
 			dependencies = (
 			);
 			name = WordCam;
+			packageProductDependencies = (
+				0DAAE51926500F6B0091D80F /* Realm */,
+				0DAAE51B26500F6B0091D80F /* RealmSwift */,
+			);
 			productName = WordCam;
 			productReference = 0DAAE4E226500D2D0091D80F /* WordCam.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +254,9 @@
 				Base,
 			);
 			mainGroup = 0DAAE4D926500D2D0091D80F;
+			packageReferences = (
+				0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = 0DAAE4E326500D2D0091D80F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,9 +300,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DAAE4EA26500D2E0091D80F /* ViewController.swift in Sources */,
+				0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */,
+				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
+				0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
+				0DCB74C82650BF7F001A795C /* WordModel.swift in Sources */,
+				0DCB74D82650EEB0001A795C /* SetsModel.swift in Sources */,
+				0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +640,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.7.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DAAE51926500F6B0091D80F /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		0DAAE51B26500F6B0091D80F /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0DAAE4DA26500D2D0091D80F /* Project object */;
 }
