@@ -7,11 +7,13 @@
 
 import UIKit
 import RealmSwift
+import Charts
 
 class WordsTableViewController: UITableViewController {
     
     
-    @IBOutlet var tableView: UITableView!
+    //@IBOutlet var tableView: UITableView!
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
