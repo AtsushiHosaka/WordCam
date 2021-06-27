@@ -47,6 +47,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         collectionViewFlowLayout.estimatedItemSize = CGSize(width: 180, height: 130)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.tabBarController?.tabBar.shadowImage = UIImage()
+        self.tabBarController?.tabBar.backgroundImage = UIImage()
         
         sets = read()
     }
@@ -54,8 +57,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func read() -> Results<Sets> {
         return realm.objects(Sets.self)
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sets!.count
