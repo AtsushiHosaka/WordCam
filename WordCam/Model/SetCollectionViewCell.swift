@@ -14,7 +14,7 @@ class SetCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.layer.cornerRadius = 15.0
+        self.layer.cornerRadius = 12.0
         self.contentView.isUserInteractionEnabled = false
     }
 }

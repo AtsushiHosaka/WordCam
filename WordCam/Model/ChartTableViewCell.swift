@@ -12,10 +12,12 @@ class ChartTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundLabel.layer.cornerRadius = 30
         // Initialization code
         setLineGraph()
     }
-
+    
+    @IBOutlet var backgroundLabel: UILabel!
     @IBOutlet weak var linechart: LineChartView!
         
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
@@ -27,7 +29,7 @@ class ChartTableViewCell: UITableViewCell {
         for (i,d) in unitsSold.enumerated(){
             entry.append(ChartDataEntry(x: Double(i),y: d))
         }
-            
+        
         let dataset = LineChartDataSet(entries: entry,label: "Units Sold")
                     
         linechart.data = LineChartData(dataSet: dataset)

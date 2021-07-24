@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D22203A269A958700A8DC97 /* AddSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D222039269A958700A8DC97 /* AddSetViewController.swift */; };
 		0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488B026632DE600D7A6FF /* SetViewController.swift */; };
 		0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* ColorModel.swift */; };
 		0D554767268837F600967CB1 /* WordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D554766268837F600967CB1 /* WordsTableViewController.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D222039269A958700A8DC97 /* AddSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSetViewController.swift; sourceTree = "<group>"; };
 		0D2488B026632DE600D7A6FF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		0D2488C026634EA600D7A6FF /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		0D554766268837F600967CB1 /* WordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordsTableViewController.swift; path = ../WordsTableViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
 				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
 				0D554766268837F600967CB1 /* WordsTableViewController.swift */,
+				0D222039269A958700A8DC97 /* AddSetViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsTableViewController.swift in Sources */,
 				0D5547872688514700967CB1 /* ChartTableViewCell.swift in Sources */,
+				0D22203A269A958700A8DC97 /* AddSetViewController.swift in Sources */,
 				0DCB74C82650BF7F001A795C /* WordModel.swift in Sources */,
 				0DCB74D82650EEB0001A795C /* SetsModel.swift in Sources */,
 				0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */,
