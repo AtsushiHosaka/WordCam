@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class AddSetViewController: UIViewController {
+    
     @IBOutlet var backgroundLabel: UILabel!
     @IBOutlet var nameField: UITextField!
     @IBOutlet var emojiField: UITextField!
@@ -31,17 +32,14 @@ class AddSetViewController: UIViewController {
         emojiField.text = ""
     }
     
+    //colorを追加できるようにすぐ変更しよう　まじで
     @IBAction func addBtnPressed() {
         if nameField.text != "" {
-            let array: [String: Any] = ["title": nameField.text!,
-                         "correctAnsRate": 0,
-                         "emoji": emojiField.text!,
-                         "color": "red"]
-            let data = Sets(value: array)
-            let realm = try! Realm()
-            try! realm.write{
-                realm.add(data)
-            }
+            let set = Sets(
+                title: nameField.text!, color: "red", emoji: emojiField.text!
+            )
+            RealmService.shared.create(set)
+            
             reloading!()
             self.dismiss(animated: true, completion: nil)
         }else {

@@ -11,8 +11,10 @@ import Charts
 class SetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     var sets = Sets()
-    @IBOutlet var tableView: UITableView!
     let color = Color()
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var alertLabel: UILabel!
+    @IBOutlet var addAlertButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,17 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
         //--------
         
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        if sets.words.count == 0 {
+            tableView.isHidden = true
+            alertLabel.isHidden = false
+            addAlertButton.isHidden = false
+        }else {
+            tableView.isHidden = false
+            alertLabel.isHidden = true
+            addAlertButton.isHidden = true
+        }
+        
         tableView.reloadData()
     }
     
@@ -46,7 +59,7 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
-            cell.title.text = sets.words[indexPath.row - 1].english
+            cell.title.text = sets.words[indexPath.row - 1].word
             return cell
         }
     }

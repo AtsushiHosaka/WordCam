@@ -17,6 +17,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let collectionLayout = UICollectionViewFlowLayout()
     @IBOutlet var setCollection: UICollectionView!
     @IBOutlet var addSetBtn: UIButton!
+    @IBOutlet var alertLabel: UILabel!
     var searchController = UISearchController()
 
     override func viewDidLoad() {
@@ -26,21 +27,20 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         try! realm.write{
             realm.deleteAll()
         }
-        let testArray: [String: Any] = ["title": "test",
-                     "correctAnsRate": 1,
-                     "emoji": "🥺",
-                     "color": "blue",
-                     "words": [["english": "test1",
-                                "meaning": "テスト1"],
-                               ["english": "test2",
-                                          "meaning": "テスト2"]
-                     ]]
-        
-        let testData = Sets(value: testArray)
-        
-        try! realm.write{
-            realm.add(testData)
-        }
+//        let testArray: [String: Any] = ["title": "test",
+//                     "emoji": "🥺",
+//                     "color": "blue",
+//                     "words": [["word": "test1",
+//                                "meaning": "テスト1"],
+//                               ["word": "test2",
+//                                          "meaning": "テスト2"]
+//                     ]]
+//
+//        let testData = Sets(value: testArray)
+//
+//        try! realm.write{
+//            realm.add(testData)
+//        }
         //----test----
         
         setCollection.dataSource = self
@@ -62,9 +62,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionLayout.minimumLineSpacing = self.view.bounds.height * 22 / 812
         collectionLayout.sectionInset = UIEdgeInsets(
             top:    self.view.bounds.height * 18 / 812,
-            left:   self.view.bounds.width * 16 / 375,
+            left:   self.view.bounds.width  * 16 / 375,
             bottom: self.view.bounds.height * 18 / 812,
-            right:  self.view.bounds.width * 16 / 375
+            right:  self.view.bounds.width  * 16 / 375
         )
         collectionLayout.itemSize = CGSize(
             width:  self.view.bounds.width * 164 / 375,
@@ -75,26 +75,22 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         reloading()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.searchController = searchController
     }
     
-    
     func reloading() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        data = read()
+        data = realm.objects(Sets.self)
+        if data?.count == 0 {
+            setCollection.isHidden = true
+            alertLabel.isHidden = false
+        }else {
+            setCollection.isHidden = false
+            alertLabel.isHidden = true
+        }
         setCollection.reloadData()
     }
-    
-    
-    func read() -> Results<Sets> {
-        return realm.objects(Sets.self)
-    }
-    
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data!.count
@@ -105,7 +101,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.titleLabel.text = data?[indexPath.row].title
         cell.emojiLabel.text = data?[indexPath.row].emoji
         cell.layer.backgroundColor = colorModel.colorCG(code: (data?[indexPath.row].color)!)
-        cell.correctAnsRateLabel.text = String((data?[indexPath.row].correctAnsRate)!)
+        //cell.correctAnsRateLabel.text = String((data?[indexPath.row].correctAnsRate)!)
         return cell
     }
     
@@ -117,9 +113,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func updateSearchResults(for searchController: UISearchController) {
 
     }
-    
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSetView" {
