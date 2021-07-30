@@ -32,7 +32,7 @@ class Word: Object {
 class Sets: Object {
     @objc dynamic var setID = UUID().uuidString
     @objc dynamic var title: String = ""
-    @objc dynamic var color: String = ""
+    @objc dynamic var color: Int = 0
     @objc dynamic var emoji: String = ""
     
     let word = LinkingObjects(fromType: Word.self, property: "sets")
@@ -41,7 +41,7 @@ class Sets: Object {
     let setAnsHistory = LinkingObjects(fromType: SetAnsHistory.self, property: "set")
     var correctAnsRate = List<SetAnsHistory>()
     
-    convenience init(title: String, color: String, emoji: String) {
+    convenience init(title: String, color: Int, emoji: String) {
         self.init()
         self.title = title
         self.color = color

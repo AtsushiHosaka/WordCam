@@ -11,7 +11,7 @@ import RealmSwift
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
     
     let realm = try! Realm()
-    let colorModel = Color()
+    let color = Color()
     var data: Results<Sets>?
     var selectedSet = Sets()
     let collectionLayout = UICollectionViewFlowLayout()
@@ -27,20 +27,20 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         try! realm.write{
             realm.deleteAll()
         }
-//        let testArray: [String: Any] = ["title": "test",
-//                     "emoji": "🥺",
-//                     "color": "blue",
-//                     "words": [["word": "test1",
-//                                "meaning": "テスト1"],
-//                               ["word": "test2",
-//                                          "meaning": "テスト2"]
-//                     ]]
-//
-//        let testData = Sets(value: testArray)
-//
-//        try! realm.write{
-//            realm.add(testData)
-//        }
+        let testArray: [String: Any] = ["title": "test",
+                     "emoji": "🥺",
+                     "color": 2,
+                     "words": [["word": "test1",
+                                "meaning": "テスト1"],
+                               ["word": "test2",
+                                          "meaning": "テスト2"]
+                     ]]
+
+        let testData = Sets(value: testArray)
+
+        try! realm.write{
+            realm.add(testData)
+        }
         //----test----
         
         setCollection.dataSource = self
@@ -100,7 +100,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SetCollectionViewCell
         cell.titleLabel.text = data?[indexPath.row].title
         cell.emojiLabel.text = data?[indexPath.row].emoji
-        cell.layer.backgroundColor = colorModel.colorCG(code: (data?[indexPath.row].color)!)
+        cell.layer.backgroundColor = color.colorCG(num: (data?[indexPath.row].color)!)
         //cell.correctAnsRateLabel.text = String((data?[indexPath.row].correctAnsRate)!)
         return cell
     }

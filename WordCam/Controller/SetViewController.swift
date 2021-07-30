@@ -55,7 +55,7 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChartCell") as! ChartTableViewCell
             cell.backgroundColor = nil
-            cell.backgroundLabel.backgroundColor = color.colorUI(code: sets.color)
+            cell.backgroundLabel.backgroundColor = color.colorUI(num: sets.color)
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
