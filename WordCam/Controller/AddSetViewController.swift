@@ -33,6 +33,10 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
         backgroundLabel.clipsToBounds = true
         cancelBtn.layer.cornerRadius = 20
         addBtn.layer.cornerRadius = 20
+        
+        let collectionLayout = UICollectionViewFlowLayout()
+        collectionLayout.scrollDirection = .horizontal
+        colorCollection.collectionViewLayout = collectionLayout
     }
     
     override func viewWillAppear(_ animated: Bool) {

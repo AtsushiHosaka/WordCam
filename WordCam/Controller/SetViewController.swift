@@ -10,7 +10,7 @@ import Charts
 
 class SetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    var sets = Sets()
+    var set = Sets()
     let color = Color()
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
@@ -20,7 +20,7 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "ChartTableViewCell", bundle: nil), forCellReuseIdentifier: "ChartCell")
+        tableView.register(UINib(nibName: "SetChartCell", bundle: nil), forCellReuseIdentifier: "SetChartCell")
         tableView.register(UINib(nibName: "WordTableViewCell", bundle: nil), forCellReuseIdentifier: "WordCell")
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
@@ -28,13 +28,13 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidAppear(_ animated: Bool) {
         
         //----test----
-        print(sets)
-        self.navigationItem.title = sets.title
+        print(set)
+        self.navigationItem.title = set.title
         //--------
         
         self.navigationController?.navigationBar.prefersLargeTitles = false
         
-        if sets.words.count == 0 {
+        if set.words.count == 0 {
             tableView.isHidden = true
             alertLabel.isHidden = false
             addAlertButton.isHidden = false
@@ -48,18 +48,19 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sets.words.count + 1
+        return set.words.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ChartCell") as! ChartTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
             cell.backgroundColor = nil
-            cell.backgroundLabel.backgroundColor = color.colorUI(num: sets.color)
+            cell.backgroundLabel.backgroundColor = color.colorUI(num: set.color)
+            cell.data = set.correctAnsRate
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
-            cell.title.text = sets.words[indexPath.row - 1].word
+            cell.title.text = set.words[indexPath.row - 1].word
             return cell
         }
     }

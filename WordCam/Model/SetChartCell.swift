@@ -6,28 +6,40 @@
 //
 
 import UIKit
+import RealmSwift
 import Charts
 
-class ChartTableViewCell: UITableViewCell {
+class SetChartCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         backgroundLabel.layer.cornerRadius = 30
-        // Initialization code
+        backgroundLabel.clipsToBounds = true
+        
         setLineGraph()
     }
     
     @IBOutlet var backgroundLabel: UILabel!
     @IBOutlet weak var linechart: LineChartView!
-        
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-    let unitsSold = [10.0, 4.0, 6.0, 3.0, 12.0, 16.0]
-        
+    
+    var data: List<SetAnsHistory>?
+    
+    //data == nilの場合について考えられていません！
+    //https://teratail.com/questions/139531
     func setLineGraph(){
+        
+        var dates = [Date]()
+        var rates = [Double]()
+        for d in data! {
+            dates.append(d.date)
+            rates.append(d.rate)
+        }
+        
         var entry = [ChartDataEntry]()
             
-        for (i,d) in unitsSold.enumerated(){
-            entry.append(ChartDataEntry(x: Double(i),y: d))
+        for i in 0 ..< data!.count {
+            entry.append(ChartDataEntry(x: Double(i),y: rates[i]))
         }
         
         let dataset = LineChartDataSet(entries: entry,label: "Units Sold")

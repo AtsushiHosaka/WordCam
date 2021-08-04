@@ -14,7 +14,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let color = Color()
     var data: Results<Sets>?
     var selectedSet = Sets()
-    let collectionLayout = UICollectionViewFlowLayout()
     @IBOutlet var setCollection: UICollectionView!
     @IBOutlet var addSetBtn: UIButton!
     @IBOutlet var alertLabel: UILabel!
@@ -27,17 +26,17 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         try! realm.write{
             realm.deleteAll()
         }
-        let testArray: [String: Any] = ["title": "test",
-                     "emoji": "🥺",
-                     "color": 2,
-                     "words": [["word": "test1",
-                                "meaning": "テスト1"],
-                               ["word": "test2",
-                                          "meaning": "テスト2"]
-                     ]]
+        let testArray: [String: Any] = ["title": "test", "emoji": "🥺", "color": 2,
+                                        "words": [["word": "test1", "meaning": "テスト1", "correctAnsRate": [
+                                                    ["date": Date(), "rate": 0.3],
+                                                    ["date": Date(), "rate": 0.6]]],
+                                                  ["word": "test2", "meaning": "テスト2", "correctAnsRate": [
+                                                    ["date": Date(), "rate": 0.4],
+                                                    ["date": Date(), "rate": 0.8]]]
+                                        ]]
 
         let testData = Sets(value: testArray)
-
+        
         try! realm.write{
             realm.add(testData)
         }
@@ -58,6 +57,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         addSetBtn.layer.cornerRadius = 30
         
+        let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.minimumInteritemSpacing = self.view.bounds.width * 15 / 375
         collectionLayout.minimumLineSpacing = self.view.bounds.height * 22 / 812
         collectionLayout.sectionInset = UIEdgeInsets(
@@ -67,7 +67,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             right:  self.view.bounds.width  * 16 / 375
         )
         collectionLayout.itemSize = CGSize(
-            width:  self.view.bounds.width * 164 / 375,
+            width:  self.view.bounds.width  * 164 / 375,
             height: self.view.bounds.height * 114 / 812
         )
         setCollection.collectionViewLayout = collectionLayout
@@ -117,7 +117,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSetView" {
             let setView: SetViewController = segue.destination as! SetViewController
-            setView.sets = selectedSet
+            setView.set = selectedSet
         }else if segue.identifier == "toAddSetView" {
             let addSetViewController: AddSetViewController = segue.destination as! AddSetViewController
             addSetViewController.reloading = reloading

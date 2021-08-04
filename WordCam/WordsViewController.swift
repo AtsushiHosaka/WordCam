@@ -20,17 +20,23 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
+        
+        self.navigationController?.navigationBar.sizeToFit()
         self.navigationController?.navigationBar.shadowImage = UIImage()
         reloading()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     //追加画面はnavigationでの遷移だから、もしかしたら毎回呼び出されるかも。そうだったらwillappearへ
     func reloading() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         data = realm.objects(Word.self)
-        print(data)
         
         if data?.count == 0 {
             wordsTableView.isHidden = true
@@ -63,5 +69,9 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let wordView: WordViewController = segue.destination as! WordViewController
             wordView.word = self.data?[selectedNum ?? 0]
         }
+    }
+    
+    @IBAction func toAddWordView() {
+        performSegue(withIdentifier: "toAddWordView", sender: nil)
     }
 }

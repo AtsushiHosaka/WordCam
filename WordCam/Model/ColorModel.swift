@@ -9,7 +9,7 @@ import UIKit
 
 struct Color {
     //gray(default), red, blue, yellow
-    let colorValues: [[CGFloat]] = [[163.0, 163.0, 163.0], [255.0, 154.0, 154.0], [98.0, 199.0, 217.0], [247.0, 226.0, 65.0]]
+    let colorValues: [[CGFloat]] = [[163.0, 163.0, 163.0], [255.0, 154.0, 154.0], [98.0, 199.0, 217.0], [247.0, 226.0, 65.0], [28.0, 40.0, 103.0]]
     
     func colorCG(num: Int) -> CGColor {
         let color = colorValues[num]
