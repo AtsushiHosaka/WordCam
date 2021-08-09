@@ -8,10 +8,9 @@
 import UIKit
 import RealmSwift
 
-class WordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class WordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
-    let realm = try! Realm()
+    let realm = RealmService.shared.realm
     var data: Results<Word>?
     var words = [String]()
     var selectedNum: Int?
@@ -26,15 +25,9 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         self.navigationController?.navigationBar.sizeToFit()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        reloading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    //追加画面はnavigationでの遷移だから、もしかしたら毎回呼び出されるかも。そうだったらwillappearへ
-    func reloading() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         data = realm.objects(Word.self)
         
@@ -71,7 +64,26 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    @IBAction func toAddWordView() {
+    func toAddWordView() {
         performSegue(withIdentifier: "toAddWordView", sender: nil)
     }
+    
+    @IBAction func addButtonPressed() {
+        let alertSheet = UIAlertController(title: "単語を登録", message: "単語の登録方法を選択してください", preferredStyle: UIAlertController.Style.actionSheet)
+        let action1 = UIAlertAction(title: "単語を入力する", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
+        })
+        let action2 = UIAlertAction(title: "写真から登録する", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+            print("sita")
+        })
+        let cancelAction = UIAlertAction(title: "cancel", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
+            print("can")
+        })
+        alertSheet.addAction(action1)
+        alertSheet.addAction(action2)
+        alertSheet.addAction(cancelAction)
+        present(alertSheet, animated: true, completion: nil)
+    }
 }
+
+

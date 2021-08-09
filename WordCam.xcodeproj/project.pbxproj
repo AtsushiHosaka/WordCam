@@ -14,6 +14,8 @@
 		0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* ColorModel.swift */; };
 		0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27E9D626AC5388001E094E /* WordViewController.swift */; };
 		0D27E9F126AD350D001E094E /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27E9F026AD350D001E094E /* RealmService.swift */; };
+		0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */; };
+		0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */; };
 		0D554767268837F600967CB1 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D554766268837F600967CB1 /* WordsViewController.swift */; };
 		0D55477026883DF200967CB1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0D55476F26883DF200967CB1 /* Charts */; };
 		0D5547872688514700967CB1 /* SetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5547852688514700967CB1 /* SetChartCell.swift */; };
@@ -36,9 +38,9 @@
 		0DCB74C82650BF7F001A795C /* DataBaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* DataBaseModels.swift */; };
 		0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */; };
 		0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA0EE026B9950B00630FAA /* QuizViewController.swift */; };
-		12A63B8F664C8FB7DFB08995 /* Pods_WordCam_WordCamUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1635A592CBF3751155046037 /* Pods_WordCam_WordCamUITests.framework */; };
-		7AC23487BD0CC8C2D978C302 /* Pods_WordCamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86B34F5DEEF6BB0792B9BBB6 /* Pods_WordCamTests.framework */; };
-		CEA3C21B0F584D54AE8DF054 /* Pods_WordCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C91C174CEB9C6F853F95866 /* Pods_WordCam.framework */; };
+		540D7D9207053B7B654496D9 /* Pods_WordCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7546CE90892F54F697E829A /* Pods_WordCam.framework */; };
+		6001CEE1C1010D5C588E5BAD /* Pods_WordCamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */; };
+		E66D30B9845A3DF4143C33A7 /* Pods_WordCam_WordCamUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		0D2488C026634EA600D7A6FF /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		0D27E9D626AC5388001E094E /* WordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewController.swift; sourceTree = "<group>"; };
 		0D27E9F026AD350D001E094E /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSetWordViewController.swift; sourceTree = "<group>"; };
 		0D554766268837F600967CB1 /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordsViewController.swift; path = ../WordsViewController.swift; sourceTree = "<group>"; };
 		0D5547852688514700967CB1 /* SetChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetChartCell.swift; sourceTree = "<group>"; };
 		0D5547862688514700967CB1 /* SetChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetChartCell.xib; sourceTree = "<group>"; };
@@ -104,15 +108,15 @@
 		0DCB74C72650BF7E001A795C /* DataBaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseModels.swift; sourceTree = "<group>"; };
 		0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
 		0DFA0EE026B9950B00630FAA /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
-		1635A592CBF3751155046037 /* Pods_WordCam_WordCamUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam_WordCamUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C91C174CEB9C6F853F95866 /* Pods_WordCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5389B0F9C35F31ABD1388133 /* Pods-WordCamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.release.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.release.xcconfig"; sourceTree = "<group>"; };
-		56569125E27C6DB579BB9DF7 /* Pods-WordCam-WordCamUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.debug.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		86B34F5DEEF6BB0792B9BBB6 /* Pods_WordCamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92E9B41FCD958F8D7F2B1AFC /* Pods-WordCamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.debug.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9485AFF61196B0AE5AA995CE /* Pods-WordCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.release.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.release.xcconfig"; sourceTree = "<group>"; };
-		BB62FC0A83FCA9FE0BF65B7F /* Pods-WordCam-WordCamUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.release.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.release.xcconfig"; sourceTree = "<group>"; };
-		DF27572FBB493D6B4663DF6A /* Pods-WordCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.debug.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.debug.xcconfig"; sourceTree = "<group>"; };
+		41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.release.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.release.xcconfig"; sourceTree = "<group>"; };
+		4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.debug.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.debug.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.debug.xcconfig"; sourceTree = "<group>"; };
+		B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.release.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam_WordCamUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.release.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.release.xcconfig"; sourceTree = "<group>"; };
+		D7546CE90892F54F697E829A /* Pods_WordCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.debug.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +127,7 @@
 				0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */,
 				0D55477026883DF200967CB1 /* Charts in Frameworks */,
 				0DAAE51A26500F6B0091D80F /* Realm in Frameworks */,
-				CEA3C21B0F584D54AE8DF054 /* Pods_WordCam.framework in Frameworks */,
+				540D7D9207053B7B654496D9 /* Pods_WordCam.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AC23487BD0CC8C2D978C302 /* Pods_WordCamTests.framework in Frameworks */,
+				6001CEE1C1010D5C588E5BAD /* Pods_WordCamTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,33 +143,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12A63B8F664C8FB7DFB08995 /* Pods_WordCam_WordCamUITests.framework in Frameworks */,
+				E66D30B9845A3DF4143C33A7 /* Pods_WordCam_WordCamUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		000AC8C8F0E0D787CD453FF7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3C91C174CEB9C6F853F95866 /* Pods_WordCam.framework */,
-				1635A592CBF3751155046037 /* Pods_WordCam_WordCamUITests.framework */,
-				86B34F5DEEF6BB0792B9BBB6 /* Pods_WordCamTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		0D2488B826632E0400D7A6FF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
 				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
+				0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */,
 				0D222039269A958700A8DC97 /* AddSetViewController.swift */,
+				0D7C92D626BAD141009B8236 /* AddWordViewController.swift */,
 				0D554766268837F600967CB1 /* WordsViewController.swift */,
 				0D27E9D626AC5388001E094E /* WordViewController.swift */,
 				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
-				0D7C92D626BAD141009B8236 /* AddWordViewController.swift */,
+				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -193,7 +189,7 @@
 				0DAAE50626500D2F0091D80F /* WordCamUITests */,
 				0DAAE4E326500D2D0091D80F /* Products */,
 				2B10DA4D1176340726CC2D6B /* Pods */,
-				000AC8C8F0E0D787CD453FF7 /* Frameworks */,
+				5378FCB463B201BC39862583 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,14 +243,24 @@
 		2B10DA4D1176340726CC2D6B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DF27572FBB493D6B4663DF6A /* Pods-WordCam.debug.xcconfig */,
-				9485AFF61196B0AE5AA995CE /* Pods-WordCam.release.xcconfig */,
-				56569125E27C6DB579BB9DF7 /* Pods-WordCam-WordCamUITests.debug.xcconfig */,
-				BB62FC0A83FCA9FE0BF65B7F /* Pods-WordCam-WordCamUITests.release.xcconfig */,
-				92E9B41FCD958F8D7F2B1AFC /* Pods-WordCamTests.debug.xcconfig */,
-				5389B0F9C35F31ABD1388133 /* Pods-WordCamTests.release.xcconfig */,
+				612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */,
+				41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */,
+				4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */,
+				B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */,
+				EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */,
+				D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		5378FCB463B201BC39862583 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D7546CE90892F54F697E829A /* Pods_WordCam.framework */,
+				B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */,
+				E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,12 +270,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE50C26500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCam" */;
 			buildPhases = (
-				3E71F079965F4CB354A834A1 /* [CP] Check Pods Manifest.lock */,
+				FA3CBFEAA2569F170373705D /* [CP] Check Pods Manifest.lock */,
 				0DAAE4DE26500D2D0091D80F /* Sources */,
 				0DAAE4DF26500D2D0091D80F /* Frameworks */,
 				0DAAE4E026500D2D0091D80F /* Resources */,
 				0D91B278268812EE00A1C82F /* Embed Frameworks */,
-				1D9FDE2861948CF4553EAAD1 /* [CP] Embed Pods Frameworks */,
+				635A9CBF0C219942720AC897 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -289,7 +295,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE50F26500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCamTests" */;
 			buildPhases = (
-				7DD59B6317F4B93E0D26D451 /* [CP] Check Pods Manifest.lock */,
+				1FBB6A23E62E1AAC138297CF /* [CP] Check Pods Manifest.lock */,
 				0DAAE4F426500D2F0091D80F /* Sources */,
 				0DAAE4F526500D2F0091D80F /* Frameworks */,
 				0DAAE4F626500D2F0091D80F /* Resources */,
@@ -308,11 +314,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE51226500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCamUITests" */;
 			buildPhases = (
-				4D09C92FE2C78DA7374B7244 /* [CP] Check Pods Manifest.lock */,
+				5D3F16E6F596810A2D277288 /* [CP] Check Pods Manifest.lock */,
 				0DAAE4FF26500D2F0091D80F /* Sources */,
 				0DAAE50026500D2F0091D80F /* Frameworks */,
 				0DAAE50126500D2F0091D80F /* Resources */,
-				89C9DC3E962F6E439C607C44 /* [CP] Embed Pods Frameworks */,
+				F914532B7327A1253E3936D1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -402,68 +408,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D9FDE2861948CF4553EAAD1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3E71F079965F4CB354A834A1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WordCam-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4D09C92FE2C78DA7374B7244 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WordCam-WordCamUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7DD59B6317F4B93E0D26D451 /* [CP] Check Pods Manifest.lock */ = {
+		1FBB6A23E62E1AAC138297CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -485,7 +430,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89C9DC3E962F6E439C607C44 /* [CP] Embed Pods Frameworks */ = {
+		5D3F16E6F596810A2D277288 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordCam-WordCamUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		635A9CBF0C219942720AC897 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F914532B7327A1253E3936D1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -502,6 +486,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FA3CBFEAA2569F170373705D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordCam-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -510,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D5547912688585600967CB1 /* WordTableViewCell.swift in Sources */,
+				0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */,
 				0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */,
 				0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */,
 				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
@@ -519,6 +526,7 @@
 				0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,
+				0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */,
 				0D5547872688514700967CB1 /* SetChartCell.swift in Sources */,
 				0DB2817F26B5924200B9ABBA /* WordTitleCell.swift in Sources */,
 				0D22203A269A958700A8DC97 /* AddSetViewController.swift in Sources */,
@@ -631,7 +639,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -686,7 +694,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -698,7 +706,7 @@
 		};
 		0DAAE50D26500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF27572FBB493D6B4663DF6A /* Pods-WordCam.debug.xcconfig */;
+			baseConfigurationReference = 612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -718,7 +726,7 @@
 		};
 		0DAAE50E26500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9485AFF61196B0AE5AA995CE /* Pods-WordCam.release.xcconfig */;
+			baseConfigurationReference = 41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -738,7 +746,7 @@
 		};
 		0DAAE51026500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92E9B41FCD958F8D7F2B1AFC /* Pods-WordCamTests.debug.xcconfig */;
+			baseConfigurationReference = EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -761,7 +769,7 @@
 		};
 		0DAAE51126500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5389B0F9C35F31ABD1388133 /* Pods-WordCamTests.release.xcconfig */;
+			baseConfigurationReference = D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -784,7 +792,7 @@
 		};
 		0DAAE51326500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56569125E27C6DB579BB9DF7 /* Pods-WordCam-WordCamUITests.debug.xcconfig */;
+			baseConfigurationReference = 4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -805,7 +813,7 @@
 		};
 		0DAAE51426500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB62FC0A83FCA9FE0BF65B7F /* Pods-WordCam-WordCamUITests.release.xcconfig */;
+			baseConfigurationReference = B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

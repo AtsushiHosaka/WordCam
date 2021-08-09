@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     let realm = try! Realm()
     let color = Color()
@@ -17,30 +17,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet var setCollection: UICollectionView!
     @IBOutlet var addSetBtn: UIButton!
     @IBOutlet var alertLabel: UILabel!
-    var searchController = UISearchController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //-----test-----
-        try! realm.write{
-            realm.deleteAll()
-        }
-        let testArray: [String: Any] = ["title": "test", "emoji": "🥺", "color": 2,
-                                        "words": [["word": "test1", "meaning": "テスト1", "correctAnsRate": [
-                                                    ["date": Date(), "rate": 0.3],
-                                                    ["date": Date(), "rate": 0.6]]],
-                                                  ["word": "test2", "meaning": "テスト2", "correctAnsRate": [
-                                                    ["date": Date(), "rate": 0.4],
-                                                    ["date": Date(), "rate": 0.8]]]
-                                        ]]
-
-        let testData = Sets(value: testArray)
-        
-        try! realm.write{
-            realm.add(testData)
-        }
-        //----test----
         
         setCollection.dataSource = self
         setCollection.delegate = self
@@ -49,11 +28,6 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.tabBarController?.tabBar.shadowImage = UIImage()
         self.tabBarController?.tabBar.backgroundImage = UIImage()
-        
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.sizeToFit()
-        searchController.hidesNavigationBarDuringPresentation = true
         
         addSetBtn.layer.cornerRadius = 30
         
@@ -71,12 +45,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             height: self.view.bounds.height * 114 / 812
         )
         setCollection.collectionViewLayout = collectionLayout
-        
-        reloading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.searchController = searchController
+        reloading()
     }
     
     func reloading() {
@@ -117,7 +89,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSetView" {
             let setView: SetViewController = segue.destination as! SetViewController
-            setView.set = selectedSet
+            setView.setID = selectedSet.setID
         }else if segue.identifier == "toAddSetView" {
             let addSetViewController: AddSetViewController = segue.destination as! AddSetViewController
             addSetViewController.reloading = reloading

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 import Eureka
 
 class WordViewController: FormViewController {
@@ -19,12 +20,12 @@ class WordViewController: FormViewController {
         
         form
             +++ Section("単語")
-            <<< WordTitleRow() {
-                $0.cell.titleLabel.text = word?.word
-                $0.cell.backgroundColor = nil
+            <<< TextRow() {
+                $0.tag = "word"
+                $0.value = word?.word
             }
             
-            +++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete], header: "意味", footer: "") {
+            +++ MultivaluedSection(multivaluedOptions: [.Reorder, .Insert, .Delete], header: "意味", footer: "一番上の意味がクイズに出題されます") {
                 $0.tag = "meanings"
                 $0.addButtonProvider = { section in
                     return ButtonRow() {
@@ -36,27 +37,51 @@ class WordViewController: FormViewController {
                         $0.placeholder = "意味を入力してください"
                     }
                 }
-                $0 <<< TextRow() {
-                    $0.title = word?.word
+                for meaning in word!.meanings {
+                    let row = TextRow() {
+                        $0.value = meaning
+                    }
+                    $0.append(row)
                 }
             }
         
-            +++ Section("正答率")
-            <<< WordChartRow() {
-                $0.cell.data = word?.correctAnsRate
-                
-            }
+//            +++ Section("正答率")
+//            <<< WordChartRow() {
+//                $0.cell.data = word?.correctAnsRate
+//
+//            }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-//    @IBAction func saveBtnPressed() {
-//        if let items = self.form.rowBy(tag: "meanings") as? MultivaluedSection {
-//            print(items.values())
-//        }
-//    }
+    func showAlert() {
+        let alert = UIAlertController(title: "エラー", message: "全ての項目に入力してください", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func saveBtnPressed() {
+        guard let wordValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
+            showAlert()
+            return
+        }
+        guard let meaningsValue: [Any] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
+            showAlert()
+            return
+        }
+        guard let word = word else {
+            showAlert()
+            return
+        }
+        
+        RealmService.shared.update(word, with: ["word": wordValue, "meanings": meaningsValue])
+            
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 

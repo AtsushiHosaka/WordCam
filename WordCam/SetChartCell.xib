@@ -28,16 +28,26 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KUs-eW-pQR" customClass="LineChartView" customModule="Charts">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="まだデータがありません" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwR-em-XbB">
+                                <rect key="frame" x="8" y="73" width="304" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="alertLabel" destination="HwR-em-XbB" id="WM3-CM-dGw"/>
                 <outlet property="backgroundLabel" destination="Xje-AV-FPR" id="cCP-GA-Cao"/>
                 <outlet property="linechart" destination="KUs-eW-pQR" id="jFK-ro-WOO"/>
             </connections>
-            <point key="canvasLocation" x="113" y="44"/>
+            <point key="canvasLocation" x="111.59420289855073" y="43.526785714285715"/>
         </tableViewCell>
     </objects>
     <resources>

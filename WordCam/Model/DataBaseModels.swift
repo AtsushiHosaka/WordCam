@@ -11,17 +11,19 @@ import RealmSwift
 class Word: Object {
     @objc dynamic var wordID = UUID().uuidString
     @objc dynamic var word: String = ""
-    @objc dynamic var meaning: String = ""
+    var meanings = List<String>()
     
     let sets = List<Sets>()
     
     let wordAnsHistory = LinkingObjects(fromType: WordAnsHistory.self, property: "word")
-    let correctAnsRate = List<WordAnsHistory>()
+    var correctAnsRate = List<WordAnsHistory>()
     
-    convenience init(word: String, meaning: String) {
+    convenience init(word: String, meanings: [String]) {
         self.init()
         self.word = word
-        self.meaning = meaning
+        for meaning in meanings {
+            self.meanings.append(meaning)
+        }
     }
     
     override static func primaryKey() -> String? {
