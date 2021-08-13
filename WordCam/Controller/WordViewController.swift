@@ -12,6 +12,7 @@ import Eureka
 class WordViewController: FormViewController {
     
     var word: Word?
+    let color = Color()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,41 +46,72 @@ class WordViewController: FormViewController {
                 }
             }
         
-//            +++ Section("正答率")
-//            <<< WordChartRow() {
-//                $0.cell.data = word?.correctAnsRate
-//
-//            }
+            +++ Section()
+            <<< ButtonRow() {
+                $0.title = "変更を保存"
+                $0.onCellSelection {_, _ in
+                    self.saveWord()
+                }
+            }
+        
+            +++ Section("正答率")
+            <<< WordChartRow() {
+                $0.cell.data = word?.correctAnsRate
+            }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        tableView.isEditing = false
+        tableView.backgroundColor = color.backgroundColor
+        
+        self.title = word?.word
     }
     
-    func showAlert() {
+    func showErrorAlert() {
         let alert = UIAlertController(title: "エラー", message: "全ての項目に入力してください", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func saveBtnPressed() {
+    func saveWord() {
         guard let wordValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
-            showAlert()
+            showErrorAlert()
             return
         }
         guard let meaningsValue: [Any] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
-            showAlert()
+            showErrorAlert()
             return
         }
         guard let word = word else {
-            showAlert()
+            showErrorAlert()
             return
         }
         
         RealmService.shared.update(word, with: ["word": wordValue, "meanings": meaningsValue])
             
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func deleteButtonPressed() {
+        let alert = UIAlertController(title: "単語を削除", message: "この操作は取り消せません", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.deleteWord()
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func deleteWord() {
+        guard let word = word else { return }
+        RealmService.shared.delete(word)
+        
         self.navigationController?.popViewController(animated: true)
     }
     

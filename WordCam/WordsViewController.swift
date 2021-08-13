@@ -38,6 +38,7 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
             wordsTableView.isHidden = false
             alertLabel.isHidden = true
         }
+        
         wordsTableView.reloadData()
     }
     

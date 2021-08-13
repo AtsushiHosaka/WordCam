@@ -28,7 +28,7 @@ class SelectSetWordViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         data = realm.objects(Word.self)
-        
+        setID = UserDefaults.standard.string(forKey: "setID")
         
     }
     

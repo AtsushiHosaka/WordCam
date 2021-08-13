@@ -10,11 +10,11 @@ import RealmSwift
 import Eureka
 
 class AddWordViewController: FormViewController {
+    
+    let color = Color()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.navigationController?.navigationBar.shadowImage = UIImage()
 
         form
             +++ Section("単語")
@@ -43,6 +43,9 @@ class AddWordViewController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        tableView.isEditing = false
+        tableView.backgroundColor = color.backgroundColor
     }
     
     func showAlert() {

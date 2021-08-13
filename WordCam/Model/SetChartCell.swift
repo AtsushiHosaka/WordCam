@@ -8,16 +8,17 @@
 import UIKit
 import RealmSwift
 import Charts
+import SwiftDate
 
 class SetChartCell: UITableViewCell {
     
     @IBOutlet var alertLabel: UILabel!
     @IBOutlet var backgroundLabel: UILabel!
-    @IBOutlet weak var linechart: LineChartView!
+    @IBOutlet weak var barChart: BarChartView!
     
     var data: List<SetAnsHistory>? {
         didSet {
-            setLineGraph()
+            showChart()
         }
     }
 
@@ -29,32 +30,65 @@ class SetChartCell: UITableViewCell {
     }
     
     //https://teratail.com/questions/139531
-    func setLineGraph(){
+    func showChart() {
         if data == nil {
             alertLabel.isHidden = false
-            linechart.isHidden = true
+            barChart.isHidden = true
         }else {
             alertLabel.isHidden = true
-            linechart.isHidden = false
+            barChart.isHidden = false
             
-            var dates = [Date]()
+            var dates = [Double]()
             var rates = [Double]()
             
+            //dateを4桁のdoubleで表す。mmdd.0
             for d in data! {
-                dates.append(d.date)
-                rates.append(d.rate)
+                dates.append(Double(d.date.month * 100 + d.date.day))
+                if d.rate == 0 {
+                    rates.append(1)
+                }else {
+                    rates.append(d.rate * 100)
+                }
             }
             
-            var entry = [ChartDataEntry]()
-                
-            for i in 0 ..< data!.count {
-                entry.append(ChartDataEntry(x: Double(i),y: rates[i]))
-            }
+            let entries = rates.enumerated().map { BarChartDataEntry(x: Double($0.offset), y: Double($0.element)) }
             
-            let dataset = LineChartDataSet(entries: entry,label: "Units Sold")
-                        
-            linechart.data = LineChartData(dataSet: dataset)
-            linechart.chartDescription.text = "Item Sold Chart"
+            let dataSet = BarChartDataSet(entries: entries)
+            dataSet.drawValuesEnabled = false
+            dataSet.colors = [UIColor.white]
+            
+            barChart.legend.enabled = false
+            barChart.highlightPerTapEnabled = false
+            barChart.pinchZoomEnabled = false
+            barChart.doubleTapToZoomEnabled = false
+            
+            //barChart.xAxis.valueFormatter = ChartFormatter()
+            barChart.xAxis.drawLabelsEnabled = false
+            barChart.xAxis.drawGridLinesEnabled = false
+            barChart.xAxis.drawAxisLineEnabled = false
+            //barChart.xAxis.labelPosition = .bottom
+            barChart.xAxis.gridColor = UIColor.white
+            //barChart.xAxis.labelTextColor = UIColor.white
+            
+            barChart.leftAxis.drawAxisLineEnabled = false
+            barChart.leftAxis.axisMinimum = 0.0
+            barChart.leftAxis.axisMaximum = 100.0
+            barChart.leftAxis.gridLineDashLengths = [6]
+            barChart.leftAxis.gridColor = UIColor.white
+            barChart.leftAxis.axisLineColor = UIColor.white
+            barChart.leftAxis.labelTextColor = UIColor.white
+            
+            barChart.rightAxis.enabled = false
+            
+            let data = BarChartData(dataSet: dataSet)
+            barChart.data = data
+        }
+    }
+    
+    class ChartFormatter: IndexAxisValueFormatter {
+        let date = Date()
+        override func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            return String(Int(value/100)) + "/" + String(Int(value) % 100)
         }
     }
     

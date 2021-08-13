@@ -21,22 +21,26 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
         tableView.register(UINib(nibName: "SetChartCell", bundle: nil), forCellReuseIdentifier: "SetChartCell")
         tableView.register(UINib(nibName: "WordTableViewCell", bundle: nil), forCellReuseIdentifier: "WordCell")
+        
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        startButton.layer.cornerRadius = 15
+        startButton.layer.cornerRadius = startButton.bounds.height / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationItem.title = set.title
         self.navigationController?.navigationBar.prefersLargeTitles = false
         
+        setID = UserDefaults.standard.string(forKey: "setID")
         set = realm.object(ofType: Sets.self, forPrimaryKey: setID!) ?? Sets()
+        self.title = set.title
         
         if set.words.count == 0 {
             tableView.isHidden = true
@@ -51,38 +55,42 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         tableView.reloadData()
-        
-        print(set)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return set.words.count
+        return set.words.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.row == 0 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
-//            cell.backgroundColor = nil
-//            cell.backgroundLabel.backgroundColor = color.colorUI(num: set.color)
-//            cell.data = set.correctAnsRate
-//            return cell
-//        }else {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
-//            cell.title.text = set.words[indexPath.row - 1].word
-//            return cell
-//        }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
-        cell.title.text = set.words[indexPath.row].word
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
+            cell.backgroundColor = nil
+            cell.backgroundLabel.backgroundColor = color.colorUI(num: set.color)
+            cell.data = set.correctAnsRate
+            cell.backgroundColor = color.backgroundColor
+            return cell
+        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell") as! WordTableViewCell
+            cell.title.text = set.words[indexPath.row - 1].word
+            cell.backgroundColor = color.backgroundColor
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.row == 0 {
+            return nil
+        }else {
+            return indexPath
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 250
-//        }else {
-//            return 50
-//        }
-        return 50
+        if indexPath.row == 0 {
+            return 250
+        }else {
+            return 50
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -114,5 +122,9 @@ class SetViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func startButtonPressed() {
         performSegue(withIdentifier: "toQuizView", sender: nil)
+    }
+    
+    @IBAction func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

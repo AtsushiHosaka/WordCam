@@ -18,8 +18,7 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet var addBtn: UIButton!
     let color = Color()
     var selectedColor: Int?
-    
-    var reloading: (() -> Void)?
+    var reloadCollectionView: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +56,7 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
             }else {
                 cell.layer.borderWidth = 0.0
             }
-            cell.layer.borderColor = CGColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
+            cell.layer.borderColor = color.mainColor.cgColor
         }
         return cell
     }
@@ -77,7 +76,7 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
             let set = Sets(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
             RealmService.shared.create(set)
             
-            reloading!()
+            reloadCollectionView!()
             self.dismiss(animated: true, completion: nil)
         }else {
             //alert dasu
@@ -85,7 +84,7 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     @IBAction func cancelBtnPressed() {
-        reloading!()
+        reloadCollectionView!()
         self.dismiss(animated: true, completion: nil)
     }
     

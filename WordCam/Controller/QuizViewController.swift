@@ -51,9 +51,13 @@ class QuizViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = true
+        
+        setID = UserDefaults.standard.string(forKey: "setID")
+        set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
         
         startSetting()
     }
@@ -104,10 +108,6 @@ class QuizViewController: UIViewController {
             }
         }
         
-        print(meanings)
-        
-        meanings.append(words[questionCount!][1])
-        meanings.shuffle()
         button1.setTitle(meanings[0], for: .normal)
         button2.setTitle(meanings[1], for: .normal)
         button3.setTitle(meanings[2], for: .normal)
@@ -121,10 +121,9 @@ class QuizViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResultView" {
             let resultView: ResultViewController = segue.destination as! ResultViewController
-            resultView.correctAnsRate = Double(correctAnsCount! / words.count)
+            resultView.correctAnsRate = Double(correctAnsCount!) / Double(words.count)
             resultView.resultText = String(correctAnsCount!) + "/" + String(words.count)
             resultView.wrongWords = wrongWords
-            resultView.setID = setID
         }
     }
     
