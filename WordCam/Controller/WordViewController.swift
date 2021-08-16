@@ -17,8 +17,21 @@ class WordViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        setupNavigationController()
+        setupEureka()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        reloadNavigationController()
+    }
+    
+    func setupNavigationController() {
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func setupEureka() {
         form
             +++ Section("単語")
             <<< TextRow() {
@@ -46,6 +59,11 @@ class WordViewController: FormViewController {
                 }
             }
         
+            +++ Section("正答率")
+            <<< WordChartRow() {
+                $0.cell.data = word?.correctAnsRate
+            }
+        
             +++ Section()
             <<< ButtonRow() {
                 $0.title = "変更を保存"
@@ -54,21 +72,23 @@ class WordViewController: FormViewController {
                 }
             }
         
-            +++ Section("正答率")
-            <<< WordChartRow() {
-                $0.cell.data = word?.correctAnsRate
-            }
-        
+        tableView.backgroundColor = color.backgroundColor
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func reloadNavigationController() {
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        
-        tableView.isEditing = false
-        tableView.backgroundColor = color.backgroundColor
-        
         self.title = word?.word
+    }
+    
+    @IBAction func deleteButtonPressed() {
+        let alert = UIAlertController(title: "単語を削除", message: "この操作は取り消せません", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.deleteWord()
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
     }
     
     func showErrorAlert() {
@@ -95,17 +115,6 @@ class WordViewController: FormViewController {
         RealmService.shared.update(word, with: ["word": wordValue, "meanings": meaningsValue])
             
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func deleteButtonPressed() {
-        let alert = UIAlertController(title: "単語を削除", message: "この操作は取り消せません", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.deleteWord()
-        })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
     }
     
     func deleteWord() {

@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class WordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class WordsViewController: UIViewController {
     
     let realm = RealmService.shared.realm
     var data: Results<Word>?
@@ -16,19 +16,40 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var selectedNum: Int?
     @IBOutlet var wordsTableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
+    @IBOutlet var addButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wordsTableView.dataSource = self
-        wordsTableView.delegate = self
-        
+        setupNavigationController()
+        setupTableView()
+        setupButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadNavigationController()
+        reloadData()
+    }
+    
+    func setupNavigationController() {
         self.navigationController?.navigationBar.sizeToFit()
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func setupTableView() {
+        wordsTableView.dataSource = self
+        wordsTableView.delegate = self
+    }
+    
+    func setupButton() {
+        addButton.layer.cornerRadius = addButton.bounds.height / 2
+    }
+    
+    func reloadNavigationController() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func reloadData() {
         data = realm.objects(Word.self)
         
         if data?.count == 0 {
@@ -42,20 +63,19 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
         wordsTableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
-    }
-    
-    //cellとかの背景色考えた方が良さそう
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = data?[indexPath.row].word
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedNum = indexPath.row
-        performSegue(withIdentifier: "toWordView", sender: nil)
+    @IBAction func addButtonPressed() {
+        let alertSheet = UIAlertController(title: "単語を登録", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        let action1 = UIAlertAction(title: "単語を入力する", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
+        })
+        let action2 = UIAlertAction(title: "写真から登録する", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toAddWordsByCameraView", sender: nil)
+        })
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alertSheet.addAction(action1)
+        alertSheet.addAction(action2)
+        alertSheet.addAction(cancelAction)
+        present(alertSheet, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,27 +84,25 @@ class WordsViewController: UIViewController, UITableViewDataSource, UITableViewD
             wordView.word = self.data?[selectedNum ?? 0]
         }
     }
+}
+
+extension WordsViewController: UITableViewDataSource {
     
-    func toAddWordView() {
-        performSegue(withIdentifier: "toAddWordView", sender: nil)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data?.count ?? 0
     }
     
-    @IBAction func addButtonPressed() {
-        let alertSheet = UIAlertController(title: "単語を登録", message: "単語の登録方法を選択してください", preferredStyle: UIAlertController.Style.actionSheet)
-        let action1 = UIAlertAction(title: "単語を入力する", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
-        })
-        let action2 = UIAlertAction(title: "写真から登録する", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            print("sita")
-        })
-        let cancelAction = UIAlertAction(title: "cancel", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
-            print("can")
-        })
-        alertSheet.addAction(action1)
-        alertSheet.addAction(action2)
-        alertSheet.addAction(cancelAction)
-        present(alertSheet, animated: true, completion: nil)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = data?[indexPath.row].word
+        return cell
     }
 }
 
-
+extension WordsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedNum = indexPath.row
+        performSegue(withIdentifier: "toWordView", sender: nil)
+    }
+}

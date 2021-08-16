@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import Charts
 
-class ResultViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ResultViewController: UIViewController {
     
     let realm = RealmService.shared.realm
     let color = Color()
@@ -20,57 +19,54 @@ class ResultViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var correctAnsRateLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var retryButton: UIButton!
-    @IBOutlet var pieChart: PieChartView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.dataSource = self
-        tableView.delegate = self
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        retryButton.layer.cornerRadius = retryButton.bounds.height / 2
+        setupNavigationController()
+        setupTableView()
+        setupButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.tabBarController?.tabBar.isHidden = false
+        super.viewWillAppear(animated)
         
-        setID = UserDefaults.standard.string(forKey: "setID")
-        set = realm.object(ofType: Sets.self, forPrimaryKey: setID)
-        self.title = set?.title ?? ""
-        correctAnsRateLabel.text = String(Int(floor((correctAnsRate ?? 0) * 100))) + "%"
+        showShape()
+        reloadData()
         
-        showPieChart()
-        tableView.reloadData()
+        reloadNavigationController()
+        reloadTabBarController()
         
         updateData()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        wrongWords.count
-    }
-        
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
-        cell.textLabel?.text = wrongWords[indexPath.row]
-        return cell
+    func setupNavigationController() {
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func showPieChart() {
-        var entries = [PieChartDataEntry]()
-        entries.append(PieChartDataEntry(value: (correctAnsRate ?? 0) * 100))
-        entries.append(PieChartDataEntry(value: 100 - (correctAnsRate ?? 0) * 100))
-        
-        let dataSet = PieChartDataSet(entries: entries)
-        dataSet.drawValuesEnabled = false
-        dataSet.colors = [color.colorUI(num: set?.color ?? 0), UIColor(white: 249/255, alpha: 0)]
-        
-        pieChart.legend.enabled = false
-        pieChart.drawEntryLabelsEnabled = false
-        
-        pieChart.data = PieChartData(dataSet: dataSet)
+    func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    func setupButton() {
+        retryButton.layer.cornerRadius = retryButton.bounds.height / 2
+    }
+    
+    func reloadNavigationController() {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.title = set?.title ?? ""
+    }
+    
+    func reloadTabBarController() {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    func reloadData() {
+        setID = UserDefaults.standard.string(forKey: "setID")
+        set = realm.object(ofType: Sets.self, forPrimaryKey: setID)
+        correctAnsRateLabel.text = String(Int(floor((correctAnsRate ?? 0) * 100))) + "%"
+        tableView.reloadData()
     }
     
     @IBAction func retryButtonPressed() {
@@ -82,6 +78,39 @@ class ResultViewController: UIViewController, UITableViewDataSource, UITableView
         navigationController?.popToViewController(navigationController!.viewControllers[num], animated: true)
     }
     
+    func showShape() {
+        let trackLayer = CAShapeLayer()
+        let center = CGPoint(x: view.center.x, y: 240)
+        let trackCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2, clockwise: true)
+        
+        trackLayer.path = trackCircularPath.cgPath
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineWidth = 20
+        
+        view.layer.addSublayer(trackLayer)
+        
+        let shapeLayer = CAShapeLayer()
+        let shapeCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2 * (CGFloat(correctAnsRate ?? 0) - 0.25), clockwise: true)
+        
+        shapeLayer.path = shapeCircularPath.cgPath
+        shapeLayer.strokeColor = color.colorCG(num: set?.color ?? 0)
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 20
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        
+        shapeLayer.strokeEnd = 0
+        view.layer.addSublayer(shapeLayer)
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 1
+        animation.duration = 2
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.isRemovedOnCompletion = false
+        
+        shapeLayer.add(animation, forKey: "animation")
+    }
+    
     func updateData() {
         let history = SetAnsHistory(date: Date(), rate: correctAnsRate!)
         guard let set = set else { return }
@@ -90,4 +119,21 @@ class ResultViewController: UIViewController, UITableViewDataSource, UITableView
         
         RealmService.shared.update(set, with: ["correctAnsRate": correctAnsRates])
     }
+}
+
+extension ResultViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        wrongWords.count
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
+        cell.textLabel?.text = wrongWords[indexPath.row]
+        return cell
+    }
+}
+
+extension ResultViewController: UITableViewDelegate {
+    
 }

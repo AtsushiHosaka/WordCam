@@ -51,7 +51,12 @@ class SetChartCell: UITableViewCell {
                 }
             }
             
-            let entries = rates.enumerated().map { BarChartDataEntry(x: Double($0.offset), y: Double($0.element)) }
+            //let entries = rates.enumerated().map { BarChartDataEntry(x: Double($0.offset), y: Double($0.element)) }
+            var entries = [BarChartDataEntry]()
+            
+            for i in 0..<min(rates.count, 8) {
+                entries.append(BarChartDataEntry(x: Double(i), y: rates[i]))
+            }
             
             let dataSet = BarChartDataSet(entries: entries)
             dataSet.drawValuesEnabled = false
@@ -66,6 +71,7 @@ class SetChartCell: UITableViewCell {
             barChart.xAxis.drawLabelsEnabled = false
             barChart.xAxis.drawGridLinesEnabled = false
             barChart.xAxis.drawAxisLineEnabled = false
+            barChart.xAxis.labelCount = 5
             //barChart.xAxis.labelPosition = .bottom
             barChart.xAxis.gridColor = UIColor.white
             //barChart.xAxis.labelTextColor = UIColor.white
@@ -81,6 +87,7 @@ class SetChartCell: UITableViewCell {
             barChart.rightAxis.enabled = false
             
             let data = BarChartData(dataSet: dataSet)
+            data.barWidth = 0.4
             barChart.data = data
         }
     }

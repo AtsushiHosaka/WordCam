@@ -6,16 +6,16 @@
 //
 
 import UIKit
-import RealmSwift
+import ISEmojiView
 
-class AddSetViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
+class AddSetViewController: UIViewController {
     
     @IBOutlet var backgroundLabel: UILabel!
     @IBOutlet var nameField: UITextField!
     @IBOutlet var emojiField: UITextField!
     @IBOutlet var colorCollection: UICollectionView!
-    @IBOutlet var cancelBtn: UIButton!
-    @IBOutlet var addBtn: UIButton!
+    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet var addButton: UIButton!
     let color = Color()
     var selectedColor: Int?
     var reloadCollectionView: (() -> Void)?
@@ -23,26 +23,75 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupCollectionView()
+        setupTextField()
+        setupLabel()
+        setupButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadTextField()
+    }
+    
+    func setupCollectionView() {
         colorCollection.dataSource = self
         colorCollection.delegate = self
-        nameField.delegate = self
-        emojiField.delegate = self
-        
-        backgroundLabel.layer.cornerRadius = 30
-        backgroundLabel.clipsToBounds = true
-        cancelBtn.layer.cornerRadius = 20
-        addBtn.layer.cornerRadius = 20
         
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .horizontal
         colorCollection.collectionViewLayout = collectionLayout
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func setupTextField() {
+        nameField.delegate = self
+        emojiField.delegate = self
+        
+        let keyboardSettings = KeyboardSettings(bottomType: .categories)
+        let emojiView = EmojiView(keyboardSettings: keyboardSettings)
+        emojiView.translatesAutoresizingMaskIntoConstraints = false
+        emojiView.delegate = self
+        emojiField.inputView = emojiView
+    }
+    
+    func setupLabel() {
+        backgroundLabel.layer.cornerRadius = 30
+        backgroundLabel.clipsToBounds = true
+    }
+    
+    func setupButton() {
+        cancelButton.layer.cornerRadius = 20
+        addButton.layer.cornerRadius = 20
+    }
+    
+    func reloadTextField() {
         nameField.text = ""
         emojiField.text = ""
     }
+    
+    @IBAction func addBtnPressed() {
+        if nameField.text != "" && emojiField.text != "" {
+            let set = Sets(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
+            RealmService.shared.create(set)
+            
+            reloadCollectionView!()
+            self.dismiss(animated: true, completion: nil)
+        }else {
+            let alert = UIAlertController(title: "エラー", message: "全ての項目に入力してください", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func cancelBtnPressed() {
+        reloadCollectionView!()
+        self.dismiss(animated: true, completion: nil)
+    }
 
+}
+
+extension AddSetViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return color.colorValues.count
     }
@@ -60,34 +109,45 @@ class AddSetViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         return cell
     }
+}
+
+extension AddSetViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedColor = indexPath.row
         colorCollection.reloadData()
     }
+}
+
+extension AddSetViewController: EmojiViewDelegate {
+    // callback when tap a emoji on keyboard
+    func emojiViewDidSelectEmoji(_ emoji: String, emojiView: EmojiView) {
+        emojiField.insertText(emoji)
+    }
+
+    // callback when tap change keyboard button on keyboard
+    func emojiViewDidPressChangeKeyboardButton(_ emojiView: EmojiView) {
+        emojiField.inputView = nil
+        emojiField.keyboardType = .default
+        emojiField.reloadInputViews()
+    }
+        
+    // callback when tap delete button on keyboard
+    func emojiViewDidPressDeleteBackwardButton(_ emojiView: EmojiView) {
+        emojiField.deleteBackward()
+    }
+
+    // callback when tap dismiss button on keyboard
+    func emojiViewDidPressDismissKeyboardButton(_ emojiView: EmojiView) {
+        emojiField.resignFirstResponder()
+    }
+
+}
+
+extension AddSetViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    @IBAction func addBtnPressed() {
-        if nameField.text != "" && emojiField.text != "" {
-            let set = Sets(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
-            RealmService.shared.create(set)
-            
-            reloadCollectionView!()
-            self.dismiss(animated: true, completion: nil)
-        }else {
-            //alert dasu
-        }
-    }
-    
-    @IBAction func cancelBtnPressed() {
-        reloadCollectionView!()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-   
-
 }

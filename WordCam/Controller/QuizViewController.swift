@@ -15,6 +15,7 @@ class QuizViewController: UIViewController {
     var words = [[String]]()
     var meanings = [String]()
     var wrongWords = [String]()
+    var dummyMeanings = [String]()
     var questionCount: Int?
     var correctAnsCount: Int?
     var correctAnsNum: Int?
@@ -29,12 +30,20 @@ class QuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timeBar.transform = CGAffineTransform(scaleX: 1.0, y: 15.0)
-        timeBar.layer.cornerRadius = timeBar.bounds.height / 2
-        timeBar.clipsToBounds = true
-        timeBarBackgroundLabel.layer.cornerRadius = timeBarBackgroundLabel.bounds.height / 2
-        timeBarBackgroundLabel.clipsToBounds = true
+        setupButton()
+        setupLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        reloadNavigationController()
+        reloadData()
+        
+        startSetting()
+    }
+    
+    func setupButton() {
         button1.layer.borderWidth = 5.0
         button2.layer.borderWidth = 5.0
         button3.layer.borderWidth = 5.0
@@ -47,19 +56,24 @@ class QuizViewController: UIViewController {
         button2.layer.cornerRadius = 15
         button3.layer.cornerRadius = 15
         button4.layer.cornerRadius = 15
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    func setupLabel() {
+        timeBar.transform = CGAffineTransform(scaleX: 1.0, y: 15.0)
+        timeBar.layer.cornerRadius = timeBar.bounds.height / 2
+        timeBar.clipsToBounds = true
+        timeBarBackgroundLabel.layer.cornerRadius = timeBarBackgroundLabel.bounds.height / 2
+        timeBarBackgroundLabel.clipsToBounds = true
+    }
+    
+    func reloadNavigationController() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = true
-        
+    }
+    
+    func reloadData() {
         setID = UserDefaults.standard.string(forKey: "setID")
         set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
-        
-        startSetting()
     }
     
     @IBAction func ansBtnPressed(_ sender: UIButton) {
@@ -77,6 +91,17 @@ class QuizViewController: UIViewController {
         }
     }
     
+    @IBAction func stopButtonPressed() {
+        let alert = UIAlertController(title: "中断しますか？", message: "再開することはできません", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.stop()
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func startSetting() {
         questionCount = 0
         correctAnsCount = 0
@@ -86,6 +111,12 @@ class QuizViewController: UIViewController {
             words.append([data.word, data.meanings[0]])
         }
         
+        let dummyData = realm.objects(Word.self)
+        for data in dummyData {
+            dummyMeanings.append(data.meanings[0])
+        }
+        
+        
         prepareNextQuestion()
     }
     
@@ -93,18 +124,19 @@ class QuizViewController: UIViewController {
         
         wordLabel.text = words[questionCount!][0]
         
-        meanings = []
+        meanings = ["", "", "", ""]
         correctAnsNum = Int.random(in: 0...3)
-        let dummyWords = realm.objects(Word.self)
+        var dummy = dummyMeanings
+        
+        meanings[correctAnsNum!] = words[questionCount!][1]
         for i in 0...3 {
-            if i == correctAnsNum {
-                meanings.append(words[questionCount!][1])
-            }else {
-                var meaning: String = words[questionCount!][1]
-                while meaning == words[questionCount!][1] {
-                    meaning = (dummyWords.randomElement()?.meanings[0])!
+            if i != correctAnsNum {
+                var n = Int.random(in: 0..<dummy.count)
+                while dummy[n] == words[questionCount!][1] || meanings.contains(dummy[n]) {
+                    n = Int.random(in: 0..<dummy.count)
                 }
-                meanings.append(meaning)
+                meanings[i] = dummy[n]
+                dummy.remove(at: n)
             }
         }
         
@@ -118,6 +150,10 @@ class QuizViewController: UIViewController {
         performSegue(withIdentifier: "toResultView", sender: nil)
     }
     
+    func stop() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResultView" {
             let resultView: ResultViewController = segue.destination as! ResultViewController
@@ -125,20 +161,5 @@ class QuizViewController: UIViewController {
             resultView.resultText = String(correctAnsCount!) + "/" + String(words.count)
             resultView.wrongWords = wrongWords
         }
-    }
-    
-    @IBAction func stopButtonPressed() {
-        let alert = UIAlertController(title: "中断しますか？", message: "再開することはできません", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.stop()
-        })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func stop() {
-        self.navigationController?.popViewController(animated: true)
     }
 }

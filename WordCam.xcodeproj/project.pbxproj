@@ -33,6 +33,8 @@
 		0DAAE50826500D2F0091D80F /* WordCamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE50726500D2F0091D80F /* WordCamUITests.swift */; };
 		0DAAE51A26500F6B0091D80F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51926500F6B0091D80F /* Realm */; };
 		0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51B26500F6B0091D80F /* RealmSwift */; };
+		0DB10F6026C8D17300A3C8D7 /* AddWordsByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */; };
+		0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */; };
 		0DB2817F26B5924200B9ABBA /* WordTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2817D26B5924200B9ABBA /* WordTitleCell.swift */; };
 		0DB2818026B5924200B9ABBA /* WordTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2817E26B5924200B9ABBA /* WordTitleCell.xib */; };
 		0DCB74C82650BF7F001A795C /* DataBaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* DataBaseModels.swift */; };
@@ -103,6 +105,8 @@
 		0DAAE50326500D2F0091D80F /* WordCamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordCamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE50726500D2F0091D80F /* WordCamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCamUITests.swift; sourceTree = "<group>"; };
 		0DAAE50926500D2F0091D80F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordsByCameraViewController.swift; sourceTree = "<group>"; };
+		0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputWordViewController.swift; sourceTree = "<group>"; };
 		0DB2817D26B5924200B9ABBA /* WordTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTitleCell.swift; sourceTree = "<group>"; };
 		0DB2817E26B5924200B9ABBA /* WordTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordTitleCell.xib; sourceTree = "<group>"; };
 		0DCB74C72650BF7E001A795C /* DataBaseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseModels.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				0D27E9D626AC5388001E094E /* WordViewController.swift */,
 				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
 				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
+				0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */,
+				0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,12 +215,8 @@
 				0DAAE4E526500D2E0091D80F /* AppDelegate.swift */,
 				0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */,
 				0D2488B926632E1700D7A6FF /* Model */,
+				0DE831D926C9FFF80074234C /* View */,
 				0D2488B826632E0400D7A6FF /* Controller */,
-				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
-				0D5547862688514700967CB1 /* SetChartCell.xib */,
-				0D5547902688585600967CB1 /* WordTableViewCell.xib */,
-				0DB2817E26B5924200B9ABBA /* WordTitleCell.xib */,
-				0D220EF626B8396700ECE350 /* WordChartCell.xib */,
 				0DAAE4EE26500D2F0091D80F /* Assets.xcassets */,
 				0DAAE4F026500D2F0091D80F /* LaunchScreen.storyboard */,
 				0DAAE4F326500D2F0091D80F /* Info.plist */,
@@ -238,6 +240,18 @@
 				0DAAE50926500D2F0091D80F /* Info.plist */,
 			);
 			path = WordCamUITests;
+			sourceTree = "<group>";
+		};
+		0DE831D926C9FFF80074234C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
+				0D5547862688514700967CB1 /* SetChartCell.xib */,
+				0D5547902688585600967CB1 /* WordTableViewCell.xib */,
+				0DB2817E26B5924200B9ABBA /* WordTitleCell.xib */,
+				0D220EF626B8396700ECE350 /* WordChartCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2B10DA4D1176340726CC2D6B /* Pods */ = {
@@ -517,8 +531,10 @@
 			files = (
 				0D5547912688585600967CB1 /* WordTableViewCell.swift in Sources */,
 				0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */,
+				0DB10F6026C8D17300A3C8D7 /* AddWordsByCameraViewController.swift in Sources */,
 				0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */,
 				0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */,
+				0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */,
 				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
 				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
@@ -639,7 +655,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -694,7 +710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

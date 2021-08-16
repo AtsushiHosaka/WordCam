@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainViewController: UIViewController {
     
     let realm = RealmService.shared.realm
     let color = Color()
@@ -21,15 +21,20 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationController()
+        setupTabBarController()
+        setupButton()
+        setupCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadData()
+        reloadNavigationController()
+    }
+    
+    func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        self.navigationController?.navigationBar.sizeToFit()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.tabBarController?.tabBar.shadowImage = UIImage()
-        self.tabBarController?.tabBar.backgroundImage = UIImage()
-        
-        addSetBtn.layer.cornerRadius = 30
         
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.minimumInteritemSpacing = self.view.bounds.width * 15 / 375
@@ -48,12 +53,31 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.collectionViewLayout = collectionLayout
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        reloading()
+    func setupNavigationController() {
+        self.navigationController?.navigationBar.sizeToFit()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func reloading() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+    func setupTabBarController() {
+        self.tabBarController?.tabBar.shadowImage = UIImage()
+        self.tabBarController?.tabBar.backgroundImage = UIImage()
+        setTabBarImages(index: 0, image: "home_2.png", selectedImage: "home_1.png")
+        setTabBarImages(index: 1, image: "words_2.png", selectedImage: "words_1.png")
+    }
+    
+    func setTabBarImages(index: Int, image: String, selectedImage: String) {
+        let item = self.tabBarController?.tabBar.items![index]
+        let image = UIImage(named: image)?.withRenderingMode(.alwaysOriginal)
+        
+        item?.image = image
+        item?.selectedImage = UIImage(named: selectedImage)?.withRenderingMode(.alwaysOriginal)
+    }
+    
+    func setupButton() {
+        addSetBtn.layer.cornerRadius = addSetBtn.bounds.width / 2
+    }
+    
+    func reloadData() {
         data = realm.objects(Sets.self)
         if data?.count == 0 {
             collectionView.isHidden = true
@@ -62,8 +86,54 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
             collectionView.isHidden = false
             alertLabel.isHidden = true
         }
+        
         collectionView.reloadData()
     }
+    
+    func reloadView() {
+        reloadData()
+        reloadNavigationController()
+    }
+    
+    func reloadNavigationController() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    @IBAction func toAddSetView() {
+        performSegue(withIdentifier: "toAddSetView", sender: nil)
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+
+    }
+    
+    func deleteSet(num: Int) {
+        guard let set = data?[num] else { return }
+        RealmService.shared.delete(set)
+        data = realm.objects(Sets.self)
+        collectionView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSetView" {
+            UserDefaults.standard.set(selectedSet.setID, forKey: "setID")
+        }else if segue.identifier == "toAddSetView" {
+            let addSetViewController: AddSetViewController = segue.destination as! AddSetViewController
+            addSetViewController.reloadCollectionView = reloadView
+        }
+    }
+    
+    // test--------
+    func testDelete() {
+        try! realm.write {
+            realm.deleteAll()
+        }
+        collectionView.reloadData()
+    }
+    
+}
+
+extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data!.count
@@ -74,7 +144,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.titleLabel.text = data?[indexPath.row].title
         cell.emojiLabel.text = data?[indexPath.row].emoji
         cell.layer.backgroundColor = color.colorCG(num: (data?[indexPath.row].color)!)
-        cell.correctAnsRateLabel.text = String(data?[indexPath.row].correctAnsRate.last?.rate ?? 0)
+        cell.correctAnsRateLabel.text = String(Int((data?[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         cell.deleteAlert = {
             let alert = UIAlertController(title: "セットを削除", message: "この操作は取り消せません", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
@@ -88,54 +158,12 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     
+}
+
+extension MainViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedSet = data![indexPath.row]
         performSegue(withIdentifier: "toSetView", sender: nil)
     }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toSetView" {
-            let setView: SetViewController = segue.destination as! SetViewController
-            UserDefaults.standard.set(selectedSet.setID, forKey: "setID")
-            //setView.setID = selectedSet.setID
-        }else if segue.identifier == "toAddSetView" {
-            let addSetViewController: AddSetViewController = segue.destination as! AddSetViewController
-            addSetViewController.reloadCollectionView = reloading
-        }
-    }
-    
-    func deleteSet(num: Int) {
-        guard let set = data?[num] else { return }
-        RealmService.shared.delete(set)
-        data = realm.objects(Sets.self)
-        collectionView.reloadData()
-    }
-    
-    @IBAction func toAddSetView() {
-        performSegue(withIdentifier: "toAddSetView", sender: nil)
-    }
-    
-    @IBAction func testDeleteButtonPressed() {
-        let alert = UIAlertController(title: "test", message: "do you wanna delete all datas?", preferredStyle: .alert)
-        let action = UIAlertAction(title: "ok", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.testDelete()
-        })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func testDelete() {
-        try! realm.write {
-            realm.deleteAll()
-        }
-        collectionView.reloadData()
-    }
-    
 }
-
