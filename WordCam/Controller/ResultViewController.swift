@@ -10,7 +10,6 @@ import UIKit
 class ResultViewController: UIViewController {
     
     let realm = RealmService.shared.realm
-    let color = Color()
     var correctAnsRate: Double?
     var resultText: String?
     var wrongWords = [String]()
@@ -84,7 +83,7 @@ class ResultViewController: UIViewController {
         let trackCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2, clockwise: true)
         
         trackLayer.path = trackCircularPath.cgPath
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.strokeColor = UIColor.systemGray6.cgColor
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineWidth = 20
         
@@ -94,7 +93,7 @@ class ResultViewController: UIViewController {
         let shapeCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2 * (CGFloat(correctAnsRate ?? 0) - 0.25), clockwise: true)
         
         shapeLayer.path = shapeCircularPath.cgPath
-        shapeLayer.strokeColor = color.colorCG(num: set?.color ?? 0)
+        shapeLayer.strokeColor = Color.shared.colorCG(num: set?.color ?? 0)
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = 20
         shapeLayer.lineCap = CAShapeLayerLineCap.round

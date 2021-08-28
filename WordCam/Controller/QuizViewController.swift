@@ -10,6 +10,10 @@ import UIKit
 class QuizViewController: UIViewController {
     
     let realm = RealmService.shared.realm
+    let shapeLayer = CAShapeLayer()
+    let animation = CABasicAnimation(keyPath: "strokeEnd")
+    let timeRimit: Int = 10
+    var timer: Timer!
     var set = Sets()
     var setID: String?
     var words = [[String]]()
@@ -19,19 +23,20 @@ class QuizViewController: UIViewController {
     var questionCount: Int?
     var correctAnsCount: Int?
     var correctAnsNum: Int?
+    var time: Int = 0
     @IBOutlet var wordLabel: UILabel!
-    @IBOutlet var timeBarBackgroundLabel: UILabel!
+    @IBOutlet var timerLabel: UILabel!
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
     @IBOutlet var button4: UIButton!
-    @IBOutlet var timeBar: UIProgressView!
+    @IBOutlet var timerView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupButton()
-        setupLabel()
+        setupAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +46,10 @@ class QuizViewController: UIViewController {
         reloadData()
         
         startSetting()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        timer.invalidate()
     }
     
     func setupButton() {
@@ -58,12 +67,59 @@ class QuizViewController: UIViewController {
         button4.layer.cornerRadius = 15
     }
     
-    func setupLabel() {
-        timeBar.transform = CGAffineTransform(scaleX: 1.0, y: 15.0)
-        timeBar.layer.cornerRadius = timeBar.bounds.height / 2
-        timeBar.clipsToBounds = true
-        timeBarBackgroundLabel.layer.cornerRadius = timeBarBackgroundLabel.bounds.height / 2
-        timeBarBackgroundLabel.clipsToBounds = true
+    func setupAnimation() {
+        animation.toValue = 0
+        animation.duration = CFTimeInterval(timeRimit)
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.isRemovedOnCompletion = false
+    }
+    
+    func showShape() {
+        let trackLayer = CAShapeLayer()
+        let trackPath = UIBezierPath()
+        trackPath.move(to: CGPoint(x: timerView.bounds.width * 0.15, y: timerView.bounds.height / 2))
+        trackPath.addLine(to: CGPoint(x: timerView.bounds.width * 0.85, y: timerView.bounds.height / 2))
+        
+        trackLayer.path = trackPath.cgPath
+        trackLayer.strokeColor = CGColor(red: 65/255, green: 67/255, blue: 89/255, alpha: 1.0)
+        trackLayer.backgroundColor = nil
+        trackLayer.lineWidth = 50
+        trackLayer.lineCap = .round
+        
+        timerView.layer.addSublayer(trackLayer)
+        
+        let traceLayer = CAShapeLayer()
+        let tracePath = UIBezierPath()
+        tracePath.move(to: CGPoint(x: timerView.bounds.width * 0.15, y: timerView.bounds.height / 2))
+        tracePath.addLine(to: CGPoint(x: timerView.bounds.width * 0.85, y: timerView.bounds.height / 2))
+        
+        traceLayer.path = trackPath.cgPath
+        traceLayer.strokeColor = CGColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
+        traceLayer.backgroundColor = nil
+        traceLayer.lineWidth = 40
+        traceLayer.lineCap = .round
+        
+        timerView.layer.addSublayer(traceLayer)
+        
+        let shapePath = UIBezierPath()
+        shapePath.move(to: CGPoint(x: timerView.bounds.width * 0.15, y: timerView.bounds.height / 2))
+        shapePath.addLine(to: CGPoint(x: timerView.bounds.width * 0.85, y: timerView.bounds.height / 2))
+        
+        shapeLayer.path = shapePath.cgPath
+        shapeLayer.strokeColor = CGColor(red: 188/255, green: 0, blue: 160/255, alpha: 1.0)
+        shapeLayer.backgroundColor = nil
+        shapeLayer.lineWidth = 40
+        shapeLayer.lineCap = .round
+        shapeLayer.strokeEnd = 1
+        
+        timerView.layer.addSublayer(shapeLayer)
+        
+        shapeLayer.add(animation, forKey: "animation")
+    }
+    
+    func setupTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
+        timer.fire()
     }
     
     func reloadNavigationController() {
@@ -76,8 +132,48 @@ class QuizViewController: UIViewController {
         set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
     }
     
-    @IBAction func ansBtnPressed(_ sender: UIButton) {
-        if sender.tag == correctAnsNum {
+    @IBAction func ansButtonPressed(_ sender: UIButton) {
+        checkAnswer(num: sender.tag)
+    }
+    
+    @IBAction func pauseButtonPressed() {
+        pauseAnimation()
+        
+        timer.invalidate()
+        time += 1
+        
+        let alert = UIAlertController(title: "中断しますか？", message: "再開することはできません", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.stop()
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: {(action: UIAlertAction!) -> Void in
+            self.setupTimer()
+            self.resumeAnimation()
+        })
+        alert.addAction(action)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func pauseAnimation(){
+        let pausedTime = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
+        shapeLayer.speed = 0.0
+        shapeLayer.timeOffset = pausedTime
+    }
+
+    func resumeAnimation(){
+        let pausedTime = shapeLayer.timeOffset
+        shapeLayer.speed = 1.0
+        shapeLayer.timeOffset = 0.0
+        shapeLayer.beginTime = 0.0
+        let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        shapeLayer.beginTime = timeSincePause
+    }
+    
+    func checkAnswer(num: Int) {
+        timer.invalidate()
+        
+        if num == correctAnsNum {
             correctAnsCount! += 1
         }else {
             wrongWords.append(words[questionCount!][0])
@@ -91,36 +187,33 @@ class QuizViewController: UIViewController {
         }
     }
     
-    @IBAction func stopButtonPressed() {
-        let alert = UIAlertController(title: "中断しますか？", message: "再開することはできません", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.stop()
-        })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
-    
     func startSetting() {
         questionCount = 0
         correctAnsCount = 0
         words = []
         wrongWords = []
+        
         for data in set.words {
             words.append([data.word, data.meanings[0]])
         }
+        words.shuffle()
         
         let dummyData = realm.objects(Word.self)
         for data in dummyData {
             dummyMeanings.append(data.meanings[0])
         }
         
+        showShape()
         
         prepareNextQuestion()
     }
     
     func prepareNextQuestion() {
+        shapeLayer.strokeEnd = 1
+        shapeLayer.add(animation, forKey: "animation")
+        
+        time = timeRimit
+        setupTimer()
         
         wordLabel.text = words[questionCount!][0]
         
@@ -152,6 +245,25 @@ class QuizViewController: UIViewController {
     
     func stop() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func showTimeupAlert() {
+        let alert = UIAlertController(title: "時間切れ", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.dismiss(animated: true, completion: nil)
+            self.checkAnswer(num: -1)
+        }
+    }
+    
+    @objc func updateTimerLabel() {
+        timerLabel.text = String(time)
+        time -= 1
+        if time < 0 {
+            timer.invalidate()
+            showTimeupAlert()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

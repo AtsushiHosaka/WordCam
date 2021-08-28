@@ -14,6 +14,8 @@ struct Color {
     let mainColor = UIColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
     let backgroundColor = UIColor(white: 249/255, alpha: 1.0)
     
+    static let shared = Color()
+    
     func colorCG(num: Int) -> CGColor {
         let color = colorValues[num]
         return CGColor(red: color[0]/255, green: color[1]/255, blue: color[2]/255, alpha: 1.0)

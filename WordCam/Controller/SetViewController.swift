@@ -10,10 +10,11 @@ import Charts
 
 class SetViewController: UIViewController {
     
-    var set = Sets()
-    var setID: String?
-    let color = Color()
     let realm = RealmService.shared.realm
+    var set = Sets()
+    var selectedWord = Word()
+    var setID: String?
+    var isHistoryNil: Bool?
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
     @IBOutlet var addAlertButton: UIButton!
@@ -44,7 +45,6 @@ class SetViewController: UIViewController {
         tableView.delegate = self
         
         tableView.register(UINib(nibName: "SetChartCell", bundle: nil), forCellReuseIdentifier: "SetChartCell")
-        tableView.register(UINib(nibName: "WordTableViewCell", bundle: nil), forCellReuseIdentifier: "WordCell")
     }
     
     func setupButton() {
@@ -77,6 +77,18 @@ class SetViewController: UIViewController {
             addAlertButton.isHidden = true
         }
         
+        let words = Array(set.words).sorted()
+        let sortedSet = Sets(title: set.title, color: set.color, emoji: set.emoji)
+        sortedSet.correctAnsRate = set.correctAnsRate
+        sortedSet.words.append(objectsIn: words)
+        set = sortedSet
+        
+        if set.correctAnsRate.count == 0 {
+            isHistoryNil = true
+        }else {
+            isHistoryNil = false
+        }
+        
         tableView.reloadData()
     }
     
@@ -96,7 +108,25 @@ class SetViewController: UIViewController {
     }
     
     @IBAction func startButtonPressed() {
-        performSegue(withIdentifier: "toQuizView", sender: nil)
+        let words = realm.objects(Word.self)
+        if words.count >= 4 {
+            performSegue(withIdentifier: "toQuizView", sender: nil)
+        }else {
+            let alert = UIAlertController(title: "エラー", message: "4つ以上の単語が必要です", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func deleteWord(indexPath: IndexPath) {
+        var words = Array(set.words)
+        words.remove(at: indexPath.row - 1)
+        
+        guard let editedSet = realm.object(ofType: Sets.self, forPrimaryKey: setID!) else { return }
+        RealmService.shared.update(editedSet, with: ["words": words])
+        
+        reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -106,6 +136,9 @@ class SetViewController: UIViewController {
         }else if segue.identifier == "toQuizView" {
             let quizView: QuizViewController = segue.destination as! QuizViewController
             quizView.set = set
+        }else if segue.identifier == "toSetWordView" {
+            let wordView: WordViewController = segue.destination as! WordViewController
+            wordView.word = selectedWord
         }
     }
 }
@@ -120,21 +153,25 @@ extension SetViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
             cell.backgroundColor = nil
-            cell.backgroundLabel.backgroundColor = color.colorUI(num: set.color)
+            cell.backgroundLabel.backgroundColor = Color.shared.colorUI(num: set.color)
             cell.data = set.correctAnsRate
-            cell.backgroundColor = color.backgroundColor
+            cell.backgroundColor = Color.shared.backgroundColor
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = set.words[indexPath.row - 1].word
-            cell.backgroundColor = color.backgroundColor
+            cell.backgroundColor = Color.shared.backgroundColor
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 250
+            if isHistoryNil == true {
+                return 0
+            }else {
+                return 250
+            }
         }else {
             return 50
         }
@@ -150,4 +187,29 @@ extension SetViewController: UITableViewDelegate {
             return indexPath
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedWord = set.words[indexPath.row - 1]
+        performSegue(withIdentifier: "toSetWordView", sender: nil)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let alert = UIAlertController(title: "削除", message: "この単語を削除しますか？", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+                self.deleteWord(indexPath: indexPath)
+            })
+            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            alert.addAction(action)
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+
 }

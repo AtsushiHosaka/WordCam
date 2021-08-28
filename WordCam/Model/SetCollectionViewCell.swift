@@ -2,16 +2,17 @@
 //  SetCollectionViewCell.swift
 //  WordCam
 //
-//  Created by 保坂篤志 on 2021/05/16.
+//  Created by 保坂篤志 on 2021/08/19.
 //
 
 import UIKit
 
 class SetCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var correctAnsRateLabel: UILabel!
-    @IBOutlet var emojiLabel: UILabel!
-    var deleteAlert: (() -> Void)?
+    
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var correctAnsRateLabel: UILabel!
+    @IBOutlet weak var emojiLabel: UILabel!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,7 +20,14 @@ class SetCollectionViewCell: UICollectionViewCell {
         self.contentView.isUserInteractionEnabled = false
     }
     
-    @IBAction func deleteButtonPressed() {
-        deleteAlert?()
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isUserInteractionEnabled else { return nil }
+        guard !isHidden else { return nil }
+        guard alpha >= 0.01 else { return nil }
+        guard self.point(inside: point, with: event) else { return nil }
+        if self.editButton.point(inside: convert(point, to: editButton), with: event) {
+            return self.editButton
+        }
+        return super.hitTest(point, with: event)
     }
 }

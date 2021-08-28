@@ -29,7 +29,6 @@ class SetChartCell: UITableViewCell {
         backgroundLabel.clipsToBounds = true
     }
     
-    //https://teratail.com/questions/139531
     func showChart() {
         if data == nil {
             alertLabel.isHidden = false
@@ -55,7 +54,7 @@ class SetChartCell: UITableViewCell {
             var entries = [BarChartDataEntry]()
             
             for i in 0..<min(rates.count, 8) {
-                entries.append(BarChartDataEntry(x: Double(i), y: rates[i]))
+                entries.append(BarChartDataEntry(x: Double(min(rates.count, 8) - i - 1), y: rates[rates.count - i - 1]))
             }
             
             let dataSet = BarChartDataSet(entries: entries)
@@ -87,7 +86,7 @@ class SetChartCell: UITableViewCell {
             barChart.rightAxis.enabled = false
             
             let data = BarChartData(dataSet: dataSet)
-            data.barWidth = 0.4
+            data.barWidth = 0.5
             barChart.data = data
         }
     }

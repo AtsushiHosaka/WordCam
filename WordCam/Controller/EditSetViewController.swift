@@ -1,15 +1,17 @@
 //
-//  CustomAlertViewController.swift
+//  EditSetViewController.swift
 //  WordCam
 //
-//  Created by 保坂篤志 on 2021/07/11.
+//  Created by 保坂篤志 on 2021/08/20.
 //
 
 import UIKit
 import ISEmojiView
 
-class AddSetViewController: UIViewController {
+class EditSetViewController: UIViewController {
     
+    let realm = RealmService.shared.realm
+    var set = Sets()
     var selectedColor: Int?
     var reloadCollectionView: (() -> Void)?
     @IBOutlet var backgroundLabel: UILabel!
@@ -17,7 +19,7 @@ class AddSetViewController: UIViewController {
     @IBOutlet var emojiField: UITextField!
     @IBOutlet var colorCollection: UICollectionView!
     @IBOutlet var cancelButton: UIButton!
-    @IBOutlet var addButton: UIButton!
+    @IBOutlet var finishButton: UIButton!
     @IBOutlet var emojiBackground: UILabel!
     
     override func viewDidLoad() {
@@ -27,12 +29,14 @@ class AddSetViewController: UIViewController {
         setupTextField()
         setupLabel()
         setupButton()
-    }// オブザーバの破棄
+    }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        reloadData()
+        
         reloadTextField()
         reloadLabel()
     }
@@ -66,16 +70,27 @@ class AddSetViewController: UIViewController {
     
     func setupButton() {
         cancelButton.layer.cornerRadius = 20
-        addButton.layer.cornerRadius = 20
+        finishButton.layer.cornerRadius = 20
+    }
+    
+    func reloadData() {
+        let setID = UserDefaults.standard.string(forKey: "setID")
+        set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
+        
+        selectedColor = set.color
     }
     
     func reloadTextField() {
-        nameField.text = ""
-        emojiField.text = ""
+        nameField.text = set.title
+        emojiField.text = set.emoji
     }
     
     func reloadLabel() {
-        emojiBackground.isHidden = false
+        if set.emoji == "" {
+            emojiBackground.isHidden = false
+        }else {
+            emojiBackground.isHidden = true
+        }
     }
     
     @objc func textFieldDidChange(notification: NSNotification) {
@@ -89,10 +104,9 @@ class AddSetViewController: UIViewController {
         }
     }
     
-    @IBAction func addBtnPressed() {
+    @IBAction func finishButtonPressed() {
         if nameField.text != "" && emojiField.text != "" {
-            let set = Sets(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
-            RealmService.shared.create(set)
+            RealmService.shared.update(set, with: ["title": nameField.text!, "color": selectedColor ?? 0, "emoji": emojiField.text!])
             
             reloadCollectionView!()
             self.dismiss(animated: true, completion: nil)
@@ -104,14 +118,14 @@ class AddSetViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelBtnPressed() {
+    @IBAction func cancelButtonPressed() {
         reloadCollectionView!()
         self.dismiss(animated: true, completion: nil)
     }
 
 }
 
-extension AddSetViewController: UICollectionViewDataSource {
+extension EditSetViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Color.shared.colorValues.count
@@ -132,7 +146,7 @@ extension AddSetViewController: UICollectionViewDataSource {
     }
 }
 
-extension AddSetViewController: UICollectionViewDelegate {
+extension EditSetViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedColor = indexPath.row
@@ -140,7 +154,7 @@ extension AddSetViewController: UICollectionViewDelegate {
     }
 }
 
-extension AddSetViewController: EmojiViewDelegate {
+extension EditSetViewController: EmojiViewDelegate {
     // callback when tap a emoji on keyboard
     func emojiViewDidSelectEmoji(_ emoji: String, emojiView: EmojiView) {
         emojiField.insertText(emoji)
@@ -165,7 +179,7 @@ extension AddSetViewController: EmojiViewDelegate {
 
 }
 
-extension AddSetViewController: UITextFieldDelegate {
+extension EditSetViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

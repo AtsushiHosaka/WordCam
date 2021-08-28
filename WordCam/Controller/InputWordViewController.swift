@@ -11,7 +11,6 @@ import Eureka
 class InputWordViewController: FormViewController {
     
     let realm = RealmService.shared.realm
-    let color = Color()
     var words = [String]()
     var currentNum = 0
 
@@ -58,7 +57,7 @@ class InputWordViewController: FormViewController {
                 }
             }
         
-        tableView.backgroundColor = color.backgroundColor
+        tableView.backgroundColor = Color.shared.backgroundColor
     }
     
     @IBAction func cancelButtonPressed() {
@@ -94,21 +93,21 @@ class InputWordViewController: FormViewController {
                 wordData.append(d.word)
             }
             
-            if !wordData.contains(words[currentNum]) {
-                let wordRow = self.form.rowBy(tag: "word") as! TextRow
-                wordRow.value = words[currentNum]
-                wordRow.reload()
+            let wordRow = self.form.rowBy(tag: "word") as! TextRow
+            wordRow.value = words[currentNum]
+            wordRow.reload()
                 
-                var meaningsSection = self.form.sectionBy(tag: "meanings") as! MultivaluedSection
-                for _ in 0..<meaningsSection.count - 1 {
-                    meaningsSection.removeFirst()
-                }
-                let row = TextRow() {
-                    $0.placeholder = "意味を入力してください"
-                }
-                meaningsSection.insert(row, at: 0)
-                meaningsSection.reload()
-            }else {
+            var meaningsSection = self.form.sectionBy(tag: "meanings") as! MultivaluedSection
+            for _ in 0..<meaningsSection.count - 1 {
+                meaningsSection.removeFirst()
+            }
+            let row = TextRow() {
+                $0.placeholder = "意味を入力してください"
+            }
+            meaningsSection.insert(row, at: 0)
+            meaningsSection.reload()
+            
+            if wordData.contains(words[currentNum]) {
                 showUnableAlert(word: words[currentNum])
             }
         }
@@ -119,8 +118,8 @@ class InputWordViewController: FormViewController {
         navigationController?.popToViewController(navigationController!.viewControllers[num], animated: true)
     }
     
-    func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "全ての項目に入力してください", preferredStyle: .alert)
+    func showErrorAlert(str: String) {
+        let alert = UIAlertController(title: "エラー", message: str, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
@@ -137,14 +136,21 @@ class InputWordViewController: FormViewController {
     
     func saveWord() {
         guard let inputtedValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
-            showErrorAlert()
+            showErrorAlert(str: "すべての項目に入力してください")
             return
         }
         let wordValue = inputtedValue.trimmingCharacters(in: .whitespaces)
         
         guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
-            showErrorAlert()
+            showErrorAlert(str: "すべての項目に入力してください")
             return
+        }
+        
+        for meaning in meaningsValue {
+            if meaning.count > 10 {
+                showErrorAlert(str: "意味は10文字以内にしてください")
+                return
+            }
         }
         
         let word = Word(word: wordValue, meanings: meaningsValue)
@@ -152,3 +158,4 @@ class InputWordViewController: FormViewController {
     }
 
 }
+

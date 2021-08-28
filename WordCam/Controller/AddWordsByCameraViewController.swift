@@ -11,7 +11,6 @@ import VisionKit
 
 class AddWordsByCameraViewController: UIViewController {
     
-    let color = Color()
     var words = [String]()
     var isSelected = [Bool]()
     var requests = [VNRequest]()
@@ -45,6 +44,8 @@ class AddWordsByCameraViewController: UIViewController {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.isEditing = true
     }
     
     func setupVision() {
@@ -73,7 +74,11 @@ class AddWordsByCameraViewController: UIViewController {
     }
     
     @IBAction func okButtonPressed() {
-        performSegue(withIdentifier: "toInputWordView", sender: nil)
+        if !isSelected.contains(true) {
+            showErrorAlert()
+        }else {
+            performSegue(withIdentifier: "toInputWordView", sender: nil)
+        }
     }
     
     @IBAction func cameraButtonPressed() {
@@ -89,6 +94,13 @@ class AddWordsByCameraViewController: UIViewController {
         let documentCameraViewController = VNDocumentCameraViewController()
         documentCameraViewController.delegate = self
         present(documentCameraViewController, animated: true)
+    }
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "エラー", message: "単語を選択してください", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -142,11 +154,7 @@ extension AddWordsByCameraViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.textLabel?.text = words[indexPath.row]
-        if isSelected[indexPath.row] {
-            cell.backgroundColor = UIColor.lightGray
-        }else {
-            cell.backgroundColor = color.backgroundColor
-        }
+        cell.backgroundColor = Color.shared.backgroundColor
         return cell
     }
 }
@@ -154,7 +162,10 @@ extension AddWordsByCameraViewController: UITableViewDataSource {
 extension AddWordsByCameraViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        isSelected[indexPath.row] = !isSelected[indexPath.row]
-        tableView.reloadData()
+        isSelected[indexPath.row] = true
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        isSelected[indexPath.row] = false
     }
 }

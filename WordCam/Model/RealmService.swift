@@ -30,7 +30,6 @@ class RealmService {
                 for (key, value) in dictionary {
                     object.setValue(value, forKey: key)
                 }
-                print(object)
             }
         } catch {
             post(error)

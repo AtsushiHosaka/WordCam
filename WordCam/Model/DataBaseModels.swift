@@ -31,6 +31,13 @@ class Word: Object {
     }
 }
 
+extension Word: Comparable {
+    
+    static func < (lhs: Word, rhs: Word) -> Bool {
+        return lhs.word < rhs.word
+    }
+}
+
 class Sets: Object {
     @objc dynamic var setID = UUID().uuidString
     @objc dynamic var title: String = ""

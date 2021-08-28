@@ -12,7 +12,6 @@ import Eureka
 class WordViewController: FormViewController {
     
     var word: Word?
-    let color = Color()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +58,15 @@ class WordViewController: FormViewController {
                 }
             }
         
-            +++ Section("正答率")
-            <<< WordChartRow() {
-                $0.cell.data = word?.correctAnsRate
+            if word?.correctAnsRate.count != 0 {
+                form
+                    +++ Section("正答率")
+                    <<< WordChartRow() {
+                        $0.cell.data = word?.correctAnsRate
+                    }
             }
         
+        form
             +++ Section()
             <<< ButtonRow() {
                 $0.title = "変更を保存"
@@ -72,7 +75,7 @@ class WordViewController: FormViewController {
                 }
             }
         
-        tableView.backgroundColor = color.backgroundColor
+        tableView.backgroundColor = Color.shared.backgroundColor
     }
     
     func reloadNavigationController() {
@@ -81,8 +84,8 @@ class WordViewController: FormViewController {
     }
     
     @IBAction func deleteButtonPressed() {
-        let alert = UIAlertController(title: "単語を削除", message: "この操作は取り消せません", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
+        let alert = UIAlertController(title: "単語を削除しますか？", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.deleteWord()
         })
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
@@ -91,24 +94,34 @@ class WordViewController: FormViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "全ての項目に入力してください", preferredStyle: .alert)
+    func showErrorAlert(str: String) {
+        let alert = UIAlertController(title: "エラー", message: str, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
     
+    
     func saveWord() {
         guard let wordValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
-            showErrorAlert()
+            showErrorAlert(str: "すべての項目に入力してください")
             return
         }
         guard let meaningsValue: [Any] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
-            showErrorAlert()
+            showErrorAlert(str: "すべての項目に入力してください")
             return
         }
+        
+        for meaning in meaningsValue {
+            let meaning = meaning as! String
+            if meaning.count > 10 {
+                showErrorAlert(str: "意味は10文字以内にしてください")
+                return
+            }
+        }
+        
         guard let word = word else {
-            showErrorAlert()
+            showErrorAlert(str: "すべての項目に入力してください")
             return
         }
         
