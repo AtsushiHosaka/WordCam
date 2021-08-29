@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -24,9 +24,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="まだデータがありません" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwR-em-XbB">
-                        <rect key="frame" x="8" y="73" width="304" height="38"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="まだデータがありません" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwR-em-XbB">
+                        <rect key="frame" x="50" y="80.333333333333329" width="220" height="23.333333333333329"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -36,7 +35,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dc-Ae-Xyk">
-                        <rect key="frame" x="59" y="39" width="13" height="15.5"/>
+                        <rect key="frame" x="59" y="39" width="13" height="15.666666666666664"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -48,7 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正答率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AcU-9c-bnj">
-                        <rect key="frame" x="137.5" y="34" width="45" height="18"/>
+                        <rect key="frame" x="137.66666666666666" y="34" width="45" height="18"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -62,8 +61,10 @@
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="ESR-uc-CMy"/>
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="H1J-tm-nab"/>
                     <constraint firstItem="AgA-IO-4Hl" firstAttribute="leading" secondItem="KUs-eW-pQR" secondAttribute="trailing" id="IJ5-Yl-wLY"/>
+                    <constraint firstItem="HwR-em-XbB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LVP-4q-gFz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="AgA-IO-4Hl" secondAttribute="trailing" constant="30" id="Lax-Qb-eJ5"/>
                     <constraint firstAttribute="trailing" secondItem="KUs-eW-pQR" secondAttribute="trailing" constant="68" id="O6J-mc-yv9"/>
+                    <constraint firstItem="HwR-em-XbB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Pfh-e9-8lF"/>
                     <constraint firstItem="KUs-eW-pQR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="52" id="Vjw-7Q-pYq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="AgA-IO-4Hl" secondAttribute="bottom" constant="31" id="YA5-rV-6wv"/>
                     <constraint firstItem="4dc-Ae-Xyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="39" id="aeC-qa-Odz"/>

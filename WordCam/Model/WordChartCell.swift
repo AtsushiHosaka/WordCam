@@ -27,6 +27,10 @@ public class WordChartCell: Cell<Bool>, CellType {
         
     }
     
+    func setupLabel() {
+        
+    }
+    
     func setLineGraph() {
         
         var dates = [Date]()

@@ -21,6 +21,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //test
+        testDelete()
+        
         setupNavigationController()
         setupSearchController()
         setupTabBarController()
@@ -108,7 +111,7 @@ class MainViewController: UIViewController {
     }
     
     func reloadNavigationController() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @IBAction func toAddSetView() {
@@ -185,12 +188,17 @@ extension MainViewController: UICollectionViewDataSource {
         if searchController.searchBar.text == "" {
             cell.titleLabel.text = data[indexPath.row].title
             cell.emojiLabel.text = data[indexPath.row].emoji
-            cell.layer.backgroundColor = Color.shared.colorCG(num: data[indexPath.row].color)
+            //cell.layer.backgroundColor = Color.shared.colorCG(num: data[indexPath.row].color)
+            cell.gradientView.startColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 0)
+            cell.gradientView.endColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 1)
+
             cell.correctAnsRateLabel.text = String(Int((data[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         }else {
             cell.titleLabel.text = searchResults[indexPath.row].title
             cell.emojiLabel.text = searchResults[indexPath.row].emoji
-            cell.layer.backgroundColor = Color.shared.colorCG(num: searchResults[indexPath.row].color)
+            //cell.layer.backgroundColor = Color.shared.colorCG(num: searchResults[indexPath.row].color, type: 0)
+            cell.gradientView.startColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 0)
+            cell.gradientView.endColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 1)
             cell.correctAnsRateLabel.text = String(Int((searchResults[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         }
         

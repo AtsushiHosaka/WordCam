@@ -25,7 +25,12 @@ class SetChartCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        setupLabel()
+    }
+    
+    func setupLabel() {
         backgroundLabel.layer.cornerRadius = 30
+        backgroundLabel.layer.cornerCurve = .continuous
         backgroundLabel.clipsToBounds = true
     }
     

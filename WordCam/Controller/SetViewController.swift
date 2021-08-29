@@ -61,6 +61,7 @@ class SetViewController: UIViewController {
     
     func setupButton() {
         startButton.layer.cornerRadius = startButton.bounds.height / 2
+        startButton.layer.cornerCurve = .continuous
     }
     
     func reloadNavigationController() {
@@ -169,7 +170,7 @@ extension SetViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
             cell.backgroundColor = nil
-            cell.backgroundLabel.backgroundColor = Color.shared.colorUI(num: set.color)
+            cell.backgroundLabel.backgroundColor = Color.shared.colorUI(num: set.color, type: 0)
             cell.data = set.correctAnsRate
             cell.backgroundColor = Color.shared.backgroundColor
             return cell

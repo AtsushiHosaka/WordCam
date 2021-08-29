@@ -50,6 +50,7 @@ class ResultViewController: UIViewController {
     
     func setupButton() {
         retryButton.layer.cornerRadius = retryButton.bounds.height / 2
+        retryButton.layer.cornerCurve = .continuous
     }
     
     func reloadNavigationController() {
@@ -93,7 +94,7 @@ class ResultViewController: UIViewController {
         let shapeCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2 * (CGFloat(correctAnsRate ?? 0) - 0.25), clockwise: true)
         
         shapeLayer.path = shapeCircularPath.cgPath
-        shapeLayer.strokeColor = Color.shared.colorCG(num: set?.color ?? 0)
+        shapeLayer.strokeColor = Color.shared.colorCG(num: set?.color ?? 0, type: 1)
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = 20
         shapeLayer.lineCap = CAShapeLayerLineCap.round

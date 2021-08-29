@@ -13,10 +13,12 @@ class SetCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var correctAnsRateLabel: UILabel!
     @IBOutlet weak var emojiLabel: UILabel!
+    @IBOutlet weak var gradientView: GradientView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.layer.cornerRadius = 12.0
+        self.layer.cornerCurve = .continuous
         self.contentView.isUserInteractionEnabled = false
     }
     

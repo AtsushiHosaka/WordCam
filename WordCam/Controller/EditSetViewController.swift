@@ -128,12 +128,12 @@ class EditSetViewController: UIViewController {
 extension EditSetViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Color.shared.colorValues.count
+        return Color.shared.endColors.count
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        cell.layer.backgroundColor = Color.shared.colorCG(num: indexPath.row)
+        cell.layer.backgroundColor = Color.shared.colorCG(num: indexPath.row, type: 1)
         if selectedColor != nil {
             if selectedColor == indexPath.row {
                 cell.layer.borderWidth = 3.0

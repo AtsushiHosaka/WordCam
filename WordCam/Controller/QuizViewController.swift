@@ -65,6 +65,10 @@ class QuizViewController: UIViewController {
         button2.layer.cornerRadius = 15
         button3.layer.cornerRadius = 15
         button4.layer.cornerRadius = 15
+        button1.layer.cornerCurve = .continuous
+        button2.layer.cornerCurve = .continuous
+        button3.layer.cornerCurve = .continuous
+        button4.layer.cornerCurve = .continuous
     }
     
     func setupAnimation() {
