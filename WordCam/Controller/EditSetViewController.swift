@@ -14,7 +14,7 @@ class EditSetViewController: UIViewController {
     var set = Sets()
     var selectedColor: Int?
     var reloadCollectionView: (() -> Void)?
-    @IBOutlet var backgroundLabel: UILabel!
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet var nameField: UITextField!
     @IBOutlet var emojiField: UITextField!
     @IBOutlet var colorCollection: UICollectionView!
@@ -27,7 +27,7 @@ class EditSetViewController: UIViewController {
         
         setupCollectionView()
         setupTextField()
-        setupLabel()
+        setupBackgroundView()
         setupButton()
     }
     deinit {
@@ -63,14 +63,16 @@ class EditSetViewController: UIViewController {
         NotificationCenter.default.addObserver(self,selector: #selector(textFieldDidChange(notification:)),name: UITextField.textDidChangeNotification,object: emojiField)
     }
     
-    func setupLabel() {
-        backgroundLabel.layer.cornerRadius = 30
-        backgroundLabel.clipsToBounds = true
+    func setupBackgroundView() {
+        backgroundView.layer.cornerRadius = 30
+        backgroundView.layer.cornerCurve = .continuous
     }
     
     func setupButton() {
         cancelButton.layer.cornerRadius = 20
         finishButton.layer.cornerRadius = 20
+        cancelButton.layer.cornerCurve = .continuous
+        finishButton.layer.cornerCurve = .continuous
     }
     
     func reloadData() {
