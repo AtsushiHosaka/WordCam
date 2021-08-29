@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     
     let realm = RealmService.shared.realm
     var searchController = UISearchController(searchResultsController: nil)
-    var data: Results<Sets>?
+    var data = [Sets]()
     var searchResults = [Sets]()
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var addSetBtn: UIButton!
@@ -34,12 +34,13 @@ class MainViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationController?.navigationBar.sizeToFit()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.sizeToFit()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func setupSearchController() {
-        //searchController.searchResultsUpdater = self
+        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.backgroundColor = Color.shared.backgroundColor
         searchController.searchBar.barTintColor = Color.shared.backgroundColor
@@ -88,8 +89,9 @@ class MainViewController: UIViewController {
     }
     
     func reloadData() {
-        data = realm.objects(Sets.self)
-        if data?.count == 0 {
+        data = Array(realm.objects(Sets.self))
+        
+        if data.count == 0 {
             collectionView.isHidden = true
             alertLabel.isHidden = false
         }else {
@@ -127,7 +129,7 @@ class MainViewController: UIViewController {
     @objc func showEditAlert(_ sender: UIButton) {
         let alert = UIAlertController(title: "セットの編集", message: "", preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "編集", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            UserDefaults.standard.set(self.data![sender.tag].setID, forKey: "setID")
+            UserDefaults.standard.set(self.data[sender.tag].setID, forKey: "setID")
             self.performSegue(withIdentifier: "toEditSetView", sender: nil)
         })
         let deleteAction = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
@@ -141,9 +143,9 @@ class MainViewController: UIViewController {
     }
     
     func deleteSet(num: Int) {
-        guard let set = data?[num] else { return }
+        let set = data[num]
         RealmService.shared.delete(set)
-        data = realm.objects(Sets.self)
+        data = Array(realm.objects(Sets.self))
         collectionView.reloadData()
     }
     
@@ -170,15 +172,27 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data!.count
+        if searchController.searchBar.text == "" {
+            return data.count
+        }else {
+            return searchResults.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SetCollectionViewCell
-        cell.titleLabel.text = data?[indexPath.row].title
-        cell.emojiLabel.text = data?[indexPath.row].emoji
-        cell.layer.backgroundColor = Color.shared.colorCG(num: data?[indexPath.row].color ?? 0)
-        cell.correctAnsRateLabel.text = String(Int((data?[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+        
+        if searchController.searchBar.text == "" {
+            cell.titleLabel.text = data[indexPath.row].title
+            cell.emojiLabel.text = data[indexPath.row].emoji
+            cell.layer.backgroundColor = Color.shared.colorCG(num: data[indexPath.row].color)
+            cell.correctAnsRateLabel.text = String(Int((data[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+        }else {
+            cell.titleLabel.text = searchResults[indexPath.row].title
+            cell.emojiLabel.text = searchResults[indexPath.row].emoji
+            cell.layer.backgroundColor = Color.shared.colorCG(num: searchResults[indexPath.row].color)
+            cell.correctAnsRateLabel.text = String(Int((searchResults[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+        }
         
         cell.editButton.addTarget(self, action: #selector(showEditAlert(_:)), for: .touchUpInside)
         cell.editButton.tag = indexPath.row
@@ -190,20 +204,20 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UserDefaults.standard.set(data![indexPath.row].setID, forKey: "setID")
+        UserDefaults.standard.set(data[indexPath.row].setID, forKey: "setID")
         performSegue(withIdentifier: "toSetView", sender: nil)
     }
 }
 
-//extension MainViewController: UISearchResultsUpdating {
-//
-//    func updateSearchResults(for searchController: UISearchController) {
-//        searchResults = data.filter { set in
-//            return set.title.contains(searchController.searchBar.text!)
-//        }
-//
-//        collectionView.reloadData()
-//    }
-//
-//
-//}
+extension MainViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        searchResults = data.filter { set in
+            return set.title.contains(searchController.searchBar.text!)
+        }
+
+        collectionView.reloadData()
+    }
+
+
+}

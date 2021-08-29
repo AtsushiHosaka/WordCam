@@ -24,8 +24,6 @@ class WordsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //あるいは必要
-        extendedLayoutIncludesOpaqueBars = true
         
         setupNavigationController()
         setupSearchController()
@@ -39,8 +37,9 @@ class WordsViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationController?.navigationBar.sizeToFit()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.sizeToFit()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func setupSearchController() {
@@ -66,7 +65,7 @@ class WordsViewController: UIViewController {
     }
     
     func reloadNavigationController() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         if isEditMode {
             editBarButton.title = "削除"

@@ -11,7 +11,9 @@ import Charts
 class SetViewController: UIViewController {
     
     let realm = RealmService.shared.realm
+    var searchController = UISearchController(searchResultsController: nil)
     var set = Sets()
+    var searchResults = [Word]()
     var selectedWord = Word()
     var setID: String?
     var isHistoryNil: Bool?
@@ -24,6 +26,7 @@ class SetViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigationController()
+        setupSearchController()
         setupTableView()
         setupButton()
     }
@@ -38,6 +41,15 @@ class SetViewController: UIViewController {
     
     func setupNavigationController() {
         self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.backgroundColor = Color.shared.backgroundColor
+        searchController.searchBar.barTintColor = Color.shared.backgroundColor
+        
+        navigationItem.searchController = searchController
     }
     
     func setupTableView() {
@@ -146,7 +158,11 @@ class SetViewController: UIViewController {
 extension SetViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return set.words.count + 1
+        if searchController.searchBar.text == "" {
+            return set.words.count + 1
+        }else {
+            return searchResults.count + 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -159,7 +175,11 @@ extension SetViewController: UITableViewDataSource {
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = set.words[indexPath.row - 1].word
+            if searchController.searchBar.text == "" {
+                cell.textLabel?.text = set.words[indexPath.row - 1].word
+            }else {
+                cell.textLabel?.text = searchResults[indexPath.row - 1].word
+            }
             cell.backgroundColor = Color.shared.backgroundColor
             return cell
         }
@@ -212,4 +232,15 @@ extension SetViewController: UITableViewDelegate {
         }
     }
 
+}
+
+extension SetViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        searchResults = set.words.filter { word in
+            return word.word.contains(searchController.searchBar.text!)
+        }
+
+        tableView.reloadData()
+    }
 }

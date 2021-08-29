@@ -10,9 +10,11 @@ import UIKit
 class SelectSetWordViewController: UIViewController {
     
     let realm = RealmService.shared.realm
+    var searchController = UISearchController(searchResultsController: nil)
     var setID: String?
     var set = Sets()
     var data = [Word]()
+    var searchResults = [Word]()
     var isSelected = [Bool]()
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
@@ -23,6 +25,7 @@ class SelectSetWordViewController: UIViewController {
         
         setupTableView()
         setupNavigationController()
+        setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,11 +41,21 @@ class SelectSetWordViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.backgroundColor = Color.shared.backgroundColor
+        searchController.searchBar.barTintColor = Color.shared.backgroundColor
+        
+        navigationItem.searchController = searchController
     }
     
     func reloadNavigationController() {
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     func reloadData() {
@@ -110,12 +123,20 @@ class SelectSetWordViewController: UIViewController {
 extension SelectSetWordViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        if searchController.searchBar.text == "" {
+            return data.count
+        }else {
+            return searchResults.count
+        }
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row].word
+        if searchController.searchBar.text == "" {
+            cell.textLabel?.text = data[indexPath.row].word
+        }else {
+            cell.textLabel?.text = searchResults[indexPath.row].word
+        }
         return cell
     }
 }
@@ -128,5 +149,16 @@ extension SelectSetWordViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         isSelected[indexPath.row] = false
+    }
+}
+
+extension SelectSetWordViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        searchResults = data.filter { word in
+            return word.word.contains(searchController.searchBar.text!)
+        }
+
+        tableView.reloadData()
     }
 }
