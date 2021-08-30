@@ -44,12 +44,12 @@ class AddWordViewController: FormViewController {
                     }
                 }
                 $0.multivaluedRowToInsertAt = { index in
-                    return TextRow() {
-                        $0.placeholder = "意味を入力してください"
+                    return MeaningRow() {
+                        $0.cell.selectedNum = 0
                     }
                 }
-                $0 <<< TextRow() {
-                    $0.placeholder = "意味を入力してください"
+                $0 <<< MeaningRow() {
+                    $0.cell.selectedNum = 0
                 }
             }
         
@@ -67,10 +67,17 @@ class AddWordViewController: FormViewController {
         }
         let wordValue = inputtedValue.trimmingCharacters(in: .whitespaces)
         
-        guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
+        guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.meaningTextField.text }) else {
             showErrorAlert(str: "すべての項目に入力してください")
             return
         }
+        
+        guard let typesValue: [Int] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.selectedNum }) else {
+            showErrorAlert(str: "すべての項目に入力してください")
+            return
+        }
+        
+        print(meaningsValue, typesValue)
         
         for meaning in meaningsValue {
             if meaning.count > 10 {
@@ -79,7 +86,6 @@ class AddWordViewController: FormViewController {
             }
         }
         
-
         let words = realm.objects(Word.self)
         var wordsArray = [String]()
         for data in words {
@@ -87,9 +93,17 @@ class AddWordViewController: FormViewController {
         }
 
         if !wordsArray.contains(String(wordValue)) {
-            let word = Word(word: wordValue, meanings: meaningsValue)
+            var meanings = [Meaning]()
+            
+            for i in 0..<meaningsValue.count {
+                let meaning = Meaning(meaning: meaningsValue[i], type: typesValue[i])
+                meanings.append(meaning)
+            }
+            
+            
+            let word = Word(word: wordValue, meanings: meanings)
             RealmService.shared.create(word)
-
+            
             self.navigationController?.popViewController(animated: true)
         }else {
             showUnableAlert()

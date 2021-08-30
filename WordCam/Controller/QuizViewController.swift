@@ -16,11 +16,11 @@ class QuizViewController: UIViewController {
     var timer: Timer!
     var set = Sets()
     var setID: String?
-    var words = [[String]]()
+    var words = [Word]()
     var meanings = [String]()
-    var wrongWords = [String]()
-    var dummyMeanings = [String]()
-    var questionCount: Int?
+    var wrongWords = [Word]()
+    var dummyMeanings = [Meaning]()
+    var questionCount: Int = 0
     var correctAnsCount: Int?
     var correctAnsNum: Int?
     var time: Int = 0
@@ -180,11 +180,11 @@ class QuizViewController: UIViewController {
         if num == correctAnsNum {
             correctAnsCount! += 1
         }else {
-            wrongWords.append(words[questionCount!][0])
+            wrongWords.append(words[questionCount])
         }
         
-        questionCount! += 1
-        if questionCount! == words.count {
+        questionCount += 1
+        if questionCount == words.count {
             endSetting()
         }else {
             prepareNextQuestion()
@@ -198,7 +198,7 @@ class QuizViewController: UIViewController {
         wrongWords = []
         
         for data in set.words {
-            words.append([data.word, data.meanings[0]])
+            words.append(data)
         }
         words.shuffle()
         
@@ -219,20 +219,22 @@ class QuizViewController: UIViewController {
         time = timeRimit
         setupTimer()
         
-        wordLabel.text = words[questionCount!][0]
+        wordLabel.text = words[questionCount].word
         
         meanings = ["", "", "", ""]
         correctAnsNum = Int.random(in: 0...3)
         var dummy = dummyMeanings
         
-        meanings[correctAnsNum!] = words[questionCount!][1]
+        meanings[correctAnsNum!] = words[questionCount].meanings[0].meaning
         for i in 0...3 {
             if i != correctAnsNum {
                 var n = Int.random(in: 0..<dummy.count)
-                while dummy[n] == words[questionCount!][1] || meanings.contains(dummy[n]) {
+                while dummy[n].meaning == words[questionCount].meanings[0].meaning ||
+                        meanings.contains(dummy[n].meaning) ||
+                        dummy[n].type != words[questionCount].meanings[0].type {
                     n = Int.random(in: 0..<dummy.count)
                 }
-                meanings[i] = dummy[n]
+                meanings[i] = dummy[n].meaning
                 dummy.remove(at: n)
             }
         }

@@ -8,17 +8,29 @@
 import Foundation
 import RealmSwift
 
+class Meaning: Object {
+    @objc dynamic var meaning: String = ""
+    //0: 名詞, 1: 動詞, 2: 形容詞, 3: 副詞, 4: 助動詞, 5: 代名詞, 6: 前置詞, 7: 冠詞, 8: 接続詞
+    @objc dynamic var type: Int = 0
+    
+    convenience init(meaning: String, type: Int) {
+        self.init()
+        self.meaning = meaning
+        self.type = type
+    }
+}
+
 class Word: Object {
     @objc dynamic var wordID = UUID().uuidString
     @objc dynamic var word: String = ""
-    var meanings = List<String>()
+    var meanings = List<Meaning>()
     
     let sets = List<Sets>()
     
     let wordAnsHistory = LinkingObjects(fromType: WordAnsHistory.self, property: "word")
     var correctAnsRate = List<WordAnsHistory>()
     
-    convenience init(word: String, meanings: [String]) {
+    convenience init(word: String, meanings: [Meaning]) {
         self.init()
         self.word = word
         for meaning in meanings {
@@ -28,13 +40,6 @@ class Word: Object {
     
     override static func primaryKey() -> String? {
         return "wordID"
-    }
-}
-
-extension Word: Comparable {
-    
-    static func < (lhs: Word, rhs: Word) -> Bool {
-        return lhs.word < rhs.word
     }
 }
 
@@ -97,3 +102,4 @@ class SetAnsHistory: Object {
         return "setAnsHistoryID"
     }
 }
+

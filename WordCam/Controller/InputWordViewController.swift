@@ -48,13 +48,9 @@ class InputWordViewController: FormViewController {
                     }
                 }
                 $0.multivaluedRowToInsertAt = { index in
-                    return TextRow() {
-                        $0.placeholder = "意味を入力してください"
-                    }
+                    return MeaningRow()
                 }
-                $0 <<< TextRow() {
-                    $0.placeholder = "意味を入力してください"
-                }
+                $0 <<< MeaningRow()
             }
         
         tableView.backgroundColor = Color.shared.backgroundColor
@@ -73,7 +69,6 @@ class InputWordViewController: FormViewController {
     
     @IBAction func saveButtonPressed() {
         saveWord()
-        showNext()
     }
     
     func startSetting() {
@@ -101,9 +96,7 @@ class InputWordViewController: FormViewController {
             for _ in 0..<meaningsSection.count - 1 {
                 meaningsSection.removeFirst()
             }
-            let row = TextRow() {
-                $0.placeholder = "意味を入力してください"
-            }
+            let row = MeaningRow()
             meaningsSection.insert(row, at: 0)
             meaningsSection.reload()
             
@@ -141,7 +134,12 @@ class InputWordViewController: FormViewController {
         }
         let wordValue = inputtedValue.trimmingCharacters(in: .whitespaces)
         
-        guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? TextRow)?.value }) else {
+        guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.meaningTextField.text }) else {
+            showErrorAlert(str: "すべての項目に入力してください")
+            return
+        }
+        
+        guard let typesValue: [Int] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.selectedNum }) else {
             showErrorAlert(str: "すべての項目に入力してください")
             return
         }
@@ -153,8 +151,14 @@ class InputWordViewController: FormViewController {
             }
         }
         
-        let word = Word(word: wordValue, meanings: meaningsValue)
+        var meanings = [Meaning]()
+        for i in 0..<meaningsValue.count {
+            meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))
+        }
+        
+        let word = Word(word: wordValue, meanings: meanings)
         RealmService.shared.create(word)
+        showNext()
     }
 
 }

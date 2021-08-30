@@ -496,7 +496,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="🥺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zL-gx-o27">
-                                                    <rect key="frame" x="15" y="15" width="36" height="36"/>
+                                                    <rect key="frame" x="10" y="10" width="36" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -524,7 +524,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="rZN-67-dbc" secondAttribute="bottom" constant="10" id="NgB-Th-IaK"/>
-                                                <constraint firstItem="2zL-gx-o27" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="15" id="OAi-mV-Trn"/>
+                                                <constraint firstItem="2zL-gx-o27" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="10" id="OAi-mV-Trn"/>
                                                 <constraint firstItem="3fQ-Zx-eSe" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" id="OUs-aB-JNC"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZJQ-Ey-eqz" secondAttribute="trailing" constant="15" id="PVN-YE-m9u"/>
                                                 <constraint firstItem="3fQ-Zx-eSe" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" id="PiL-iE-K9h"/>
@@ -534,7 +534,7 @@
                                                 <constraint firstItem="rZN-67-dbc" firstAttribute="top" secondItem="ZJQ-Ey-eqz" secondAttribute="bottom" constant="1" id="YEo-1f-YGq"/>
                                                 <constraint firstItem="rZN-67-dbc" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="19" id="bnm-4n-KIB"/>
                                                 <constraint firstItem="rZN-67-dbc" firstAttribute="centerX" secondItem="rSx-Am-t6m" secondAttribute="centerX" id="cpH-fU-AqK"/>
-                                                <constraint firstItem="2zL-gx-o27" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" constant="15" id="dHG-Ct-TyC"/>
+                                                <constraint firstItem="2zL-gx-o27" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" constant="10" id="dHG-Ct-TyC"/>
                                                 <constraint firstAttribute="trailing" secondItem="qNG-4z-V7c" secondAttribute="trailing" constant="15" id="h5c-YC-vWg"/>
                                                 <constraint firstAttribute="trailing" secondItem="rZN-67-dbc" secondAttribute="trailing" constant="19" id="keN-Xj-eAU"/>
                                                 <constraint firstAttribute="trailing" secondItem="3fQ-Zx-eSe" secondAttribute="trailing" id="n32-kF-svB"/>

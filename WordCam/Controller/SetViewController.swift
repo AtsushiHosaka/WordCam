@@ -90,7 +90,7 @@ class SetViewController: UIViewController {
             addAlertButton.isHidden = true
         }
         
-        let words = Array(set.words).sorted()
+        let words = Array(set.words).sorted(by: {$0.word < $1.word})
         let sortedSet = Sets(title: set.title, color: set.color, emoji: set.emoji)
         sortedSet.correctAnsRate = set.correctAnsRate
         sortedSet.words.append(objectsIn: words)
@@ -170,7 +170,8 @@ extension SetViewController: UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SetChartCell") as! SetChartCell
             cell.backgroundColor = nil
-            cell.backgroundLabel.backgroundColor = Color.shared.colorUI(num: set.color, type: 0)
+            cell.gradientView.startColor = Color.shared.colorUI(num: set.color, type: 0)
+            cell.gradientView.endColor = Color.shared.colorUI(num: set.color, type: 1)
             cell.data = set.correctAnsRate
             cell.backgroundColor = Color.shared.backgroundColor
             return cell

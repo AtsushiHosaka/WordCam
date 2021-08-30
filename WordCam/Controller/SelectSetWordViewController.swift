@@ -83,6 +83,7 @@ class SelectSetWordViewController: UIViewController {
             }
         }
         
+        data.sort(by: {$0.word < $1.word})
         isSelected = [Bool](repeating: false, count: data.count)
         tableView.reloadData()
     }

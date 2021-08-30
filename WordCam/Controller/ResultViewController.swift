@@ -12,7 +12,7 @@ class ResultViewController: UIViewController {
     let realm = RealmService.shared.realm
     var correctAnsRate: Double?
     var resultText: String?
-    var wrongWords = [String]()
+    var wrongWords = [Word]()
     var setID: String?
     var set: Sets?
     @IBOutlet var correctAnsRateLabel: UILabel!
@@ -114,10 +114,22 @@ class ResultViewController: UIViewController {
     func updateData() {
         let history = SetAnsHistory(date: Date(), rate: correctAnsRate!)
         guard let set = set else { return }
-        var correctAnsRates = Array(set.correctAnsRate)
-        correctAnsRates.append(history)
+        var setCorrectAnsRates = Array(set.correctAnsRate)
+        setCorrectAnsRates.append(history)
+        RealmService.shared.update(set, with: ["correctAnsRate": setCorrectAnsRates])
         
-        RealmService.shared.update(set, with: ["correctAnsRate": correctAnsRates])
+        for word in set.words {
+            var history = WordAnsHistory()
+            if wrongWords.contains(word) {
+                history = WordAnsHistory(date: Date(), rate: 0)
+            }else {
+                history = WordAnsHistory(date: Date(), rate: 1)
+            }
+            
+            var wordCorrectAnsRates = Array(word.correctAnsRate)
+            wordCorrectAnsRates.append(history)
+            RealmService.shared.update(word, with: ["correctAnsRate": wordCorrectAnsRates])
+        }
     }
 }
 
@@ -129,7 +141,7 @@ extension ResultViewController: UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
-        cell.textLabel?.text = wrongWords[indexPath.row]
+        cell.textLabel?.text = wrongWords[indexPath.row].word
         return cell
     }
 }

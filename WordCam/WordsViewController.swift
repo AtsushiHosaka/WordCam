@@ -92,7 +92,7 @@ class WordsViewController: UIViewController {
             tableView.isHidden = false
             alertLabel.isHidden = true
             
-            data = Array(words).sorted()
+            data = Array(words).sorted(by: {$0.word < $1.word})
             
             tableView.reloadData()
         }

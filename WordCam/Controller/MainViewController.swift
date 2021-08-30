@@ -21,8 +21,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //test
-        testDelete()
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+        //testDelete()
         
         setupNavigationController()
         setupSearchController()
@@ -102,6 +102,14 @@ class MainViewController: UIViewController {
             alertLabel.isHidden = true
         }
         
+        let histories = realm.objects(WordAnsHistory.self)
+        if histories.count > 20 {
+            if let autoSet = realm.object(ofType: Sets.self, forPrimaryKey: "auto") {
+                addAutoSet(isExist: true)
+            }else {
+                addAutoSet(isExist: false)
+            }
+        }
         collectionView.reloadData()
     }
     
@@ -143,6 +151,11 @@ class MainViewController: UIViewController {
         alert.addAction(deleteAction)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func addAutoSet(isExist: Bool) {
+        var words = Array(realm.objects(Word.self))
+        words.sort(by: {$0.word < $1.word})
     }
     
     func deleteSet(num: Int) {

@@ -13,7 +13,7 @@ import SwiftDate
 class SetChartCell: UITableViewCell {
     
     @IBOutlet var alertLabel: UILabel!
-    @IBOutlet var backgroundLabel: UILabel!
+    @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var barChart: BarChartView!
     
     var data: List<SetAnsHistory>? {
@@ -25,13 +25,12 @@ class SetChartCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setupLabel()
+        setupGradientView()
     }
     
-    func setupLabel() {
-        backgroundLabel.layer.cornerRadius = 30
-        backgroundLabel.layer.cornerCurve = .continuous
-        backgroundLabel.clipsToBounds = true
+    func setupGradientView() {
+        gradientView.layer.cornerRadius = 30
+        gradientView.clipsToBounds = true
     }
     
     func showChart() {

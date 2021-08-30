@@ -10,6 +10,8 @@
 		0D220EF726B8396700ECE350 /* WordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D220EF526B8396700ECE350 /* WordChartCell.swift */; };
 		0D220EF826B8396700ECE350 /* WordChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D220EF626B8396700ECE350 /* WordChartCell.xib */; };
 		0D22203A269A958700A8DC97 /* AddSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D222039269A958700A8DC97 /* AddSetViewController.swift */; };
+		0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D24760A26DC8DE9004CD47C /* MeaningCell.swift */; };
+		0D24760D26DC8DE9004CD47C /* MeaningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D24760B26DC8DE9004CD47C /* MeaningCell.xib */; };
 		0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488B026632DE600D7A6FF /* SetViewController.swift */; };
 		0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* ColorModel.swift */; };
 		0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27E9D626AC5388001E094E /* WordViewController.swift */; };
@@ -77,6 +79,8 @@
 		0D220EF526B8396700ECE350 /* WordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChartCell.swift; sourceTree = "<group>"; };
 		0D220EF626B8396700ECE350 /* WordChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordChartCell.xib; sourceTree = "<group>"; };
 		0D222039269A958700A8DC97 /* AddSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSetViewController.swift; sourceTree = "<group>"; };
+		0D24760A26DC8DE9004CD47C /* MeaningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeaningCell.swift; sourceTree = "<group>"; };
+		0D24760B26DC8DE9004CD47C /* MeaningCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeaningCell.xib; sourceTree = "<group>"; };
 		0D2488B026632DE600D7A6FF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		0D2488C026634EA600D7A6FF /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		0D27E9D626AC5388001E094E /* WordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */,
 				0D5547852688514700967CB1 /* SetChartCell.swift */,
 				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
+				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
 				0D5547862688514700967CB1 /* SetChartCell.xib */,
 				0D220EF626B8396700ECE350 /* WordChartCell.xib */,
+				0D24760B26DC8DE9004CD47C /* MeaningCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				0DAAE4F226500D2F0091D80F /* LaunchScreen.storyboard in Resources */,
 				0DAAE4EF26500D2F0091D80F /* Assets.xcassets in Resources */,
 				0DAAE4ED26500D2E0091D80F /* Main.storyboard in Resources */,
+				0D24760D26DC8DE9004CD47C /* MeaningCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +537,7 @@
 				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
 				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
+				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
 				0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */,
 				0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */,
 				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,

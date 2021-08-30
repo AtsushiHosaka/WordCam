@@ -12,7 +12,6 @@ import VisionKit
 class AddWordsByCameraViewController: UIViewController {
     
     var words = [String]()
-    var isSelected = [Bool]()
     var requests = [VNRequest]()
     var isOpenCamera: Bool = true
     @IBOutlet var tableView: UITableView!
@@ -60,7 +59,6 @@ class AddWordsByCameraViewController: UIViewController {
                 guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
                 if String(candidate.string.unicodeScalars.filter(CharacterSet.letters.contains).map(Character.init)) == candidate.string && candidate.string.count != 1 {
                     self.words.append(candidate.string)
-                    self.isSelected.append(false)
                 }
             }
         }
@@ -73,8 +71,16 @@ class AddWordsByCameraViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    func reloadData() {
+        if words.isEmpty {
+            showNullAlert()
+        }else {
+            tableView.reloadData()
+        }
+    }
+    
     @IBAction func okButtonPressed() {
-        if !isSelected.contains(true) {
+        if tableView.indexPathsForSelectedRows?.count ?? 0 == 0 {
             showErrorAlert()
         }else {
             performSegue(withIdentifier: "toInputWordView", sender: nil)
@@ -90,7 +96,6 @@ class AddWordsByCameraViewController: UIViewController {
     
     func presentCameraView() {
         words = []
-        isSelected = []
         let documentCameraViewController = VNDocumentCameraViewController()
         documentCameraViewController.delegate = self
         present(documentCameraViewController, animated: true)
@@ -102,15 +107,25 @@ class AddWordsByCameraViewController: UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    func showNullAlert() {
+        let alert = UIAlertController(title: "単語が検出されませんでした", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.dismiss(animated: true, completion: nil)
+            self.isOpenCamera = false
+            self.presentCameraView()
+        }
+    }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let inputView: InputWordViewController = segue.destination as! InputWordViewController
         
         var selectedWords = [String]()
-        for i in 0..<words.count {
-            if isSelected[i] {
-                selectedWords.append(words[i])
-            }
+        
+        for indexPath in tableView.indexPathsForSelectedRows ?? [] {
+            selectedWords.append(words[indexPath.row])
         }
         
         inputView.words = selectedWords
@@ -139,7 +154,7 @@ extension AddWordsByCameraViewController: VNDocumentCameraViewControllerDelegate
                 }
             }
             DispatchQueue.main.async(execute: {
-                self.tableView.reloadData()
+                self.reloadData()
             })
         }
     }
@@ -161,11 +176,4 @@ extension AddWordsByCameraViewController: UITableViewDataSource {
 
 extension AddWordsByCameraViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        isSelected[indexPath.row] = true
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        isSelected[indexPath.row] = false
-    }
 }
