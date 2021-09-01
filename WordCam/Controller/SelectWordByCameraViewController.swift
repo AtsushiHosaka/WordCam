@@ -1,17 +1,20 @@
 //
-//  AddWordsByCameraViewController.swift
-//  WordCam
+//  SelectWordByCameraViewController.swift
+//  SelectWordByCameraViewController
 //
-//  Created by 保坂篤志 on 2021/08/15.
+//  Created by 保坂篤志 on 2021/09/01.
 //
 
 import UIKit
 import Vision
 import VisionKit
 
-class AddWordsByCameraViewController: UIViewController {
+class SelectWordByCameraViewController: UIViewController {
     
+    let realm = RealmService.shared.realm
     var words = [String]()
+    var yetAddedWords = [String]()
+    var currentWords = [String]()
     var requests = [VNRequest]()
     var isOpenCamera: Bool = true
     @IBOutlet var tableView: UITableView!
@@ -20,6 +23,7 @@ class AddWordsByCameraViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigationController()
+        setupData()
         setupTableView()
         setupVision()
     }
@@ -47,6 +51,14 @@ class AddWordsByCameraViewController: UIViewController {
         tableView.isEditing = true
     }
     
+    func setupData() {
+        let setID = UserDefaults.standard.string(forKey: "setID")
+        let set = RealmService.shared.realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
+        for word in set.words {
+            currentWords.append(word.word)
+        }
+    }
+    
     func setupVision() {
         let textRecognitionRequest = VNRecognizeTextRequest { request, _ in
             guard let observations = request.results as? [VNRecognizedTextObservation] else {
@@ -55,10 +67,11 @@ class AddWordsByCameraViewController: UIViewController {
             }
             
             let maximumCandidates = 1
+            
             for observation in observations {
                 guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
-                if String(candidate.string.unicodeScalars.filter(CharacterSet.letters.contains).map(Character.init)) == candidate.string && candidate.string.count != 1 {
-                    self.words.append(candidate.string)
+                if String(candidate.string.unicodeScalars.filter(CharacterSet.letters.contains).map(Character.init)) == candidate.string && candidate.string.count != 1 && !self.currentWords.contains(candidate.string){
+                        self.words.append(candidate.string)
                 }
             }
         }
@@ -83,7 +96,7 @@ class AddWordsByCameraViewController: UIViewController {
         if tableView.indexPathsForSelectedRows?.count ?? 0 == 0 {
             showErrorAlert()
         }else {
-            performSegue(withIdentifier: "toInputWordView", sender: nil)
+            checkData()
         }
     }
     
@@ -99,6 +112,43 @@ class AddWordsByCameraViewController: UIViewController {
         let documentCameraViewController = VNDocumentCameraViewController()
         documentCameraViewController.delegate = self
         present(documentCameraViewController, animated: true)
+    }
+    
+    func checkData() {
+        var selectedWords = [String]()
+        
+        for indexPath in tableView.indexPathsForSelectedRows ?? [] {
+            selectedWords.append(words[indexPath.row])
+        }
+        
+        let words = RealmService.shared.realm.objects(Word.self)
+        let setID = UserDefaults.standard.string(forKey: "setID")
+        guard let set = realm.object(ofType: Sets.self, forPrimaryKey: setID) else { return }
+        var setWords: [Word] = Array(set.words)
+        var selectedNums = [Int]()
+        for i in 0..<selectedWords.count {
+            for currentWord in words {
+                if selectedWords[i] == currentWord.word {
+                    setWords.append(currentWord)
+                    selectedNums.append(i)
+                    break
+                }
+            }
+        }
+        RealmService.shared.update(set, with: ["words": setWords])
+        
+        selectedNums.sort()
+        selectedNums.reverse()
+        for i in 0..<selectedNums.count {
+            selectedWords.remove(at: selectedNums[i])
+        }
+        
+        if !selectedWords.isEmpty {
+            yetAddedWords = selectedWords
+            performSegue(withIdentifier: "toInputSetWordView", sender: nil)
+        }else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     func showErrorAlert() {
@@ -122,18 +172,12 @@ class AddWordsByCameraViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let inputView: InputWordViewController = segue.destination as! InputWordViewController
         
-        inputView.type = 0
-        
-        var selectedWords = [String]()
-        
-        for indexPath in tableView.indexPathsForSelectedRows ?? [] {
-            selectedWords.append(words[indexPath.row])
-        }
-        inputView.words = selectedWords
+        inputView.type = 1
+        inputView.words = yetAddedWords
     }
 }
 
-extension AddWordsByCameraViewController: VNDocumentCameraViewControllerDelegate {
+extension SelectWordByCameraViewController: VNDocumentCameraViewControllerDelegate {
     
     func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
         controller.dismiss(animated: true)
@@ -161,7 +205,7 @@ extension AddWordsByCameraViewController: VNDocumentCameraViewControllerDelegate
     }
 }
 
-extension AddWordsByCameraViewController: UITableViewDataSource {
+extension SelectWordByCameraViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return words.count
@@ -175,6 +219,6 @@ extension AddWordsByCameraViewController: UITableViewDataSource {
     }
 }
 
-extension AddWordsByCameraViewController: UITableViewDelegate {
+extension SelectWordByCameraViewController: UITableViewDelegate {
     
 }

@@ -132,6 +132,10 @@ class WordViewController: FormViewController {
             return
         }
         
+        for meaning in word.meanings {
+            RealmService.shared.delete(meaning)
+        }
+        
         var meanings = [Meaning]()
         for i in 0..<meaningsValue.count {
             meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))

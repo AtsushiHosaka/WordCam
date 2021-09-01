@@ -21,7 +21,13 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+        //test
+        //print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
+//        let testword = Word(word: "puppy", meanings: [Meaning(meaning: "子犬", type: 0)])
+//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.3))
+//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.8))
+//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.6))
+//        RealmService.shared.create(testword)
         //testDelete()
         
         setupNavigationController()
@@ -104,12 +110,13 @@ class MainViewController: UIViewController {
         
         let histories = realm.objects(WordAnsHistory.self)
         if histories.count > 20 {
-            if let autoSet = realm.object(ofType: Sets.self, forPrimaryKey: "auto") {
+            if realm.object(ofType: Sets.self, forPrimaryKey: "auto") != nil {
                 addAutoSet(isExist: true)
             }else {
                 addAutoSet(isExist: false)
             }
         }
+        
         collectionView.reloadData()
     }
     
@@ -201,15 +208,12 @@ extension MainViewController: UICollectionViewDataSource {
         if searchController.searchBar.text == "" {
             cell.titleLabel.text = data[indexPath.row].title
             cell.emojiLabel.text = data[indexPath.row].emoji
-            //cell.layer.backgroundColor = Color.shared.colorCG(num: data[indexPath.row].color)
             cell.gradientView.startColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 1)
-
             cell.correctAnsRateLabel.text = String(Int((data[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         }else {
             cell.titleLabel.text = searchResults[indexPath.row].title
             cell.emojiLabel.text = searchResults[indexPath.row].emoji
-            //cell.layer.backgroundColor = Color.shared.colorCG(num: searchResults[indexPath.row].color, type: 0)
             cell.gradientView.startColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 1)
             cell.correctAnsRateLabel.text = String(Int((searchResults[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"

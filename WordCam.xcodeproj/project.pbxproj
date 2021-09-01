@@ -19,6 +19,7 @@
 		0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */; };
 		0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */; };
 		0D44C28626CE98FF007CDC4C /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */; };
+		0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */; };
 		0D554767268837F600967CB1 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D554766268837F600967CB1 /* WordsViewController.swift */; };
 		0D55477026883DF200967CB1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0D55476F26883DF200967CB1 /* Charts */; };
 		0D5547872688514700967CB1 /* SetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5547852688514700967CB1 /* SetChartCell.swift */; };
@@ -88,6 +89,7 @@
 		0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSetWordViewController.swift; sourceTree = "<group>"; };
 		0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWordByCameraViewController.swift; sourceTree = "<group>"; };
 		0D554766268837F600967CB1 /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordsViewController.swift; path = ../WordsViewController.swift; sourceTree = "<group>"; };
 		0D5547852688514700967CB1 /* SetChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetChartCell.swift; sourceTree = "<group>"; };
 		0D5547862688514700967CB1 /* SetChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetChartCell.xib; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
 				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
 				0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */,
+				0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */,
 				0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */,
 			);
 			path = Controller;
@@ -536,6 +539,7 @@
 				0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */,
 				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
 				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
+				0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
 				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
 				0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */,

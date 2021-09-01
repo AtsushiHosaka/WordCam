@@ -100,11 +100,11 @@ class WordsViewController: UIViewController {
     
     @IBAction func addButtonPressed() {
         let alertSheet = UIAlertController(title: "単語を登録", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        let action1 = UIAlertAction(title: "単語を入力する", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
-        })
-        let action2 = UIAlertAction(title: "写真から登録する", style: .default, handler: {(action: UIAlertAction!) -> Void in
+        let action1 = UIAlertAction(title: "写真から登録する", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.performSegue(withIdentifier: "toAddWordsByCameraView", sender: nil)
+        })
+        let action2 = UIAlertAction(title: "単語を入力する", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
         })
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         alertSheet.addAction(action1)

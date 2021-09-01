@@ -26,6 +26,12 @@ final class GradientView: UIView {
         gradient.endPoint = orientation.endPoint
         self.layer.addSublayer(gradient)
     }
+    
+    override func didChangeValue(forKey key: String) {
+        self.draw(self.bounds)
+    }
+    
+    
     enum Orientation: Int {
         case vertical = 0
         case horizontal = 1

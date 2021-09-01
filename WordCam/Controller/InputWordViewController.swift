@@ -13,6 +13,8 @@ class InputWordViewController: FormViewController {
     let realm = RealmService.shared.realm
     var words = [String]()
     var currentNum = 0
+    //0: toWords 1: toSet
+    var type: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,9 +50,13 @@ class InputWordViewController: FormViewController {
                     }
                 }
                 $0.multivaluedRowToInsertAt = { index in
-                    return MeaningRow()
+                    return MeaningRow() {
+                        $0.cell.selectedNum = 0
+                    }
                 }
-                $0 <<< MeaningRow()
+                $0 <<< MeaningRow() {
+                    $0.cell.selectedNum = 0
+                }
             }
         
         tableView.backgroundColor = Color.shared.backgroundColor
@@ -96,7 +102,9 @@ class InputWordViewController: FormViewController {
             for _ in 0..<meaningsSection.count - 1 {
                 meaningsSection.removeFirst()
             }
-            let row = MeaningRow()
+            let row = MeaningRow() {
+                $0.cell.selectedNum = 0
+            }
             meaningsSection.insert(row, at: 0)
             meaningsSection.reload()
             
@@ -158,6 +166,14 @@ class InputWordViewController: FormViewController {
         
         let word = Word(word: wordValue, meanings: meanings)
         RealmService.shared.create(word)
+        if type == 1 {
+            let setID = UserDefaults.standard.string(forKey: "setID")
+            guard let set = realm.object(ofType: Sets.self, forPrimaryKey: setID) else { return }
+            var words = Array(set.words)
+            words.append(word)
+            
+            RealmService.shared.update(set, with: ["words": words])
+        }
         showNext()
     }
 

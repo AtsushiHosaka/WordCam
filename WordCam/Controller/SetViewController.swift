@@ -107,11 +107,11 @@ class SetViewController: UIViewController {
     
     @IBAction func addButtonPressed() {
         let alertSheet = UIAlertController(title: "単語を追加", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        let action1 = UIAlertAction(title: "単語を選ぶ", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toSelectSetWordView", sender: nil)
+        let action1 = UIAlertAction(title: "写真から追加する", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toSelectWordByCameraView", sender: nil)
         })
-        let action2 = UIAlertAction(title: "写真から追加する", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            //写真から追加
+        let action2 = UIAlertAction(title: "単語を選ぶ", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.performSegue(withIdentifier: "toSelectSetWordView", sender: nil)
         })
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         alertSheet.addAction(action1)
@@ -172,6 +172,7 @@ extension SetViewController: UITableViewDataSource {
             cell.backgroundColor = nil
             cell.gradientView.startColor = Color.shared.colorUI(num: set.color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: set.color, type: 1)
+            cell.setupGradientView()
             cell.data = set.correctAnsRate
             cell.backgroundColor = Color.shared.backgroundColor
             return cell
