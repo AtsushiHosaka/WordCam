@@ -210,12 +210,14 @@ extension MainViewController: UICollectionViewDataSource {
             cell.emojiLabel.text = data[indexPath.row].emoji
             cell.gradientView.startColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 1)
+            cell.gradientView.layer.setNeedsDisplay()
             cell.correctAnsRateLabel.text = String(Int((data[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         }else {
             cell.titleLabel.text = searchResults[indexPath.row].title
             cell.emojiLabel.text = searchResults[indexPath.row].emoji
             cell.gradientView.startColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 1)
+            cell.gradientView.layer.setNeedsDisplay()
             cell.correctAnsRateLabel.text = String(Int((searchResults[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
         }
         
@@ -240,7 +242,7 @@ extension MainViewController: UISearchResultsUpdating {
         searchResults = data.filter { set in
             return set.title.contains(searchController.searchBar.text!)
         }
-
+        
         collectionView.reloadData()
     }
 

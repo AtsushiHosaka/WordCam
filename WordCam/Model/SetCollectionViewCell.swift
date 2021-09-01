@@ -32,4 +32,8 @@ class SetCollectionViewCell: UICollectionViewCell {
         }
         return super.hitTest(point, with: event)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }

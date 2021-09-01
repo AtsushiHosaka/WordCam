@@ -172,7 +172,7 @@ extension SetViewController: UITableViewDataSource {
             cell.backgroundColor = nil
             cell.gradientView.startColor = Color.shared.colorUI(num: set.color, type: 0)
             cell.gradientView.endColor = Color.shared.colorUI(num: set.color, type: 1)
-            cell.setupGradientView()
+            cell.gradientView.layer.setNeedsDisplay()
             cell.data = set.correctAnsRate
             cell.backgroundColor = Color.shared.backgroundColor
             return cell
