@@ -25,7 +25,7 @@ class Word: Object {
     @objc dynamic var word: String = ""
     var meanings = List<Meaning>()
     
-    let sets = List<Sets>()
+    let sets = List<WordSet>()
     
     let wordAnsHistory = LinkingObjects(fromType: WordAnsHistory.self, property: "word")
     var correctAnsRate = List<WordAnsHistory>()
@@ -43,7 +43,7 @@ class Word: Object {
     }
 }
 
-class Sets: Object {
+class WordSet: Object {
     @objc dynamic var setID = UUID().uuidString
     @objc dynamic var title: String = ""
     @objc dynamic var color: Int = 0
@@ -90,7 +90,7 @@ class SetAnsHistory: Object {
     @objc dynamic var date: Date = Date()
     @objc dynamic var rate: Double = 0
     
-    let set = List<Sets>()
+    let set = List<WordSet>()
     
     convenience init(date: Date, rate: Double) {
         self.init()

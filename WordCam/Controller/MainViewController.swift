@@ -10,10 +10,9 @@ import RealmSwift
 
 class MainViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     var searchController = UISearchController(searchResultsController: nil)
-    var data = [Sets]()
-    var searchResults = [Sets]()
+    var data = [WordSet]()
+    var searchResults = [WordSet]()
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var addSetBtn: UIButton!
     @IBOutlet var alertLabel: UILabel!
@@ -51,8 +50,8 @@ class MainViewController: UIViewController {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.backgroundColor = Color.shared.backgroundColor
-        searchController.searchBar.barTintColor = Color.shared.backgroundColor
+        searchController.searchBar.backgroundColor = MyColor.shared.backgroundColor
+        searchController.searchBar.barTintColor = MyColor.shared.backgroundColor
         
         navigationItem.searchController = searchController
     }
@@ -98,7 +97,7 @@ class MainViewController: UIViewController {
     }
     
     func reloadData() {
-        data = Array(realm.objects(Sets.self))
+        data = Array(RealmService.shared.realm.objects(WordSet.self))
         
         if data.count == 0 {
             collectionView.isHidden = true
@@ -108,9 +107,9 @@ class MainViewController: UIViewController {
             alertLabel.isHidden = true
         }
         
-        let histories = realm.objects(WordAnsHistory.self)
+        let histories = RealmService.shared.realm.objects(WordAnsHistory.self)
         if histories.count > 20 {
-            if realm.object(ofType: Sets.self, forPrimaryKey: "auto") != nil {
+            if RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: "auto") != nil {
                 addAutoSet(isExist: true)
             }else {
                 addAutoSet(isExist: false)
@@ -134,18 +133,14 @@ class MainViewController: UIViewController {
     }
     
     func showDeleteAlert(num: Int) {
-        let alert = UIAlertController(title: "セットを削除しますか？", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.deleteSet(num: num)
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "セットを削除しますか？", message: "", style: .alert, action: [action])
         self.present(alert, animated: true, completion: nil)
     }
     
     @objc func showEditAlert(_ sender: UIButton) {
-        let alert = UIAlertController(title: "セットの編集", message: "", preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "編集", style: .default, handler: {(action: UIAlertAction!) -> Void in
             UserDefaults.standard.set(self.data[sender.tag].setID, forKey: "setID")
             self.performSegue(withIdentifier: "toEditSetView", sender: nil)
@@ -153,39 +148,39 @@ class MainViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.showDeleteAlert(num: sender.tag)
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(editAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "セットの編集", message: "", style: .actionSheet, action: [editAction, deleteAction])
         self.present(alert, animated: true, completion: nil)
     }
     
     func addAutoSet(isExist: Bool) {
-        var words = Array(realm.objects(Word.self))
+        var words = Array(RealmService.shared.realm.objects(Word.self))
         words.sort(by: {$0.word < $1.word})
     }
     
     func deleteSet(num: Int) {
         let set = data[num]
         RealmService.shared.delete(set)
-        data = Array(realm.objects(Sets.self))
-        collectionView.reloadData()
+        data = Array(RealmService.shared.realm.objects(WordSet.self))
+        reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAddSetView" {
-            let addSetViewController: AddSetViewController = segue.destination as! AddSetViewController
+            let addSetViewController: EditSetViewController = segue.destination as! EditSetViewController
+            addSetViewController.type = 0
             addSetViewController.reloadCollectionView = reloadView
+            
         }else if segue.identifier == "toEditSetView" {
             let editSetViewController: EditSetViewController = segue.destination as! EditSetViewController
+            editSetViewController.type = 1
             editSetViewController.reloadCollectionView = reloadView
         }
     }
     
     // test--------
     func testDelete() {
-        try! realm.write {
-            realm.deleteAll()
+        try! RealmService.shared.realm.write {
+            RealmService.shared.realm.deleteAll()
         }
         collectionView.reloadData()
     }
@@ -206,23 +201,14 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SetCollectionViewCell
         
         if searchController.searchBar.text == "" {
-            cell.titleLabel.text = data[indexPath.row].title
-            cell.emojiLabel.text = data[indexPath.row].emoji
-            cell.gradientView.startColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 0)
-            cell.gradientView.endColor = Color.shared.colorUI(num: data[indexPath.row].color, type: 1)
-            cell.gradientView.layer.setNeedsDisplay()
-            cell.correctAnsRateLabel.text = String(Int((data[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+            cell.setData = data[indexPath.row]
         }else {
-            cell.titleLabel.text = searchResults[indexPath.row].title
-            cell.emojiLabel.text = searchResults[indexPath.row].emoji
-            cell.gradientView.startColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 0)
-            cell.gradientView.endColor = Color.shared.colorUI(num: searchResults[indexPath.row].color, type: 1)
-            cell.gradientView.layer.setNeedsDisplay()
-            cell.correctAnsRateLabel.text = String(Int((searchResults[indexPath.row].correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+            cell.setData = searchResults[indexPath.row]
         }
         
         cell.editButton.addTarget(self, action: #selector(showEditAlert(_:)), for: .touchUpInside)
         cell.editButton.tag = indexPath.row
+        
         return cell
     }
     
@@ -245,6 +231,4 @@ extension MainViewController: UISearchResultsUpdating {
         
         collectionView.reloadData()
     }
-
-
 }

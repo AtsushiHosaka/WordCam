@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Color {
+struct MyColor {
     //gray(default), red, blue, yellow... h順に並べよう
     let startColors: [[CGFloat]] = [[86, 81, 214], [0, 194, 229], [150, 148, 148], [251, 153, 99], [255, 139, 139], [16, 201, 130], [185, 85, 219], [229, 196, 126]]
     
@@ -16,7 +16,7 @@ struct Color {
     let mainColor = UIColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
     let backgroundColor = UIColor(white: 249/255, alpha: 1.0)
     
-    static let shared = Color()
+    static let shared = MyColor()
     
     func colorCG(num: Int, type: Int) -> CGColor {
         if type == 0 {

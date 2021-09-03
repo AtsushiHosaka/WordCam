@@ -102,9 +102,7 @@ class AddWordsByCameraViewController: UIViewController {
     }
     
     func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "単語を選択してください", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
+        let alert = MyAlert.shared.errorAlert(message: "単語を選択してください")
         present(alert, animated: true, completion: nil)
     }
     
@@ -170,7 +168,7 @@ extension AddWordsByCameraViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.textLabel?.text = words[indexPath.row]
-        cell.backgroundColor = Color.shared.backgroundColor
+        cell.backgroundColor = MyColor.shared.backgroundColor
         return cell
     }
 }

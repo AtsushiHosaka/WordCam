@@ -15,6 +15,18 @@ class SetCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var emojiLabel: UILabel!
     @IBOutlet weak var gradientView: GradientView!
     
+    var setData = WordSet() {
+        didSet {
+            titleLabel.text = setData.title
+            emojiLabel.text = setData.emoji
+            gradientView.startColor = MyColor.shared.colorUI(num: setData.color, type: 0)
+            gradientView.endColor = MyColor.shared.colorUI(num: setData.color, type: 1)
+            gradientView.layer.setNeedsDisplay()
+            correctAnsRateLabel.text = String(Int((setData.correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+        }
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.layer.cornerRadius = 12.0

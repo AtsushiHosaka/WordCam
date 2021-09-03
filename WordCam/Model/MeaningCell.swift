@@ -15,6 +15,15 @@ public class MeaningCell: Cell<Bool>, CellType {
     var selectedNum: Int?
     @IBOutlet var meaningTextField: UITextField!
     @IBOutlet var typeTextField: UITextField!
+    
+    var meaning = Meaning() {
+        didSet {
+            meaningTextField.text = meaning.meaning
+            selectedNum = meaning.type
+            let str = data[meaning.type]
+            typeTextField.text = String(str[str.startIndex])
+        }
+    }
 
     public override func setup() {
         super.setup()

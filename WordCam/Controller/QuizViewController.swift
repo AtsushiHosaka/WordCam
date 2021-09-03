@@ -9,12 +9,10 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     let shapeLayer = CAShapeLayer()
     let animation = CABasicAnimation(keyPath: "strokeEnd")
     let timeRimit: Int = 10
     var timer: Timer!
-    var set = Sets()
     var setID: String?
     var words = [Word]()
     var meanings = [String]()
@@ -133,7 +131,6 @@ class QuizViewController: UIViewController {
     
     func reloadData() {
         setID = UserDefaults.standard.string(forKey: "setID")
-        set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
     }
     
     @IBAction func ansButtonPressed(_ sender: UIButton) {
@@ -146,7 +143,6 @@ class QuizViewController: UIViewController {
         timer.invalidate()
         time += 1
         
-        let alert = UIAlertController(title: "中断しますか？", message: "再開することはできません", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.stop()
         })
@@ -154,8 +150,7 @@ class QuizViewController: UIViewController {
             self.setupTimer()
             self.resumeAnimation()
         })
-        alert.addAction(action)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "中断しますか？", message: "再開することはできません", style: .alert, action: [action, cancel])
         present(alert, animated: true, completion: nil)
     }
     
@@ -197,12 +192,13 @@ class QuizViewController: UIViewController {
         words = []
         wrongWords = []
         
+        let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
         for data in set.words {
             words.append(data)
         }
         words.shuffle()
         
-        let dummyData = realm.objects(Word.self)
+        let dummyData = RealmService.shared.realm.objects(Word.self)
         for data in dummyData {
             dummyMeanings.append(data.meanings[0])
         }

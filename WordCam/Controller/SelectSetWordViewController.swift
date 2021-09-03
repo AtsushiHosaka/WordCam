@@ -9,13 +9,11 @@ import UIKit
 
 class SelectSetWordViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     var searchController = UISearchController(searchResultsController: nil)
     var setID: String?
-    var set = Sets()
+    var set = WordSet()
     var data = [Word]()
     var searchResults = [Word]()
-    var isSelected = [Bool]()
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
     @IBOutlet var addButton: UIBarButtonItem!
@@ -48,8 +46,8 @@ class SelectSetWordViewController: UIViewController {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.backgroundColor = Color.shared.backgroundColor
-        searchController.searchBar.barTintColor = Color.shared.backgroundColor
+        searchController.searchBar.backgroundColor = MyColor.shared.backgroundColor
+        searchController.searchBar.barTintColor = MyColor.shared.backgroundColor
         
         navigationItem.searchController = searchController
     }
@@ -59,9 +57,9 @@ class SelectSetWordViewController: UIViewController {
     }
     
     func reloadData() {
-        let allWords = realm.objects(Word.self)
+        let allWords = RealmService.shared.realm.objects(Word.self)
         setID = UserDefaults.standard.string(forKey: "setID")
-        set = realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
+        set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
         data = []
         
         if allWords.count == 0 {
@@ -72,7 +70,7 @@ class SelectSetWordViewController: UIViewController {
         }else {
             tableView.isHidden = false
             addButton.isEnabled = true
-            addButton.tintColor = Color.shared.mainColor
+            addButton.tintColor = MyColor.shared.mainColor
             alertLabel.isHidden = true
         }
         
@@ -84,39 +82,26 @@ class SelectSetWordViewController: UIViewController {
         }
         
         data.sort(by: {$0.word < $1.word})
-        isSelected = [Bool](repeating: false, count: data.count)
         tableView.reloadData()
     }
     
-    func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "単語を選択してください", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showUnableAlert(word: String) {
-        let alert = UIAlertController(title: "エラー", message: "すでに'\(word)'は追加されています", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
+    func showErrorAlert(message: String) {
+        let alert = MyAlert.shared.errorAlert(message: message)
         present(alert, animated: true, completion: nil)
     }
     
     @IBAction func addButtonPressed() {
-        if !isSelected.contains(true) {
-            showErrorAlert()
+        if tableView.indexPathsForSelectedRows == nil {
+            showErrorAlert(message: "単語を選択してください")
             return
         }
         
-        var words = Array(set.words)
-        for i in 0..<data.count {
-            if isSelected[i] {
-                words.append(data[i])
-            }
+        var words = [Word]()
+        for indexPath in tableView.indexPathsForSelectedRows ?? [] {
+            words.append(data[indexPath.row])
         }
         
-        guard let set = realm.object(ofType: Sets.self, forPrimaryKey: setID)  else { return }
-        RealmService.shared.update(set, with: ["words": words])
+        RealmService.shared.addWordsToSet(setID: setID ?? "", words: words)
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -144,13 +129,6 @@ extension SelectSetWordViewController: UITableViewDataSource {
 
 extension SelectSetWordViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        isSelected[indexPath.row] = true
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        isSelected[indexPath.row] = false
-    }
 }
 
 extension SelectSetWordViewController: UISearchResultsUpdating {

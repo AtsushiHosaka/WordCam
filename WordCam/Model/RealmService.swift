@@ -50,4 +50,27 @@ class RealmService {
     func post(_ error: Error) {
         NotificationCenter.default.post(name: NSNotification.Name("RealmError"), object: error)
     }
+    
+    func createWord(wordValue: String, meaningsValue: [String], typesValue: [Int]) -> Word {
+        var meanings = [Meaning]()
+        for i in 0..<meaningsValue.count {
+            let meaning = Meaning(meaning: meaningsValue[i], type: typesValue[i])
+            meanings.append(meaning)
+        }
+        
+        let word = Word(word: wordValue, meanings: meanings)
+        
+        return word
+    }
+    
+    func addWordsToSet(setID: String, words: [Word]) {
+        guard let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) else { return }
+        var currentWords = Array(set.words)
+        
+        for word in words {
+            currentWords.append(word)
+        }
+        
+        RealmService.shared.update(set, with: ["words": currentWords])
+    }
 }

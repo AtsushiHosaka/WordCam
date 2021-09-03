@@ -52,10 +52,7 @@ class WordViewController: FormViewController {
                 }
                 for meaning in word!.meanings {
                     let row = MeaningRow() {
-                        $0.cell.meaningTextField.text = meaning.meaning
-                        $0.cell.selectedNum = meaning.type
-                        let str = $0.cell.data[meaning.type]
-                        $0.cell.typeTextField.text = String(str[str.startIndex])
+                        $0.cell.meaning = meaning
                     }
                     $0.append(row)
                 }
@@ -65,7 +62,7 @@ class WordViewController: FormViewController {
                 form
                     +++ Section("正答率")
                     <<< WordChartRow() {
-                        $0.cell.data = word?.correctAnsRate
+                        $0.cell.wordData = Array((word ?? Word()).correctAnsRate)
                     }
             }
         
@@ -78,7 +75,7 @@ class WordViewController: FormViewController {
                 }
             }
         
-        tableView.backgroundColor = Color.shared.backgroundColor
+        tableView.backgroundColor = MyColor.shared.backgroundColor
     }
     
     func reloadNavigationController() {
@@ -87,58 +84,51 @@ class WordViewController: FormViewController {
     }
     
     @IBAction func deleteButtonPressed() {
-        let alert = UIAlertController(title: "単語を削除しますか？", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.deleteWord()
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "単語を削除しますか？", message: "", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
     }
     
-    func showErrorAlert(str: String) {
-        let alert = UIAlertController(title: "エラー", message: str, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-        alert.addAction(action)
+    func showErrorAlert(message: String) {
+        let alert = MyAlert.shared.errorAlert(message: message)
         present(alert, animated: true, completion: nil)
     }
     
     
     func saveWord() {
         guard let wordValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
         }
         guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.meaningTextField.text }) else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
         }
         
         guard let typesValue: [Int] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.selectedNum }) else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
-        }
-        
-        for meaning in meaningsValue {
-            if meaning.count > 10 {
-                showErrorAlert(str: "意味は10文字以内にしてください")
-                return
-            }
         }
         
         guard let word = word else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "エラーが発生しました")
             return
-        }
-        
-        for meaning in word.meanings {
-            RealmService.shared.delete(meaning)
         }
         
         var meanings = [Meaning]()
         for i in 0..<meaningsValue.count {
-            meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))
+            if meaningsValue[i].count > 10 {
+                showErrorAlert(message: "意味は10文字以内にしてください")
+                return
+            }else {
+                meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))
+            }
+        }
+        
+        for meaning in word.meanings {
+            RealmService.shared.delete(meaning)
         }
         
         RealmService.shared.update(word, with: ["word": wordValue, "meanings": meanings])

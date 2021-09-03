@@ -10,7 +10,6 @@ import Eureka
 
 class InputWordViewController: FormViewController {
     
-    let realm = RealmService.shared.realm
     var words = [String]()
     var currentNum = 0
     //0: toWords 1: toSet
@@ -59,17 +58,14 @@ class InputWordViewController: FormViewController {
                 }
             }
         
-        tableView.backgroundColor = Color.shared.backgroundColor
+        tableView.backgroundColor = MyColor.shared.backgroundColor
     }
     
     @IBAction func cancelButtonPressed() {
-        let alert = UIAlertController(title: "キャンセル", message: "'\(words[currentNum])'の追加を中止します", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.showNext()
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "キャンセル", message: "'\(words[currentNum])'の追加を中止します", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
     }
     
@@ -88,7 +84,7 @@ class InputWordViewController: FormViewController {
         if currentNum >= words.count {
             endInputting()
         }else {
-            let data = realm.objects(Word.self)
+            let data = RealmService.shared.realm.objects(Word.self)
             var wordData = [String]()
             for d in data {
                 wordData.append(d.word)
@@ -109,7 +105,7 @@ class InputWordViewController: FormViewController {
             meaningsSection.reload()
             
             if wordData.contains(words[currentNum]) {
-                showUnableAlert(word: words[currentNum])
+                showErrorAlert(message: "すでに'\(words[currentNum])'は追加されています")
             }
         }
     }
@@ -119,60 +115,41 @@ class InputWordViewController: FormViewController {
         navigationController?.popToViewController(navigationController!.viewControllers[num], animated: true)
     }
     
-    func showErrorAlert(str: String) {
-        let alert = UIAlertController(title: "エラー", message: str, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showUnableAlert(word: String) {
-        let alert = UIAlertController(title: "エラー", message: "すでに'\(word)'は追加されています", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.showNext()
-        })
-        alert.addAction(action)
+    func showErrorAlert(message: String) {
+        let alert = MyAlert.shared.errorAlert(message: message)
         present(alert, animated: true, completion: nil)
     }
     
     func saveWord() {
         guard let inputtedValue = (form.rowBy(tag: "word") as? TextRow)?.value else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
         }
         let wordValue = inputtedValue.trimmingCharacters(in: .whitespaces)
         
         guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.meaningTextField.text }) else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
         }
         
         guard let typesValue: [Int] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.selectedNum }) else {
-            showErrorAlert(str: "すべての項目に入力してください")
+            showErrorAlert(message: "すべての項目に入力してください")
             return
         }
         
         for meaning in meaningsValue {
             if meaning.count > 10 {
-                showErrorAlert(str: "意味は10文字以内にしてください")
+                showErrorAlert(message: "意味は10文字以内にしてください")
                 return
             }
         }
         
-        var meanings = [Meaning]()
-        for i in 0..<meaningsValue.count {
-            meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))
-        }
-        
-        let word = Word(word: wordValue, meanings: meanings)
+        let word = RealmService.shared.createWord(wordValue: wordValue, meaningsValue: meaningsValue, typesValue: typesValue)
         RealmService.shared.create(word)
+        
         if type == 1 {
-            let setID = UserDefaults.standard.string(forKey: "setID")
-            guard let set = realm.object(ofType: Sets.self, forPrimaryKey: setID) else { return }
-            var words = Array(set.words)
-            words.append(word)
-            
-            RealmService.shared.update(set, with: ["words": words])
+            let setID = UserDefaults.standard.string(forKey: "setID") ?? ""
+            RealmService.shared.addWordsToSet(setID: setID, words: [word])
         }
         showNext()
     }

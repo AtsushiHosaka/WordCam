@@ -11,7 +11,6 @@ import VisionKit
 
 class SelectWordByCameraViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     var words = [String]()
     var yetAddedWords = [String]()
     var currentWords = [String]()
@@ -53,7 +52,7 @@ class SelectWordByCameraViewController: UIViewController {
     
     func setupData() {
         let setID = UserDefaults.standard.string(forKey: "setID")
-        let set = RealmService.shared.realm.object(ofType: Sets.self, forPrimaryKey: setID) ?? Sets()
+        let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
         for word in set.words {
             currentWords.append(word.word)
         }
@@ -123,8 +122,7 @@ class SelectWordByCameraViewController: UIViewController {
         
         let words = RealmService.shared.realm.objects(Word.self)
         let setID = UserDefaults.standard.string(forKey: "setID")
-        guard let set = realm.object(ofType: Sets.self, forPrimaryKey: setID) else { return }
-        var setWords: [Word] = Array(set.words)
+        var setWords = [Word]()
         var selectedNums = [Int]()
         for i in 0..<selectedWords.count {
             for currentWord in words {
@@ -135,10 +133,9 @@ class SelectWordByCameraViewController: UIViewController {
                 }
             }
         }
-        RealmService.shared.update(set, with: ["words": setWords])
+        RealmService.shared.addWordsToSet(setID: setID ?? "", words: setWords)
         
-        selectedNums.sort()
-        selectedNums.reverse()
+        selectedNums.sort(by: {$0 > $1})
         for i in 0..<selectedNums.count {
             selectedWords.remove(at: selectedNums[i])
         }
@@ -152,9 +149,7 @@ class SelectWordByCameraViewController: UIViewController {
     }
     
     func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "単語を選択してください", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
+        let alert = MyAlert.shared.errorAlert(message: "単語を選択してください")
         present(alert, animated: true, completion: nil)
     }
     
@@ -214,7 +209,7 @@ extension SelectWordByCameraViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.textLabel?.text = words[indexPath.row]
-        cell.backgroundColor = Color.shared.backgroundColor
+        cell.backgroundColor = MyColor.shared.backgroundColor
         return cell
     }
 }

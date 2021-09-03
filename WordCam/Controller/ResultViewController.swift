@@ -6,15 +6,15 @@
 //
 
 import UIKit
+import SwiftDate
 
 class ResultViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     var correctAnsRate: Double?
     var resultText: String?
     var wrongWords = [Word]()
     var setID: String?
-    var set: Sets?
+    var set: WordSet?
     @IBOutlet var correctAnsRateLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var retryButton: UIButton!
@@ -64,7 +64,7 @@ class ResultViewController: UIViewController {
     
     func reloadData() {
         setID = UserDefaults.standard.string(forKey: "setID")
-        set = realm.object(ofType: Sets.self, forPrimaryKey: setID)
+        set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID)
         correctAnsRateLabel.text = String(Int(floor((correctAnsRate ?? 0) * 100))) + "%"
         tableView.reloadData()
     }
@@ -94,7 +94,7 @@ class ResultViewController: UIViewController {
         let shapeCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2 * (CGFloat(correctAnsRate ?? 0) - 0.25), clockwise: true)
         
         shapeLayer.path = shapeCircularPath.cgPath
-        shapeLayer.strokeColor = Color.shared.colorCG(num: set?.color ?? 0, type: 1)
+        shapeLayer.strokeColor = MyColor.shared.colorCG(num: set?.color ?? 0, type: 1)
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = 20
         shapeLayer.lineCap = CAShapeLayerLineCap.round
@@ -131,6 +131,14 @@ class ResultViewController: UIViewController {
             RealmService.shared.update(word, with: ["correctAnsRate": wordCorrectAnsRates])
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toResultWordView" {
+            let wordView: WordViewController = segue.destination as! WordViewController
+            let word = wrongWords[tableView.indexPathForSelectedRow?.row ?? 0]
+            wordView.word = word
+        }
+    }
 }
 
 extension ResultViewController: UITableViewDataSource {
@@ -148,4 +156,7 @@ extension ResultViewController: UITableViewDataSource {
 
 extension ResultViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toResultWordView", sender: nil)
+    }
 }

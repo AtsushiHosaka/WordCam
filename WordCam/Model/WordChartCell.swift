@@ -12,43 +12,52 @@ import Charts
 
 public class WordChartCell: Cell<Bool>, CellType {
     
-    var data: List<WordAnsHistory>?
     @IBOutlet weak var barChart: BarChartView!
-    @IBOutlet var gradientView: GradientView!
+    
+    var wordData = [WordAnsHistory]() {
+        didSet {
+            showChart()
+        }
+    }
     
     public override func setup() {
         super.setup()
         self.height = ({return 250})
     }
     
-    public override func update() {
-        super.update()
-        showChart()
-        
-    }
-    
     func showChart() {
+        var data = wordData
         
-        var dates = [Date]()
+        var dates = [Double]()
         var rates = [Double]()
         
-        for d in data! {
-            dates.append(d.date)
-            if d.rate == 0 {
-                rates.append(1)
+        data.reverse()
+        
+        while dates.count <= 8 && !data.isEmpty {
+            if !dates.contains(dateToValue(date: data[0].date)) {
+                dates.append(dateToValue(date: data[0].date))
+                if data[0].rate == 0 {
+                    rates.append(1)
+                }else {
+                    rates.append(data[0].rate * 100)
+                }
             }else {
-                rates.append(d.rate * 100)
+                let rate = (data[0].rate*100 + rates[rates.count - 1]) / 2
+                rates[rates.count - 1] = rate
             }
+            data.remove(at: 0)
         }
+        
+        dates.reverse()
+        rates.reverse()
         
         var entries = [BarChartDataEntry]()
         
-        for i in 0..<min(rates.count, 8) {
-            entries.append(BarChartDataEntry(x: Double(min(rates.count, 8) - i - 1), y: rates[rates.count - i - 1]))
+        for i in 0..<rates.count {
+            entries.append(BarChartDataEntry(x: Double(i), y: rates[i]))
         }
         
-        //let color = UIColor(white: 50/255, alpha: 1.0)
-        let color = Color.shared.mainColor
+        let color = MyColor.shared.mainColor
         let dataSet = BarChartDataSet(entries: entries)
         dataSet.drawValuesEnabled = false
         dataSet.colors = [color]
@@ -58,12 +67,11 @@ public class WordChartCell: Cell<Bool>, CellType {
         barChart.pinchZoomEnabled = false
         barChart.doubleTapToZoomEnabled = false
         
-        //barChart.xAxis.valueFormatter = ChartFormatter()
-        barChart.xAxis.drawLabelsEnabled = false
+        barChart.xAxis.valueFormatter = ChartFormatter(dates: dates)
         barChart.xAxis.drawGridLinesEnabled = false
         barChart.xAxis.drawAxisLineEnabled = false
-        barChart.xAxis.labelCount = 5
-        //barChart.xAxis.labelPosition = .bottom
+        barChart.xAxis.labelCount = entries.count
+        barChart.xAxis.labelPosition = .bottom
         barChart.xAxis.gridColor = color
         //barChart.xAxis.labelTextColor = UIColor.white
         
@@ -77,9 +85,13 @@ public class WordChartCell: Cell<Bool>, CellType {
         
         barChart.rightAxis.enabled = false
         
-        let data = BarChartData(dataSet: dataSet)
-        data.barWidth = 0.5
-        barChart.data = data
+        let barChartData = BarChartData(dataSet: dataSet)
+        barChartData.barWidth = 0.5
+        barChart.data = barChartData
+    }
+    
+    func dateToValue(date: Date) -> Double {
+        return Double(date.month) * 100 + Double(date.day)
     }
 }
 

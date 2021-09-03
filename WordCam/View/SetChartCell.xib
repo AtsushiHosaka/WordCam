@@ -22,12 +22,6 @@
                         <rect key="frame" x="30" y="20" width="260" height="144"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="まだデータがありません" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwR-em-XbB">
-                        <rect key="frame" x="50" y="80.333333333333329" width="220" height="23.333333333333329"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUs-eW-pQR" customClass="BarChartView" customModule="Charts">
                         <rect key="frame" x="52" y="63" width="200" height="84"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,10 +53,8 @@
                     <constraint firstItem="4dc-Ae-Xyk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="59" id="8SR-uu-SS6"/>
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="ESR-uc-CMy"/>
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="H1J-tm-nab"/>
-                    <constraint firstItem="HwR-em-XbB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LVP-4q-gFz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="AgA-IO-4Hl" secondAttribute="trailing" constant="30" id="Lax-Qb-eJ5"/>
                     <constraint firstAttribute="trailing" secondItem="KUs-eW-pQR" secondAttribute="trailing" constant="68" id="O6J-mc-yv9"/>
-                    <constraint firstItem="HwR-em-XbB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Pfh-e9-8lF"/>
                     <constraint firstItem="h4M-5d-IVK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="S0o-nV-Ffv"/>
                     <constraint firstItem="KUs-eW-pQR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="52" id="Vjw-7Q-pYq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="AgA-IO-4Hl" secondAttribute="bottom" constant="31" id="YA5-rV-6wv"/>
@@ -75,7 +67,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="alertLabel" destination="HwR-em-XbB" id="WM3-CM-dGw"/>
                 <outlet property="barChart" destination="KUs-eW-pQR" id="jFK-ro-WOO"/>
                 <outlet property="gradientView" destination="h4M-5d-IVK" id="J6U-gt-jVe"/>
             </connections>

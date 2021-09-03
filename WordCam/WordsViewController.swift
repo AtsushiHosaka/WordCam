@@ -10,7 +10,6 @@ import RealmSwift
 
 class WordsViewController: UIViewController {
     
-    let realm = RealmService.shared.realm
     var searchController = UISearchController(searchResultsController: nil)
     var data = [Word]()
     var searchResults = [Word]()
@@ -45,8 +44,8 @@ class WordsViewController: UIViewController {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.backgroundColor = Color.shared.backgroundColor
-        searchController.searchBar.barTintColor = Color.shared.backgroundColor
+        searchController.searchBar.backgroundColor = MyColor.shared.backgroundColor
+        searchController.searchBar.barTintColor = MyColor.shared.backgroundColor
         
         navigationItem.searchController = searchController
     }
@@ -70,7 +69,7 @@ class WordsViewController: UIViewController {
         if isEditMode {
             editBarButton.title = "削除"
             cancelBarButton.isEnabled = true
-            cancelBarButton.tintColor = Color.shared.mainColor
+            cancelBarButton.tintColor = MyColor.shared.mainColor
         }else {
             editBarButton.title = "編集"
             cancelBarButton.isEnabled = false
@@ -83,7 +82,7 @@ class WordsViewController: UIViewController {
     }
     
     func reloadData() {
-        let words = realm.objects(Word.self)
+        let words = RealmService.shared.realm.objects(Word.self)
         
         if words.count == 0 {
             tableView.isHidden = true
@@ -99,17 +98,13 @@ class WordsViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed() {
-        let alertSheet = UIAlertController(title: "単語を登録", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let action1 = UIAlertAction(title: "写真から登録する", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.performSegue(withIdentifier: "toAddWordsByCameraView", sender: nil)
         })
         let action2 = UIAlertAction(title: "単語を入力する", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.performSegue(withIdentifier: "toAddWordView", sender: nil)
         })
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alertSheet.addAction(action1)
-        alertSheet.addAction(action2)
-        alertSheet.addAction(cancelAction)
+        let alertSheet = MyAlert.shared.customAlert(title: "単語を登録", message: "", style: .actionSheet, action: [action1, action2])
         present(alertSheet, animated: true, completion: nil)
     }
     
@@ -134,23 +129,18 @@ class WordsViewController: UIViewController {
     }
     
     func showErrorAlert() {
-        let alert = UIAlertController(title: "エラー", message: "単語を選択してください", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
+        let alert = MyAlert.shared.errorAlert(message: "単語を選択してください")
         present(alert, animated: true, completion: nil)
     }
     
     func showDeleteAlert(indexPaths: [IndexPath]) {
-        let alert = UIAlertController(title: "単語を削除しますか？", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.deleteWord(indexPaths: indexPaths)
             self.isEditMode = false
             self.reloadNavigationController()
             self.reloadTableView()
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-        alert.addAction(action)
-        alert.addAction(cancel)
+        let alert = MyAlert.shared.customAlert(title: "単語を削除しますか？", message: "", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
     }
     
