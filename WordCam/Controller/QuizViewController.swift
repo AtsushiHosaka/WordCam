@@ -198,10 +198,8 @@ class QuizViewController: UIViewController {
         }
         words.shuffle()
         
-        let dummyData = RealmService.shared.realm.objects(Word.self)
-        for data in dummyData {
-            dummyMeanings.append(data.meanings[0])
-        }
+        dummyMeanings = Array(RealmService.shared.realm.objects(Meaning.self))
+        dummyMeanings += defaultDummyModel
         
         showShape()
         
@@ -276,4 +274,40 @@ class QuizViewController: UIViewController {
             resultView.wrongWords = wrongWords
         }
     }
+    
+    let defaultDummyModel = [Meaning(meaning: "方法", type: 0),
+                             Meaning(meaning: "乗客", type: 0),
+                             Meaning(meaning: "材料", type: 0),
+                             Meaning(meaning: "成分", type: 0),
+                             Meaning(meaning: "〜を防ぐ", type: 1),
+                             Meaning(meaning: "〜を用意する", type: 1),
+                             Meaning(meaning: "〜を与える", type: 1),
+                             Meaning(meaning: "〜を選ぶ", type: 1),
+                             Meaning(meaning: "以前の", type: 2),
+                             Meaning(meaning: "最近の", type: 2),
+                             Meaning(meaning: "特定の", type: 2),
+                             Meaning(meaning: "あいまいな", type: 2),
+                             Meaning(meaning: "ますます", type: 3),
+                             Meaning(meaning: "確かに", type: 3),
+                             Meaning(meaning: "正確に", type: 3),
+                             Meaning(meaning: "思いがけなく", type: 3),
+                             Meaning(meaning: "できる", type: 4),
+                             Meaning(meaning: "かもしれない", type: 4),
+                             Meaning(meaning: "に違いない", type: 4),
+                             Meaning(meaning: "するだろう", type: 4),
+                             Meaning(meaning: "わたしは", type: 5),
+                             Meaning(meaning: "あなたの", type: 5),
+                             Meaning(meaning: "それを", type: 5),
+                             Meaning(meaning: "私たち自身", type: 5),
+                             Meaning(meaning: "〜までずっと", type: 6),
+                             Meaning(meaning: "〜を横切って", type: 6),
+                             Meaning(meaning: "〜のあちこちに", type: 6),
+                             Meaning(meaning: "〜について", type: 6),
+                             Meaning(meaning: "その", type: 7),
+                             Meaning(meaning: "例の", type: 7),
+                             Meaning(meaning: "あるひとつの", type: 7),
+                             Meaning(meaning: "〜する間に", type: 8),
+                             Meaning(meaning: "そして", type: 8),
+                             Meaning(meaning: "または", type: 8),
+                             Meaning(meaning: "だから", type: 8)]
 }

@@ -8,6 +8,8 @@
 import Foundation
 import RealmSwift
 
+let b = 1
+
 class Meaning: Object {
     @objc dynamic var meaning: String = ""
     //0: 名詞, 1: 動詞, 2: 形容詞, 3: 副詞, 4: 助動詞, 5: 代名詞, 6: 前置詞, 7: 冠詞, 8: 接続詞
