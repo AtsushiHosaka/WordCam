@@ -137,6 +137,10 @@ class WordViewController: FormViewController {
     }
     
     func deleteWord() {
+        for meaning in Array((word ?? Word()).meanings) {
+            RealmService.shared.delete(meaning)
+        }
+        
         guard let word = word else { return }
         RealmService.shared.delete(word)
         

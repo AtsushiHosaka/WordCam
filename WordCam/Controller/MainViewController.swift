@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 class MainViewController: UIViewController {
     
@@ -19,15 +18,6 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //test
-        //print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
-//        let testword = Word(word: "puppy", meanings: [Meaning(meaning: "子犬", type: 0)])
-//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.3))
-//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.8))
-//        testword.correctAnsRate.append(WordAnsHistory(date: Date(), rate: 0.6))
-//        RealmService.shared.create(testword)
-        //testDelete()
         
         setupNavigationController()
         setupSearchController()
@@ -175,14 +165,6 @@ class MainViewController: UIViewController {
             editSetViewController.type = 1
             editSetViewController.reloadCollectionView = reloadView
         }
-    }
-    
-    // test--------
-    func testDelete() {
-        try! RealmService.shared.realm.write {
-            RealmService.shared.realm.deleteAll()
-        }
-        collectionView.reloadData()
     }
     
 }

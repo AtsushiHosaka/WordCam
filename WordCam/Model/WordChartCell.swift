@@ -73,7 +73,7 @@ public class WordChartCell: Cell<Bool>, CellType {
         barChart.xAxis.labelCount = entries.count
         barChart.xAxis.labelPosition = .bottom
         barChart.xAxis.gridColor = color
-        //barChart.xAxis.labelTextColor = UIColor.white
+        barChart.xAxis.labelTextColor = color
         
         barChart.leftAxis.drawAxisLineEnabled = false
         barChart.leftAxis.axisMinimum = 0.0

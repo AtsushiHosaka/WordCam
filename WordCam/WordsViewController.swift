@@ -147,6 +147,10 @@ class WordsViewController: UIViewController {
     func deleteWord(indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             let word = data[indexPath.row]
+            
+            for meaning in Array(word.meanings) {
+                RealmService.shared.delete(meaning)
+            }
             RealmService.shared.delete(word)
         }
         
