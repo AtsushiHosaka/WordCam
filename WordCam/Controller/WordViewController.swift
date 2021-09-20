@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import Eureka
+import NaturalLanguage
 
 class WordViewController: FormViewController {
     
@@ -65,6 +66,18 @@ class WordViewController: FormViewController {
                         $0.cell.wordData = Array((word ?? Word()).correctAnsRate)
                     }
             }
+        
+        
+            let neighborWords = NLEmbedding.wordEmbedding(for: .english)!.neighbors(for: word?.word ?? "", maximumCount: 5)
+            let neighborSection = Section("意味が似ている単語")
+            for word in neighborWords {
+                let neighborRow = TextRow() {
+                    $0.title = word.0
+                    $0.baseCell.isUserInteractionEnabled = false
+                }
+                neighborSection.append(neighborRow)
+            }
+            form.append(neighborSection)
         
         form
             +++ Section()

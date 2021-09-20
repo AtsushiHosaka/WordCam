@@ -145,6 +145,7 @@ class WordsViewController: UIViewController {
     }
     
     func deleteWord(indexPaths: [IndexPath]) {
+        let num = data.count
         for indexPath in indexPaths {
             let word = data[indexPath.row]
             
@@ -152,6 +153,10 @@ class WordsViewController: UIViewController {
                 RealmService.shared.delete(meaning)
             }
             RealmService.shared.delete(word)
+        }
+        
+        if num == indexPaths.count {
+            data = []
         }
         
         reloadData()
@@ -230,9 +235,10 @@ extension WordsViewController: UITableViewDelegate {
 extension WordsViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        searchResults = data.filter { word in
-            return word.word.contains(searchController.searchBar.text!)
-        }
+        
+            searchResults = data.filter { word in
+                return word.word.contains(searchController.searchBar.text!)
+            }
         
         tableView.reloadData()
     }

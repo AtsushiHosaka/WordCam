@@ -194,7 +194,8 @@ class QuizViewController: UIViewController {
         
         let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
         for data in set.words {
-            words.append(data)
+            let word = Word(word: data.word, meanings: Array(data.meanings))
+            words.append(word)
         }
         words.shuffle()
         
@@ -224,10 +225,14 @@ class QuizViewController: UIViewController {
             if i != correctAnsNum {
                 var n = Int.random(in: 0..<dummy.count)
                 while dummy[n].meaning == words[questionCount].meanings[0].meaning ||
-                        meanings.contains(dummy[n].meaning) ||
-                        dummy[n].type != words[questionCount].meanings[0].type {
+                      meanings.contains(dummy[n].meaning) ||
+                      words[questionCount].meanings[0].type * words[questionCount].meanings[0].type != words[questionCount].meanings[0].type * dummy[n].type ||
+                      Array(words[questionCount].meanings).contains(dummy[n]) {
                     n = Int.random(in: 0..<dummy.count)
                 }
+                print(Array(words[questionCount].meanings))
+                print(Array(words[questionCount].meanings).contains(dummy[n]))
+                print(dummy[n])
                 meanings[i] = dummy[n].meaning
                 dummy.remove(at: n)
             }
@@ -275,39 +280,39 @@ class QuizViewController: UIViewController {
         }
     }
     
-    let defaultDummyModel = [Meaning(meaning: "方法", type: 0),
-                             Meaning(meaning: "乗客", type: 0),
-                             Meaning(meaning: "材料", type: 0),
-                             Meaning(meaning: "成分", type: 0),
-                             Meaning(meaning: "〜を防ぐ", type: 1),
-                             Meaning(meaning: "〜を用意する", type: 1),
-                             Meaning(meaning: "〜を与える", type: 1),
-                             Meaning(meaning: "〜を選ぶ", type: 1),
-                             Meaning(meaning: "以前の", type: 2),
-                             Meaning(meaning: "最近の", type: 2),
-                             Meaning(meaning: "特定の", type: 2),
-                             Meaning(meaning: "あいまいな", type: 2),
-                             Meaning(meaning: "ますます", type: 3),
-                             Meaning(meaning: "確かに", type: 3),
-                             Meaning(meaning: "正確に", type: 3),
-                             Meaning(meaning: "思いがけなく", type: 3),
-                             Meaning(meaning: "できる", type: 4),
-                             Meaning(meaning: "かもしれない", type: 4),
-                             Meaning(meaning: "に違いない", type: 4),
-                             Meaning(meaning: "するだろう", type: 4),
-                             Meaning(meaning: "わたしは", type: 5),
-                             Meaning(meaning: "あなたの", type: 5),
-                             Meaning(meaning: "それを", type: 5),
-                             Meaning(meaning: "私たち自身", type: 5),
-                             Meaning(meaning: "〜までずっと", type: 6),
-                             Meaning(meaning: "〜を横切って", type: 6),
-                             Meaning(meaning: "〜のあちこちに", type: 6),
-                             Meaning(meaning: "〜について", type: 6),
-                             Meaning(meaning: "その", type: 7),
-                             Meaning(meaning: "例の", type: 7),
-                             Meaning(meaning: "あるひとつの", type: 7),
-                             Meaning(meaning: "〜する間に", type: 8),
-                             Meaning(meaning: "そして", type: 8),
-                             Meaning(meaning: "または", type: 8),
-                             Meaning(meaning: "だから", type: 8)]
+    let defaultDummyModel = [Meaning(meaning: "方法", type: 1),
+                             Meaning(meaning: "乗客", type: 1),
+                             Meaning(meaning: "材料", type: 1),
+                             Meaning(meaning: "成分", type: 1),
+                             Meaning(meaning: "〜を防ぐ", type: 2),
+                             Meaning(meaning: "〜を用意する", type: 2),
+                             Meaning(meaning: "〜を与える", type: 2),
+                             Meaning(meaning: "〜を選ぶ", type: 2),
+                             Meaning(meaning: "以前の", type: 3),
+                             Meaning(meaning: "最近の", type: 3),
+                             Meaning(meaning: "特定の", type: 3),
+                             Meaning(meaning: "あいまいな", type: 3),
+                             Meaning(meaning: "ますます", type: 4),
+                             Meaning(meaning: "確かに", type: 4),
+                             Meaning(meaning: "正確に", type: 4),
+                             Meaning(meaning: "思いがけなく", type: 4),
+                             Meaning(meaning: "できる", type: 5),
+                             Meaning(meaning: "かもしれない", type: 5),
+                             Meaning(meaning: "に違いない", type: 5),
+                             Meaning(meaning: "するだろう", type: 5),
+                             Meaning(meaning: "わたしは", type: 6),
+                             Meaning(meaning: "あなたの", type: 6),
+                             Meaning(meaning: "それを", type: 6),
+                             Meaning(meaning: "私たち自身", type: 6),
+                             Meaning(meaning: "〜までずっと", type: 7),
+                             Meaning(meaning: "〜を横切って", type: 7),
+                             Meaning(meaning: "〜のあちこちに", type: 7),
+                             Meaning(meaning: "〜について", type: 7),
+                             Meaning(meaning: "その", type: 8),
+                             Meaning(meaning: "例の", type: 8),
+                             Meaning(meaning: "あるひとつの", type: 8),
+                             Meaning(meaning: "〜する間に", type: 9),
+                             Meaning(meaning: "そして", type: 9),
+                             Meaning(meaning: "または", type: 9),
+                             Meaning(meaning: "だから", type: 9)]
 }

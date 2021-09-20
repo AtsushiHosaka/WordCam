@@ -37,6 +37,7 @@
 		0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51B26500F6B0091D80F /* RealmSwift */; };
 		0DB10F6026C8D17300A3C8D7 /* AddWordsByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */; };
 		0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */; };
+		0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */; };
 		0DC406F526CFEAC2001AA2E6 /* EditSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */; };
 		0DCB74C82650BF7F001A795C /* DataBases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* DataBases.swift */; };
 		0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */; };
@@ -110,6 +111,7 @@
 		0DAAE50926500D2F0091D80F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordsByCameraViewController.swift; sourceTree = "<group>"; };
 		0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputWordViewController.swift; sourceTree = "<group>"; };
+		0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGoogleTranslate.swift; sourceTree = "<group>"; };
 		0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSetViewController.swift; sourceTree = "<group>"; };
 		0DCB74C72650BF7E001A795C /* DataBases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBases.swift; sourceTree = "<group>"; };
 		0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				0D27E9F026AD350D001E094E /* RealmService.swift */,
 				0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */,
 				0D5547852688514700967CB1 /* SetChartCell.swift */,
+				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
 				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
 				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
@@ -544,6 +547,7 @@
 				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
 				0D2488C126634EA600D7A6FF /* MyColor.swift in Sources */,
 				0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */,
+				0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */,
 				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,

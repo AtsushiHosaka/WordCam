@@ -30,8 +30,9 @@ class ResultViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showShape()
         reloadData()
+        
+        showShape()
         
         reloadNavigationController()
         reloadTabBarController()

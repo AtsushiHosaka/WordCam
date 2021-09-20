@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true
         
+        SwiftGoogleTranslate.shared.start(with: "AIzaSyDyWT-LAuZluEbWrUWzE5_yHuWr-E8Xwk4")
+        
         return true
     }
 

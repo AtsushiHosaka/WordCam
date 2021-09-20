@@ -150,7 +150,10 @@ class MainViewController: UIViewController {
     func deleteSet(num: Int) {
         let set = data[num]
         RealmService.shared.delete(set)
-        data = Array(RealmService.shared.realm.objects(WordSet.self))
+        if data.count == 1 {
+            data = []
+        }
+        
         reloadData()
     }
     

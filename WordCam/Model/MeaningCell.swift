@@ -10,7 +10,7 @@ import Eureka
 
 public class MeaningCell: Cell<Bool>, CellType {
     //0: 名詞, 1: 動詞, 2: 形容詞, 3: 副詞, 4: 助動詞, 5: 代名詞, 6: 前置詞, 7: 冠詞, 8: 接続詞
-    let data = ["名詞", "動詞", "形容詞", "副詞", "助動詞", "代名詞", "前置詞", "冠詞", "接続詞"]
+    let data = ["ー未選択ー", "名詞", "動詞", "形容詞", "副詞", "助動詞", "代名詞", "前置詞", "冠詞", "接続詞"]
     var pickerView = UIPickerView()
     var selectedNum: Int?
     @IBOutlet var meaningTextField: UITextField!
@@ -36,7 +36,7 @@ public class MeaningCell: Cell<Bool>, CellType {
     func setupTextField() {
         meaningTextField.text = ""
         meaningTextField.placeholder = "意味を入力してください"
-        typeTextField.text = "名"
+        typeTextField.text = "ー"
     }
     
     func createPickerView() {

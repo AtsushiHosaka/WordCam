@@ -11,6 +11,11 @@ import Eureka
 class InputWordViewController: FormViewController {
     
     var words = [String]()
+    var meaning = "" {
+        didSet {
+            reloadEureka()
+        }
+    }
     var currentNum = 0
     //0: toWords 1: toSet
     var type: Int = 0
@@ -79,11 +84,8 @@ class InputWordViewController: FormViewController {
         showNext()
     }
     
-    func showNext() {
-        currentNum += 1
-        if currentNum >= words.count {
-            endInputting()
-        }else {
+    func reloadEureka() {
+        DispatchQueue.main.async {
             let data = RealmService.shared.realm.objects(Word.self)
             var wordData = [String]()
             for d in data {
@@ -91,23 +93,56 @@ class InputWordViewController: FormViewController {
             }
             
             let wordRow = self.form.rowBy(tag: "word") as! TextRow
-            wordRow.value = words[currentNum]
+            wordRow.value = self.words[self.currentNum]
             wordRow.reload()
+            
+            if wordData.contains(self.words[self.currentNum]) {
+                self.showErrorAlert(message: "すでに'\(self.words[self.currentNum])'は追加されています")
+            }
                 
             var meaningsSection = self.form.sectionBy(tag: "meanings") as! MultivaluedSection
             for _ in 0..<meaningsSection.count - 1 {
                 meaningsSection.removeFirst()
             }
-            let row = MeaningRow() {
+            
+            let meaningRow = MeaningRow {
+                $0.cell.meaningTextField.text = self.meaning
                 $0.cell.selectedNum = 0
             }
-            meaningsSection.insert(row, at: 0)
-            meaningsSection.reload()
+            meaningsSection.insert(meaningRow, at: 0)
             
-            if wordData.contains(words[currentNum]) {
-                showErrorAlert(message: "すでに'\(words[currentNum])'は追加されています")
+            meaningRow.reload()
+        }
+    }
+    
+    func getMeaning() {
+        SwiftGoogleTranslate.shared.translate(words[currentNum], "ja", "en") { (text, error) in
+            if let t = text {
+                print(t)
+                self.meaning = t
             }
         }
+    }
+    
+    func showNext() {
+        currentNum += 1
+        if currentNum >= words.count {
+            endInputting()
+        }else {
+            getMeaning()
+        }
+    }
+    
+    func addMeaningText(text: String) {
+        var meaningsSection = self.form.sectionBy(tag: "meanings") as! MultivaluedSection
+        
+        let row = MeaningRow() {
+            $0.cell.meaningTextField.text = text
+            $0.cell.selectedNum = 0
+        }
+        meaningsSection.insert(row, at: 0)
+        print(text)
+        print(meaningsSection)
     }
     
     func endInputting() {
