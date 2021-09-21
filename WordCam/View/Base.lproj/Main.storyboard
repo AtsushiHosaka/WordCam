@@ -851,7 +851,7 @@
                                     <action selector="ansButtonPressed:" destination="TdC-0O-EaX" eventType="touchUpInside" id="4RG-S3-ehC"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPD-us-Quj">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPD-us-Quj" customClass="TimerView" customModule="WordCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="108" width="375" height="83"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -891,7 +891,6 @@
                             <constraint firstItem="stF-EP-Zbi" firstAttribute="top" secondItem="9PS-Tf-DAO" secondAttribute="bottom" constant="19" id="2uc-Bv-yjB"/>
                             <constraint firstItem="9PS-Tf-DAO" firstAttribute="leading" secondItem="snP-Iq-Y6N" secondAttribute="leading" constant="20" id="3QL-8n-yJN"/>
                             <constraint firstItem="9PS-Tf-DAO" firstAttribute="centerY" secondItem="aN1-q7-AmP" secondAttribute="centerY" id="58s-EW-0fb"/>
-                            <constraint firstAttribute="width" secondItem="SPD-us-Quj" secondAttribute="width" id="BHB-ZQ-oGm"/>
                             <constraint firstItem="snP-Iq-Y6N" firstAttribute="trailing" secondItem="9PS-Tf-DAO" secondAttribute="trailing" constant="20" id="TPe-i9-DVD"/>
                             <constraint firstItem="0rZ-bR-ElC" firstAttribute="centerX" secondItem="aN1-q7-AmP" secondAttribute="centerX" id="U5S-ka-ohe"/>
                             <constraint firstItem="0rZ-bR-ElC" firstAttribute="leading" secondItem="snP-Iq-Y6N" secondAttribute="leading" constant="20" id="WMi-ks-vGa"/>
@@ -899,6 +898,7 @@
                             <constraint firstItem="t92-Wx-WmL" firstAttribute="top" secondItem="0rZ-bR-ElC" secondAttribute="bottom" constant="19" id="Xpq-F1-h33"/>
                             <constraint firstItem="snP-Iq-Y6N" firstAttribute="trailing" secondItem="ups-Ca-qt0" secondAttribute="trailing" constant="16" id="Zfx-Gm-e3T"/>
                             <constraint firstItem="xnz-Hx-fIN" firstAttribute="top" secondItem="aN1-q7-AmP" secondAttribute="top" constant="20" id="caW-Rz-9EM"/>
+                            <constraint firstItem="SPD-us-Quj" firstAttribute="trailing" secondItem="snP-Iq-Y6N" secondAttribute="trailing" id="ddV-Dh-P7U"/>
                             <constraint firstItem="ups-Ca-qt0" firstAttribute="top" secondItem="SPD-us-Quj" secondAttribute="bottom" constant="39" id="dtk-7c-0lf"/>
                             <constraint firstItem="0rZ-bR-ElC" firstAttribute="top" secondItem="stF-EP-Zbi" secondAttribute="bottom" constant="19" id="dvD-kD-1v7"/>
                             <constraint firstItem="xnz-Hx-fIN" firstAttribute="leading" secondItem="snP-Iq-Y6N" secondAttribute="leading" constant="20" id="fDI-aV-qjp"/>
@@ -913,6 +913,7 @@
                             <constraint firstItem="9PS-Tf-DAO" firstAttribute="centerX" secondItem="aN1-q7-AmP" secondAttribute="centerX" id="skI-En-feV"/>
                             <constraint firstItem="SPD-us-Quj" firstAttribute="top" secondItem="snP-Iq-Y6N" secondAttribute="top" constant="20" id="soa-bQ-JVF"/>
                             <constraint firstItem="t92-Wx-WmL" firstAttribute="leading" secondItem="snP-Iq-Y6N" secondAttribute="leading" constant="20" id="tLk-Jb-KfG"/>
+                            <constraint firstItem="SPD-us-Quj" firstAttribute="leading" secondItem="snP-Iq-Y6N" secondAttribute="leading" id="vuH-zF-fEP"/>
                             <constraint firstItem="VwT-Nw-f4T" firstAttribute="centerX" secondItem="aN1-q7-AmP" secondAttribute="centerX" id="yI8-RR-5LB"/>
                         </constraints>
                     </view>

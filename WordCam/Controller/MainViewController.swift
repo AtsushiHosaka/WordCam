@@ -20,11 +20,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "committee", and: "basis"))
-        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "chairman", and: "basis"))
-        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "subcommittee", and: "basis"))
-        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "chairmanship", and: "basis", distanceType: .cosine))
-        
         setupNavigationController()
         setupSearchController()
         setupTabBarController()

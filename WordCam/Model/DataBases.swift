@@ -20,12 +20,15 @@ class Meaning: Object {
         self.init()
         self.meaning = meaning
         self.type = type
-        self.direction = NLEmbedding.wordEmbedding(for: .english)?.distance(between: meaning, and: "standard") ?? 2
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? Meaning else { return false }
         return self.meaning == object.meaning
+    }
+    
+    func initDirection(word: String) {
+        direction = NLEmbedding.wordEmbedding(for: .english)?.distance(between: word, and: "standard") ?? 2
     }
 }
 

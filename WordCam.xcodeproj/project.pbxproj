@@ -25,6 +25,8 @@
 		0D5547872688514700967CB1 /* SetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5547852688514700967CB1 /* SetChartCell.swift */; };
 		0D5547882688514700967CB1 /* SetChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5547862688514700967CB1 /* SetChartCell.xib */; };
 		0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7C92D626BAD141009B8236 /* AddWordViewController.swift */; };
+		0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */; };
+		0D9DBBED26FA2A6B00CECB40 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */; };
 		0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E526500D2E0091D80F /* AppDelegate.swift */; };
 		0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */; };
 		0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E926500D2E0091D80F /* MainViewController.swift */; };
@@ -96,6 +98,8 @@
 		0D5547852688514700967CB1 /* SetChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetChartCell.swift; sourceTree = "<group>"; };
 		0D5547862688514700967CB1 /* SetChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetChartCell.xib; sourceTree = "<group>"; };
 		0D7C92D626BAD141009B8236 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSystem.swift; sourceTree = "<group>"; };
+		0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0DAAE4E226500D2D0091D80F /* WordCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE4E526500D2E0091D80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,11 +190,13 @@
 				0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */,
 				0D2488C026634EA600D7A6FF /* MyColor.swift */,
 				0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */,
+				0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */,
 				0D27E9F026AD350D001E094E /* RealmService.swift */,
 				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
 				0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */,
 				0D5547852688514700967CB1 /* SetChartCell.swift */,
 				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
+				0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */,
 				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
 				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
@@ -546,6 +552,7 @@
 				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
 				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
 				0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */,
+				0D9DBBED26FA2A6B00CECB40 /* TimerView.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
 				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
 				0D2488C126634EA600D7A6FF /* MyColor.swift in Sources */,
@@ -554,6 +561,7 @@
 				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
 				0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */,
+				0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,
 				0D44C28626CE98FF007CDC4C /* SetCollectionViewCell.swift in Sources */,
 				0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */,

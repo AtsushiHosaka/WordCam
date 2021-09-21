@@ -9,32 +9,26 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
-    let shapeLayer = CAShapeLayer()
-    let animation = CABasicAnimation(keyPath: "strokeEnd")
     let timeRimit: Int = 10
+    var time: Int = 0
     var timer: Timer!
     var setID: String?
-    var words = [Word]()
-    var meanings = [String]()
     var wrongWords = [Word]()
-    var dummyMeanings = [Meaning]()
     var questionCount: Int = 0
-    var correctAnsCount: Int?
-    var correctAnsNum: Int?
-    var time: Int = 0
+    var quizData = [Quiz]()
     @IBOutlet var wordLabel: UILabel!
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
     @IBOutlet var button4: UIButton!
-    @IBOutlet var timerView: UIView!
+    @IBOutlet var timerView: TimerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupButton()
-        setupAnimation()
+        setupTimerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,59 +63,14 @@ class QuizViewController: UIViewController {
         button4.layer.cornerCurve = .continuous
     }
     
-    func setupAnimation() {
-        animation.toValue = 0
-        animation.duration = CFTimeInterval(timeRimit)
-        animation.fillMode = CAMediaTimingFillMode.forwards
-        animation.isRemovedOnCompletion = false
-    }
-    
-    func showShape() {
-        let trackLayer = CAShapeLayer()
-        let trackPath = UIBezierPath()
-        trackPath.move(to: CGPoint(x: 60, y: timerView.bounds.height / 2))
-        trackPath.addLine(to: CGPoint(x: self.view.bounds.width - 60, y: timerView.bounds.height / 2))
-        
-        trackLayer.path = trackPath.cgPath
-        trackLayer.strokeColor = CGColor(red: 65/255, green: 67/255, blue: 89/255, alpha: 1.0)
-        trackLayer.backgroundColor = nil
-        trackLayer.lineWidth = 50
-        trackLayer.lineCap = .round
-        
-        timerView.layer.addSublayer(trackLayer)
-        
-        let traceLayer = CAShapeLayer()
-        let tracePath = UIBezierPath()
-        tracePath.move(to: CGPoint(x: 60, y: timerView.bounds.height / 2))
-        tracePath.addLine(to: CGPoint(x: self.view.bounds.width - 60, y: timerView.bounds.height / 2))
-        
-        traceLayer.path = trackPath.cgPath
-        traceLayer.strokeColor = CGColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
-        traceLayer.backgroundColor = nil
-        traceLayer.lineWidth = 40
-        traceLayer.lineCap = .round
-        
-        timerView.layer.addSublayer(traceLayer)
-        
-        let shapePath = UIBezierPath()
-        shapePath.move(to: CGPoint(x: 60, y: timerView.bounds.height / 2))
-        shapePath.addLine(to: CGPoint(x: self.view.bounds.width - 60, y: timerView.bounds.height / 2))
-        
-        shapeLayer.path = shapePath.cgPath
-        shapeLayer.strokeColor = CGColor(red: 188/255, green: 0, blue: 160/255, alpha: 1.0)
-        shapeLayer.backgroundColor = nil
-        shapeLayer.lineWidth = 40
-        shapeLayer.lineCap = .round
-        shapeLayer.strokeEnd = 1
-        
-        timerView.layer.addSublayer(shapeLayer)
-        
-        shapeLayer.add(animation, forKey: "animation")
-    }
-    
     func setupTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
         timer.fire()
+    }
+    
+    func setupTimerView() {
+        timerView.timeRimit = timeRimit
+        timerView.setupAnimation()
     }
     
     func reloadNavigationController() {
@@ -138,7 +87,7 @@ class QuizViewController: UIViewController {
     }
     
     @IBAction func pauseButtonPressed() {
-        pauseAnimation()
+        timerView.pauseAnimation()
         
         timer.invalidate()
         time += 1
@@ -148,38 +97,22 @@ class QuizViewController: UIViewController {
         })
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: {(action: UIAlertAction!) -> Void in
             self.setupTimer()
-            self.resumeAnimation()
+            self.timerView.resumeAnimation()
         })
         let alert = MyAlert.shared.customAlert(title: "中断しますか？", message: "再開することはできません", style: .alert, action: [action, cancel])
         present(alert, animated: true, completion: nil)
     }
     
-    func pauseAnimation(){
-        let pausedTime = shapeLayer.convertTime(CACurrentMediaTime(), from: nil)
-        shapeLayer.speed = 0.0
-        shapeLayer.timeOffset = pausedTime
-    }
-
-    func resumeAnimation(){
-        let pausedTime = shapeLayer.timeOffset
-        shapeLayer.speed = 1.0
-        shapeLayer.timeOffset = 0.0
-        shapeLayer.beginTime = 0.0
-        let timeSincePause = shapeLayer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-        shapeLayer.beginTime = timeSincePause
-    }
-    
     func checkAnswer(num: Int) {
         timer.invalidate()
         
-        if num == correctAnsNum {
-            correctAnsCount! += 1
-        }else {
-            wrongWords.append(words[questionCount])
+        let correctAnsNum = quizData[questionCount].correctAnsNum
+        if num != correctAnsNum {
+            wrongWords.append(quizData[questionCount].word)
         }
         
         questionCount += 1
-        if questionCount == words.count {
+        if questionCount == quizData.count {
             endSetting()
         }else {
             prepareNextQuestion()
@@ -188,57 +121,29 @@ class QuizViewController: UIViewController {
     
     func startSetting() {
         questionCount = 0
-        correctAnsCount = 0
-        words = []
         wrongWords = []
         
         let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
-        for data in set.words {
-            let word = Word(word: data.word, meanings: Array(data.meanings))
-            words.append(word)
-        }
-        words.shuffle()
+        quizData = QuizSystem.shared.setupQuiz(words: Array(set.words))
         
-        dummyMeanings = Array(RealmService.shared.realm.objects(Meaning.self))
-        dummyMeanings += defaultDummyModel
-        
-        showShape()
+        timerView.showShape()
         
         prepareNextQuestion()
     }
     
     func prepareNextQuestion() {
-        shapeLayer.strokeEnd = 1
-        shapeLayer.add(animation, forKey: "animation")
+        timerView.initAnimation()
         
         time = timeRimit
         setupTimer()
         
-        wordLabel.text = words[questionCount].word
+        let quiz = quizData[questionCount]
         
-        meanings = ["", "", "", ""]
-        correctAnsNum = Int.random(in: 0...3)
-        var dummy = dummyMeanings
-        
-        meanings[correctAnsNum!] = words[questionCount].meanings[0].meaning
-        for i in 0...3 {
-            if i != correctAnsNum {
-                var n = Int.random(in: 0..<dummy.count)
-                while dummy[n].meaning == words[questionCount].meanings[0].meaning ||
-                      meanings.contains(dummy[n].meaning) ||
-                      words[questionCount].meanings[0].type * words[questionCount].meanings[0].type != words[questionCount].meanings[0].type * dummy[n].type ||
-                      Array(words[questionCount].meanings).contains(dummy[n]) {
-                    n = Int.random(in: 0..<dummy.count)
-                }
-                meanings[i] = dummy[n].meaning
-                dummy.remove(at: n)
-            }
-        }
-        
-        button1.setTitle(meanings[0], for: .normal)
-        button2.setTitle(meanings[1], for: .normal)
-        button3.setTitle(meanings[2], for: .normal)
-        button4.setTitle(meanings[3], for: .normal)
+        wordLabel.text = quiz.word.word
+        button1.setTitle(quiz.choices[0], for: .normal)
+        button2.setTitle(quiz.choices[1], for: .normal)
+        button3.setTitle(quiz.choices[2], for: .normal)
+        button4.setTitle(quiz.choices[3], for: .normal)
     }
     
     func endSetting() {
@@ -271,45 +176,10 @@ class QuizViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResultView" {
             let resultView: ResultViewController = segue.destination as! ResultViewController
-            resultView.correctAnsRate = Double(correctAnsCount!) / Double(words.count)
-            resultView.resultText = String(correctAnsCount!) + "/" + String(words.count)
+            let correctAnsCount = quizData.count - wrongWords.count
+            resultView.correctAnsRate = Double(correctAnsCount) / Double(quizData.count)
+            resultView.resultText = String(correctAnsCount) + "/" + String(quizData.count)
             resultView.wrongWords = wrongWords
         }
     }
-    
-    let defaultDummyModel = [Meaning(meaning: "方法", type: 1),
-                             Meaning(meaning: "乗客", type: 1),
-                             Meaning(meaning: "材料", type: 1),
-                             Meaning(meaning: "成分", type: 1),
-                             Meaning(meaning: "〜を防ぐ", type: 2),
-                             Meaning(meaning: "〜を用意する", type: 2),
-                             Meaning(meaning: "〜を与える", type: 2),
-                             Meaning(meaning: "〜を選ぶ", type: 2),
-                             Meaning(meaning: "以前の", type: 3),
-                             Meaning(meaning: "最近の", type: 3),
-                             Meaning(meaning: "特定の", type: 3),
-                             Meaning(meaning: "あいまいな", type: 3),
-                             Meaning(meaning: "ますます", type: 4),
-                             Meaning(meaning: "確かに", type: 4),
-                             Meaning(meaning: "正確に", type: 4),
-                             Meaning(meaning: "思いがけなく", type: 4),
-                             Meaning(meaning: "できる", type: 5),
-                             Meaning(meaning: "かもしれない", type: 5),
-                             Meaning(meaning: "に違いない", type: 5),
-                             Meaning(meaning: "するだろう", type: 5),
-                             Meaning(meaning: "わたしは", type: 6),
-                             Meaning(meaning: "あなたの", type: 6),
-                             Meaning(meaning: "それを", type: 6),
-                             Meaning(meaning: "私たち自身", type: 6),
-                             Meaning(meaning: "〜までずっと", type: 7),
-                             Meaning(meaning: "〜を横切って", type: 7),
-                             Meaning(meaning: "〜のあちこちに", type: 7),
-                             Meaning(meaning: "〜について", type: 7),
-                             Meaning(meaning: "その", type: 8),
-                             Meaning(meaning: "例の", type: 8),
-                             Meaning(meaning: "あるひとつの", type: 8),
-                             Meaning(meaning: "〜する間に", type: 9),
-                             Meaning(meaning: "そして", type: 9),
-                             Meaning(meaning: "または", type: 9),
-                             Meaning(meaning: "だから", type: 9)]
 }
