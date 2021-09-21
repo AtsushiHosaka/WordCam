@@ -13,6 +13,7 @@ import Charts
 public class WordChartCell: Cell<Bool>, CellType {
     
     @IBOutlet weak var barChart: BarChartView!
+    @IBOutlet weak var dayLabel: UILabel!
     
     var wordData = [WordAnsHistory]() {
         didSet {
@@ -70,10 +71,19 @@ public class WordChartCell: Cell<Bool>, CellType {
         barChart.xAxis.valueFormatter = ChartFormatter(dates: dates)
         barChart.xAxis.drawGridLinesEnabled = false
         barChart.xAxis.drawAxisLineEnabled = false
-        barChart.xAxis.labelCount = entries.count
         barChart.xAxis.labelPosition = .bottom
         barChart.xAxis.gridColor = color
         barChart.xAxis.labelTextColor = color
+        
+        if entries.count == 1 {
+            barChart.xAxis.drawLabelsEnabled = false
+            dayLabel.isHidden = false
+            dayLabel.text = dateValueToString(value: dates[0])
+        }else {
+            barChart.xAxis.drawLabelsEnabled = true
+            barChart.xAxis.labelCount = entries.count
+            dayLabel.isHidden = true
+        }
         
         barChart.leftAxis.drawAxisLineEnabled = false
         barChart.leftAxis.axisMinimum = 0.0
@@ -92,6 +102,10 @@ public class WordChartCell: Cell<Bool>, CellType {
     
     func dateToValue(date: Date) -> Double {
         return Double(date.month) * 100 + Double(date.day)
+    }
+    
+    func dateValueToString(value: Double) -> String {
+        String(Int(floor(value / 100))) + "/" + String(Int(value) % 100)
     }
 }
 

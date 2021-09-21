@@ -18,6 +18,7 @@ class ResultViewController: UIViewController {
     @IBOutlet var correctAnsRateLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var retryButton: UIButton!
+    @IBOutlet var resultChartView: ResultChartView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,36 +81,8 @@ class ResultViewController: UIViewController {
     }
     
     func showShape() {
-        let trackLayer = CAShapeLayer()
-        let center = CGPoint(x: view.center.x, y: 240)
-        let trackCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2, clockwise: true)
-        
-        trackLayer.path = trackCircularPath.cgPath
-        trackLayer.strokeColor = UIColor.systemGray6.cgColor
-        trackLayer.fillColor = UIColor.clear.cgColor
-        trackLayer.lineWidth = 20
-        
-        view.layer.addSublayer(trackLayer)
-        
-        let shapeLayer = CAShapeLayer()
-        let shapeCircularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi/2, endAngle: CGFloat.pi*2 * (CGFloat(correctAnsRate ?? 0) - 0.25), clockwise: true)
-        
-        shapeLayer.path = shapeCircularPath.cgPath
-        shapeLayer.strokeColor = MyColor.shared.colorCG(num: set?.color ?? 0, type: 1)
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineWidth = 20
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
-        
-        shapeLayer.strokeEnd = 0
-        view.layer.addSublayer(shapeLayer)
-        
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.toValue = 1
-        animation.duration = 2
-        animation.fillMode = CAMediaTimingFillMode.forwards
-        animation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(animation, forKey: "animation")
+        resultChartView.color = set?.color ?? 0
+        resultChartView.correctAnsRate = correctAnsRate ?? 0
     }
     
     func updateData() {

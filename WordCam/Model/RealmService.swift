@@ -46,6 +46,16 @@ class RealmService {
         }
     }
     
+    func deleteAll() {
+        do {
+            try realm.write {
+                realm.deleteAll()
+            }
+        }catch {
+            post(error)
+        }
+    }
+    
     
     func post(_ error: Error) {
         NotificationCenter.default.post(name: NSNotification.Name("RealmError"), object: error)

@@ -41,6 +41,7 @@
 		0DC406F526CFEAC2001AA2E6 /* EditSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */; };
 		0DCB74C82650BF7F001A795C /* DataBases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* DataBases.swift */; };
 		0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */; };
+		0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */; };
 		0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA0EE026B9950B00630FAA /* QuizViewController.swift */; };
 		540D7D9207053B7B654496D9 /* Pods_WordCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7546CE90892F54F697E829A /* Pods_WordCam.framework */; };
 		6001CEE1C1010D5C588E5BAD /* Pods_WordCamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */; };
@@ -115,6 +116,7 @@
 		0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSetViewController.swift; sourceTree = "<group>"; };
 		0DCB74C72650BF7E001A795C /* DataBases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBases.swift; sourceTree = "<group>"; };
 		0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultChartView.swift; sourceTree = "<group>"; };
 		0DFA0EE026B9950B00630FAA /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.release.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.release.xcconfig"; sourceTree = "<group>"; };
 		4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.debug.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				0D2488C026634EA600D7A6FF /* MyColor.swift */,
 				0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */,
 				0D27E9F026AD350D001E094E /* RealmService.swift */,
+				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
 				0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */,
 				0D5547852688514700967CB1 /* SetChartCell.swift */,
 				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
@@ -550,6 +553,7 @@
 				0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */,
 				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
+				0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,
 				0D44C28626CE98FF007CDC4C /* SetCollectionViewCell.swift in Sources */,
 				0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */,

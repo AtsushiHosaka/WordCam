@@ -47,9 +47,16 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tb-ZB-kev">
+                        <rect key="frame" x="147" y="140" width="26.333333333333343" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="h4M-5d-IVK" secondAttribute="bottom" constant="20" id="59D-dP-Nfc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4Tb-ZB-kev" secondAttribute="bottom" constant="21" id="69o-CW-5F8"/>
                     <constraint firstItem="4dc-Ae-Xyk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="59" id="8SR-uu-SS6"/>
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="ESR-uc-CMy"/>
                     <constraint firstItem="AcU-9c-bnj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="H1J-tm-nab"/>
@@ -60,6 +67,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="AgA-IO-4Hl" secondAttribute="bottom" constant="31" id="YA5-rV-6wv"/>
                     <constraint firstItem="4dc-Ae-Xyk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="39" id="aeC-qa-Odz"/>
                     <constraint firstItem="KUs-eW-pQR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="63" id="ijF-QH-Uie"/>
+                    <constraint firstItem="4Tb-ZB-kev" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="k0n-EW-rfN"/>
                     <constraint firstAttribute="trailing" secondItem="h4M-5d-IVK" secondAttribute="trailing" constant="30" id="tDZ-MS-t4j"/>
                     <constraint firstItem="h4M-5d-IVK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="ydE-SP-a8w"/>
                     <constraint firstAttribute="bottom" secondItem="KUs-eW-pQR" secondAttribute="bottom" constant="37" id="zIN-hu-THc"/>
@@ -68,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="barChart" destination="KUs-eW-pQR" id="jFK-ro-WOO"/>
+                <outlet property="dayLabel" destination="4Tb-ZB-kev" id="HYd-os-JG4"/>
                 <outlet property="gradientView" destination="h4M-5d-IVK" id="J6U-gt-jVe"/>
             </connections>
             <point key="canvasLocation" x="111.59420289855073" y="43.526785714285715"/>

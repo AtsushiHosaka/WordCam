@@ -230,9 +230,6 @@ class QuizViewController: UIViewController {
                       Array(words[questionCount].meanings).contains(dummy[n]) {
                     n = Int.random(in: 0..<dummy.count)
                 }
-                print(Array(words[questionCount].meanings))
-                print(Array(words[questionCount].meanings).contains(dummy[n]))
-                print(dummy[n])
                 meanings[i] = dummy[n].meaning
                 dummy.remove(at: n)
             }

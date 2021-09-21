@@ -64,6 +64,7 @@ class WordViewController: FormViewController {
                     +++ Section("正答率")
                     <<< WordChartRow() {
                         $0.cell.wordData = Array((word ?? Word()).correctAnsRate)
+                        $0.cell.isUserInteractionEnabled = false
                     }
             }
         
@@ -118,6 +119,15 @@ class WordViewController: FormViewController {
         guard let meaningsValue: [String] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.meaningTextField.text }) else {
             showErrorAlert(message: "すべての項目に入力してください")
             return
+        }
+        
+        for i in 0..<meaningsValue.count - 1 {
+            for j in i+1..<meaningsValue.count {
+                if meaningsValue[i] == meaningsValue[j] {
+                    showErrorAlert(message: "同じ意味が追加されています")
+                    return
+                }
+            }
         }
         
         guard let typesValue: [Int] = (form.sectionBy(tag: "meanings")?.compactMap { ($0 as? MeaningRow)?.cell.selectedNum }) else {

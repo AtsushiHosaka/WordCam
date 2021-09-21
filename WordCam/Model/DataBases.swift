@@ -6,19 +6,26 @@
 //
 
 import Foundation
+import NaturalLanguage
 import RealmSwift
 
-let b = 1
 
 class Meaning: Object {
     @objc dynamic var meaning: String = ""
-    //0: 名詞, 1: 動詞, 2: 形容詞, 3: 副詞, 4: 助動詞, 5: 代名詞, 6: 前置詞, 7: 冠詞, 8: 接続詞
+    //1: 名詞, 2: 動詞, 3: 形容詞, 4: 副詞, 5: 助動詞, 6: 代名詞, 7: 前置詞, 8: 冠詞, 9: 接続詞
     @objc dynamic var type: Int = 0
+    @objc dynamic var direction: Double = 0
     
     convenience init(meaning: String, type: Int) {
         self.init()
         self.meaning = meaning
         self.type = type
+        self.direction = NLEmbedding.wordEmbedding(for: .english)?.distance(between: meaning, and: "standard") ?? 2
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? Meaning else { return false }
+        return self.meaning == object.meaning
     }
 }
 

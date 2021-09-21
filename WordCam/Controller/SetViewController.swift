@@ -153,6 +153,7 @@ extension SetViewController: UITableViewDataSource {
             cell.color = set.color
             cell.setData = Array(set.correctAnsRate)
             cell.backgroundColor = MyColor.shared.backgroundColor
+            cell.isUserInteractionEnabled = false
             
             return cell
         }else {
@@ -199,7 +200,11 @@ extension SetViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     {
-        return true
+        if indexPath.row == 0 {
+            return false
+        }else {
+            return true
+        }
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

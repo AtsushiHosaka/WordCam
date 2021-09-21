@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NaturalLanguage
 
 class MainViewController: UIViewController {
     
@@ -18,6 +19,11 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "committee", and: "basis"))
+        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "chairman", and: "basis"))
+        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "subcommittee", and: "basis"))
+        print(NLEmbedding.wordEmbedding(for: .english)?.distance(between: "chairmanship", and: "basis", distanceType: .cosine))
         
         setupNavigationController()
         setupSearchController()
@@ -152,6 +158,7 @@ class MainViewController: UIViewController {
         RealmService.shared.delete(set)
         if data.count == 1 {
             data = []
+            searchResults = []
         }
         
         reloadData()

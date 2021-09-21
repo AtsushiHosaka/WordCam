@@ -14,6 +14,7 @@ class SetChartCell: UITableViewCell {
     
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var barChart: BarChartView!
+    @IBOutlet weak var dayLabel: UILabel!
     
     var color = 0 {
         didSet {
@@ -84,10 +85,19 @@ class SetChartCell: UITableViewCell {
         barChart.xAxis.valueFormatter = ChartFormatter(dates: dates)
         barChart.xAxis.drawGridLinesEnabled = false
         barChart.xAxis.drawAxisLineEnabled = false
-        barChart.xAxis.labelCount = entries.count
         barChart.xAxis.labelPosition = .bottom
         barChart.xAxis.gridColor = UIColor.white
         barChart.xAxis.labelTextColor = UIColor.white
+        
+        if entries.count == 1 {
+            barChart.xAxis.drawLabelsEnabled = false
+            dayLabel.isHidden = false
+            dayLabel.text = dateValueToString(value: dates[0])
+        }else {
+            barChart.xAxis.drawLabelsEnabled = true
+            barChart.xAxis.labelCount = entries.count
+            dayLabel.isHidden = true
+        }
         
         barChart.leftAxis.drawAxisLineEnabled = false
         barChart.leftAxis.axisMinimum = 0.0
@@ -107,6 +117,10 @@ class SetChartCell: UITableViewCell {
     
     func dateToValue(date: Date) -> Double {
         return Double(date.month) * 100 + Double(date.day)
+    }
+    
+    func dateValueToString(value: Double) -> String {
+        String(Int(floor(value / 100))) + "/" + String(Int(value) % 100)
     }
 }
 

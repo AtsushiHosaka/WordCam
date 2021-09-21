@@ -117,9 +117,8 @@ class InputWordViewController: FormViewController {
     
     func getMeaning() {
         SwiftGoogleTranslate.shared.translate(words[currentNum], "ja", "en") { (text, error) in
-            if let t = text {
-                print(t)
-                self.meaning = t
+            if let text = text {
+                self.meaning = text
             }
         }
     }
@@ -131,18 +130,6 @@ class InputWordViewController: FormViewController {
         }else {
             getMeaning()
         }
-    }
-    
-    func addMeaningText(text: String) {
-        var meaningsSection = self.form.sectionBy(tag: "meanings") as! MultivaluedSection
-        
-        let row = MeaningRow() {
-            $0.cell.meaningTextField.text = text
-            $0.cell.selectedNum = 0
-        }
-        meaningsSection.insert(row, at: 0)
-        print(text)
-        print(meaningsSection)
     }
     
     func endInputting() {
