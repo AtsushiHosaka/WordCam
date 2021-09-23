@@ -64,7 +64,7 @@ class RealmService {
     func createWord(wordValue: String, meaningsValue: [String], typesValue: [Int]) -> Word {
         var meanings = [Meaning]()
         for i in 0..<meaningsValue.count {
-            let meaning = Meaning(meaning: meaningsValue[i], type: typesValue[i])
+            let meaning = Meaning(meaning: meaningsValue[i], type: typesValue[i], parentWord: wordValue)
             meanings.append(meaning)
         }
         

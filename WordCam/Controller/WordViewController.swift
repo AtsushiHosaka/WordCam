@@ -146,7 +146,8 @@ class WordViewController: FormViewController {
                 showErrorAlert(message: "意味は10文字以内にしてください")
                 return
             }else {
-                meanings.append(Meaning(meaning: meaningsValue[i], type: typesValue[i]))
+                let meaning = Meaning(meaning: meaningsValue[i], type: typesValue[i], parentWord: word.word)
+                meanings.append(meaning)
             }
         }
         

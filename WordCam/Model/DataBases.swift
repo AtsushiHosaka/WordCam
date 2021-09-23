@@ -14,21 +14,18 @@ class Meaning: Object {
     @objc dynamic var meaning: String = ""
     //1: 名詞, 2: 動詞, 3: 形容詞, 4: 副詞, 5: 助動詞, 6: 代名詞, 7: 前置詞, 8: 冠詞, 9: 接続詞
     @objc dynamic var type: Int = 0
-    @objc dynamic var direction: Double = 0
+    @objc dynamic var parentWord: String = ""
     
-    convenience init(meaning: String, type: Int) {
+    convenience init(meaning: String, type: Int, parentWord: String) {
         self.init()
         self.meaning = meaning
         self.type = type
+        self.parentWord = parentWord
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? Meaning else { return false }
         return self.meaning == object.meaning
-    }
-    
-    func initDirection(word: String) {
-        direction = NLEmbedding.wordEmbedding(for: .english)?.distance(between: word, and: "standard") ?? 2
     }
 }
 
