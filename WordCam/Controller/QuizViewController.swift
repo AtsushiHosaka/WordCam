@@ -10,6 +10,7 @@ import UIKit
 class QuizViewController: UIViewController {
     
     let timeRimit: Int = 10
+    var type: Int = 0
     var time: Int = 0
     var timer: Timer!
     var setID: String?
@@ -35,7 +36,7 @@ class QuizViewController: UIViewController {
         super.viewWillAppear(animated)
         
         reloadNavigationController()
-        reloadData()
+        setupQuiz()
         
         startSetting()
     }
@@ -73,13 +74,20 @@ class QuizViewController: UIViewController {
         timerView.setupAnimation()
     }
     
+    func setupQuiz() {
+        setID = UserDefaults.standard.string(forKey: "setID")
+        let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
+        
+        if type == 0 {
+            quizData = QuizSystem.shared.setupQuizEtoJ(words: Array(set.words))
+        }else {
+            quizData = QuizSystem.shared.setupQuizJtoE(words: Array(set.words))
+        }
+    }
+    
     func reloadNavigationController() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    func reloadData() {
-        setID = UserDefaults.standard.string(forKey: "setID")
     }
     
     @IBAction func ansButtonPressed(_ sender: UIButton) {
@@ -123,9 +131,6 @@ class QuizViewController: UIViewController {
         questionCount = 0
         wrongWords = []
         
-        let set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
-        quizData = QuizSystem.shared.setupQuiz(words: Array(set.words))
-        
         timerView.showShape()
         
         prepareNextQuestion()
@@ -139,7 +144,7 @@ class QuizViewController: UIViewController {
         
         let quiz = quizData[questionCount]
         
-        wordLabel.text = quiz.word.word
+        wordLabel.text = quiz.question
         button1.setTitle(quiz.choices[0], for: .normal)
         button2.setTitle(quiz.choices[1], for: .normal)
         button3.setTitle(quiz.choices[2], for: .normal)

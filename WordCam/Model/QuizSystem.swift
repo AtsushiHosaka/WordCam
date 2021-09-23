@@ -11,6 +11,7 @@ import NaturalLanguage
 struct Quiz {
     
     var word = Word()
+    var question: String = ""
     var correctAnsNum: Int = 0
     var choices = [String]()
     
@@ -20,12 +21,12 @@ struct QuizSystem {
     
     static let shared = QuizSystem()
     
-    func setupQuiz(words: [Word]) -> [Quiz] {
+    func setupQuizEtoJ(words: [Word]) -> [Quiz] {
         var words = words
         words.shuffle()
         
         var dummyMeanings = Array(RealmService.shared.realm.objects(Meaning.self))
-        dummyMeanings += defaultDummyModel
+        dummyMeanings += defaultDummyMeanings
         
         var quizArray = [Quiz]()
         
@@ -33,6 +34,7 @@ struct QuizSystem {
             var quiz = Quiz()
             
             quiz.word = word
+            quiz.question = word.word
             
             let correctAnsNum = Int.random(in: 0...3)
             quiz.correctAnsNum = correctAnsNum
@@ -77,7 +79,95 @@ struct QuizSystem {
         return quizArray
     }
     
-    let defaultDummyModel = [Meaning(meaning: "方法", type: 1, parentWord: "method"),
+    func setupQuizJtoE(words: [Word]) -> [Quiz] {
+        var words = words
+        words.shuffle()
+        
+        var dummyWords = Array(RealmService.shared.realm.objects(Word.self))
+        dummyWords += defaultDummyWords
+        
+        var quizArray = [Quiz]()
+        
+        for word in words {
+            var quiz = Quiz()
+            
+            quiz.word = word
+            quiz.question = word.meanings[0].meaning
+            
+            let correctAnsNum = Int.random(in: 0...3)
+            quiz.correctAnsNum = correctAnsNum
+            let answer = word.word
+            
+            var choices = ["", "", "", ""]
+            choices[correctAnsNum] = answer
+            
+            var dummy = dummyWords
+            dummy.sort(by: {minDistance($0.word, answer) < minDistance($1.word, answer)})
+            var dummyChoices = [String]()
+            
+            for _ in 0..<3 {
+                for dummyWord in dummy {
+                    if dummyWord.word != answer &&
+                        !dummyChoices.contains(dummyWord.word) &&
+                        dummyWord.word != word.meanings[0].parentWord {
+                        
+                        dummyChoices.append(dummyWord.word)
+                        dummy.removeFirst()
+                        break
+                    }else {
+                        dummy.removeFirst()
+                    }
+                }
+            }
+            
+            dummyChoices.shuffle()
+            
+            for i in 0...3 {
+                if i != correctAnsNum {
+                    choices[i] = dummyChoices.first ?? ""
+                    dummyChoices.removeFirst()
+                }
+            }
+            
+            quiz.choices = choices
+            quizArray.append(quiz)
+        }
+        return quizArray
+    }
+    
+    func minDistance(_ word1: String, _ word2: String) -> Int {
+        let w1 = word1.map({ String($0) })
+        let w2 = word2.map({ String($0) })
+        var dp = [[Int]](repeating: [Int](repeating: Int.max, count: w2.count+1), count: w1.count+1)
+        dp[0][0] = 0
+        
+        for i in 0..<w1.count+1 {
+            for j in 0..<w2.count+1 {
+                if i-1 >= 0 && j-1 >= 0 {
+                    
+                    if w1[i-1] == w2[j-1] {
+                        dp[i][j] = min(dp[i][j], dp[i-1][j-1])
+                    }
+                    
+                    else {
+                        dp[i][j] = min(dp[i][j], dp[i-1][j-1]+1)
+                    }
+                }
+                
+                if i-1 >= 0 {
+                    dp[i][j] = min(dp[i][j], dp[i-1][j]+1)
+                }
+                
+                if j-1 >= 0 {
+                    dp[i][j] = min(dp[i][j], dp[i][j-1]+1)
+                }
+            }
+        }
+        
+        return dp[w1.count][w2.count]
+    }
+    
+    let defaultDummyMeanings = [Meaning(meaning: "方法", type: 1, parentWord: "method"),
                              Meaning(meaning: "乗客", type: 1, parentWord: "passenger"),
                              Meaning(meaning: "材料", type: 1, parentWord: "stuff"),
                              Meaning(meaning: "成分", type: 1, parentWord: "component"),
@@ -112,4 +202,9 @@ struct QuizSystem {
                              Meaning(meaning: "そして", type: 9, parentWord: "and"),
                              Meaning(meaning: "または", type: 9, parentWord: "or"),
                              Meaning(meaning: "だから", type: 9, parentWord: "so")]
+    
+    let defaultDummyWords = [Word(word: "give", meanings: [Meaning(meaning: "〜を与える",type: 2, parentWord: "give")]),
+                             Word(word: "component", meanings: [Meaning(meaning: "成分", type: 1, parentWord: "component")]),
+                             Word(word: "own", meanings: [Meaning(meaning: "私たち自身", type: 6, parentWord: "own")]),
+                             Word(word: "about", meanings: [Meaning(meaning: "〜について", type: 7, parentWord: "about")])]
 }

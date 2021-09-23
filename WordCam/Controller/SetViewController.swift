@@ -16,10 +16,12 @@ class SetViewController: UIViewController {
     var selectedWord = Word()
     var setID: String?
     var isHistoryNil: Bool?
+    var quizType: Int = 0
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
     @IBOutlet var addAlertButton: UIButton!
     @IBOutlet var startButton: UIButton!
+    @IBOutlet var typeSelectButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +121,17 @@ class SetViewController: UIViewController {
         performSegue(withIdentifier: "toQuizView", sender: nil)
     }
     
+    @IBAction func typeSelectButtonPressed() {
+        let action1 = UIAlertAction(title: "英→和", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.quizType = 0
+        })
+        let action2 = UIAlertAction(title: "和→英", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.quizType = 1
+        })
+        let alert = MyAlert.shared.customAlert(title: "モードを選択してください", message: "", style: .actionSheet, action: [action1, action2])
+        present(alert, animated: true, completion: nil)
+    }
+    
     func deleteWord(indexPath: IndexPath) {
         var words = Array(set.words)
         words.remove(at: indexPath.row - 1)
@@ -133,6 +146,9 @@ class SetViewController: UIViewController {
         if segue.identifier == "toSetWordView" {
             let wordView: WordViewController = segue.destination as! WordViewController
             wordView.word = selectedWord
+        }else if segue.identifier == "toQuizView" {
+            let quizView: QuizViewController = segue.destination as! QuizViewController
+            quizView.type = quizType
         }
     }
 }
