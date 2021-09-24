@@ -70,13 +70,18 @@ class WordViewController: FormViewController {
         
         
             let neighborWords = NLEmbedding.wordEmbedding(for: .english)!.neighbors(for: word?.word ?? "", maximumCount: 5)
-            let neighborSection = Section("意味が似ている単語")
-            for word in neighborWords {
-                let neighborRow = TextRow() {
-                    $0.title = word.0
-                    $0.baseCell.isUserInteractionEnabled = false
+            var neighborSection = Section("意味が似ている単語")
+        
+            if !neighborWords.isEmpty {
+                for word in neighborWords {
+                    let neighborRow = TextRow() {
+                        $0.title = word.0
+                        $0.baseCell.isUserInteractionEnabled = false
+                    }
+                    neighborSection.append(neighborRow)
                 }
-                neighborSection.append(neighborRow)
+            }else {
+                neighborSection = Section(header: "意味が似ている単語", footer: "-取得できませんでした")
             }
             form.append(neighborSection)
         
