@@ -58,8 +58,8 @@ class SetChartCell: UITableViewCell {
                     rates.append(data[0].rate * 100)
                 }
             }else {
-                let rate = (data[0].rate*100 + rates[0]) / 2
-                rates[0] = rate
+                let rate = (data[0].rate*100 + rates[rates.count - 1]) / 2
+                rates[rates.count - 1] = rate
             }
             data.remove(at: 0)
         }

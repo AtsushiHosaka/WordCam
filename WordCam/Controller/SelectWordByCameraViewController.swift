@@ -39,7 +39,7 @@ class SelectWordByCameraViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.title = "登録する単語を選択"
+        self.title = "追加する単語を選択"
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     

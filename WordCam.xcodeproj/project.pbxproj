@@ -18,13 +18,16 @@
 		0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */; };
 		0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */; };
 		0D3F54F226E20B7800F8E2E6 /* MyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */; };
-		0D44C28626CE98FF007CDC4C /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */; };
 		0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */; };
 		0D554767268837F600967CB1 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D554766268837F600967CB1 /* WordsViewController.swift */; };
 		0D55477026883DF200967CB1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0D55476F26883DF200967CB1 /* Charts */; };
 		0D5547872688514700967CB1 /* SetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5547852688514700967CB1 /* SetChartCell.swift */; };
 		0D5547882688514700967CB1 /* SetChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5547862688514700967CB1 /* SetChartCell.xib */; };
 		0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7C92D626BAD141009B8236 /* AddWordViewController.swift */; };
+		0D8255D1270C48C600BD707D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D8255D0270C48C600BD707D /* GoogleService-Info.plist */; };
+		0D8255D3270CB47F00BD707D /* SearchSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */; };
+		0D8255D6270CB60F00BD707D /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */; };
+		0D8255D7270CB60F00BD707D /* SetCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */; };
 		0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */; };
 		0D9DBBED26FA2A6B00CECB40 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */; };
 		0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E526500D2E0091D80F /* AppDelegate.swift */; };
@@ -92,12 +95,15 @@
 		0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSetWordViewController.swift; sourceTree = "<group>"; };
 		0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlert.swift; sourceTree = "<group>"; };
-		0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWordByCameraViewController.swift; sourceTree = "<group>"; };
 		0D554766268837F600967CB1 /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordsViewController.swift; path = ../WordsViewController.swift; sourceTree = "<group>"; };
 		0D5547852688514700967CB1 /* SetChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetChartCell.swift; sourceTree = "<group>"; };
 		0D5547862688514700967CB1 /* SetChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetChartCell.xib; sourceTree = "<group>"; };
 		0D7C92D626BAD141009B8236 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		0D8255D0270C48C600BD707D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetViewController.swift; sourceTree = "<group>"; };
+		0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetCollectionViewCell.xib; sourceTree = "<group>"; };
 		0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSystem.swift; sourceTree = "<group>"; };
 		0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		0DAAE4E226500D2D0091D80F /* WordCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +180,7 @@
 				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
 				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
 				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
+				0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */,
 				0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */,
 				0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */,
 				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
@@ -193,8 +200,8 @@
 				0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */,
 				0D27E9F026AD350D001E094E /* RealmService.swift */,
 				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
-				0D44C28426CE98FF007CDC4C /* SetCollectionViewCell.swift */,
 				0D5547852688514700967CB1 /* SetChartCell.swift */,
+				0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */,
 				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
 				0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */,
 				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
@@ -236,6 +243,7 @@
 				0DAAE4EE26500D2F0091D80F /* Assets.xcassets */,
 				0DAAE4F026500D2F0091D80F /* LaunchScreen.storyboard */,
 				0DAAE4F326500D2F0091D80F /* Info.plist */,
+				0D8255D0270C48C600BD707D /* GoogleService-Info.plist */,
 			);
 			path = WordCam;
 			sourceTree = "<group>";
@@ -263,6 +271,7 @@
 			children = (
 				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
 				0D5547862688514700967CB1 /* SetChartCell.xib */,
+				0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */,
 				0D220EF626B8396700ECE350 /* WordChartCell.xib */,
 				0D24760B26DC8DE9004CD47C /* MeaningCell.xib */,
 			);
@@ -415,7 +424,9 @@
 				0DAAE4F226500D2F0091D80F /* LaunchScreen.storyboard in Resources */,
 				0DAAE4EF26500D2F0091D80F /* Assets.xcassets in Resources */,
 				0DAAE4ED26500D2E0091D80F /* Main.storyboard in Resources */,
+				0D8255D7270CB60F00BD707D /* SetCollectionViewCell.xib in Resources */,
 				0D24760D26DC8DE9004CD47C /* MeaningCell.xib in Resources */,
+				0D8255D1270C48C600BD707D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,14 +567,15 @@
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
 				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
 				0D2488C126634EA600D7A6FF /* MyColor.swift in Sources */,
+				0D8255D6270CB60F00BD707D /* SetCollectionViewCell.swift in Sources */,
 				0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */,
 				0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */,
 				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
+				0D8255D3270CB47F00BD707D /* SearchSetViewController.swift in Sources */,
 				0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */,
 				0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */,
 				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,
-				0D44C28626CE98FF007CDC4C /* SetCollectionViewCell.swift in Sources */,
 				0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */,
 				0D5547872688514700967CB1 /* SetChartCell.swift in Sources */,
 				0D220EF726B8396700ECE350 /* WordChartCell.swift in Sources */,

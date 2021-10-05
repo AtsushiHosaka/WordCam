@@ -19,6 +19,7 @@ class SetCollectionViewCell: UICollectionViewCell {
         didSet {
             titleLabel.text = setData.title
             emojiLabel.text = setData.emoji
+            editButton.setTitle("", for: .normal)
             gradientView.startColor = MyColor.shared.colorUI(num: setData.color, type: 0)
             gradientView.endColor = MyColor.shared.colorUI(num: setData.color, type: 1)
             gradientView.layer.setNeedsDisplay()

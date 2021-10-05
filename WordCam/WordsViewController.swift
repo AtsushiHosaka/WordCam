@@ -7,9 +7,16 @@
 
 import UIKit
 import RealmSwift
+import CircleMenu
 
 class WordsViewController: UIViewController {
     
+    let menuItems: [(icon: String, color: UIColor)] = [
+        ("pencil", MyColor.shared.mainColor),
+        ("", UIColor.clear),
+        ("", UIColor.clear),
+        ("camera.fill", MyColor.shared.mainColor)
+    ]
     var searchController = UISearchController(searchResultsController: nil)
     var data = [Word]()
     var searchResults = [Word]()
@@ -17,9 +24,9 @@ class WordsViewController: UIViewController {
     var selectedNum: Int?
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
-    @IBOutlet var addButton: UIButton!
     @IBOutlet var editBarButton: UIBarButtonItem!
     @IBOutlet var cancelBarButton: UIBarButtonItem!
+    @IBOutlet var addWordMenu: CircleMenu!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +34,7 @@ class WordsViewController: UIViewController {
         setupNavigationController()
         setupSearchController()
         setupTableView()
-        setupButton()
+        setupMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +66,18 @@ class WordsViewController: UIViewController {
         tableView.separatorColor = UIColor.systemGray3
     }
     
-    func setupButton() {
-        addButton.layer.cornerRadius = addButton.bounds.height / 2
+    func setupMenu() {
+        addWordMenu.delegate = self
+        addWordMenu.backgroundColor = MyColor.shared.mainColor
+        addWordMenu.tintColor = UIColor.white
+        addWordMenu.setTitle("", for: .normal)
+        let normalConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        let selectedConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .large)
+        let normalImage = UIImage(systemName: "plus", withConfiguration: normalConfig)
+        let selectedImage = UIImage(systemName: "xmark", withConfiguration: selectedConfig)
+        addWordMenu.setImage(normalImage, for: .normal)
+        addWordMenu.setImage(selectedImage, for: .selected)
+        addWordMenu.layer.cornerRadius = addWordMenu.bounds.height / 2
     }
     
     func reloadNavigationController() {
@@ -95,17 +112,6 @@ class WordsViewController: UIViewController {
             
             tableView.reloadData()
         }
-    }
-    
-    @IBAction func addButtonPressed() {
-        let action1 = UIAlertAction(title: "写真から登録する", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toAddWordsByCameraView", sender: nil)
-        })
-        let action2 = UIAlertAction(title: "単語を入力する", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toAddWordView", sender: nil)
-        })
-        let alertSheet = MyAlert.shared.customAlert(title: "単語を登録", message: "", style: .actionSheet, action: [action1, action2])
-        present(alertSheet, animated: true, completion: nil)
     }
     
     @IBAction func editButtonPressed() {
@@ -165,7 +171,11 @@ class WordsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWordView" {
             let wordView: WordViewController = segue.destination as! WordViewController
-            wordView.word = self.data[selectedNum ?? 0]
+            if searchController.searchBar.text == "" {
+                wordView.word = self.data[selectedNum ?? 0]
+            }else {
+                wordView.word = self.searchResults[selectedNum ?? 0]
+            }
         }
     }
 }
@@ -242,6 +252,24 @@ extension WordsViewController: UISearchResultsUpdating {
         
         tableView.reloadData()
     }
+}
+
+extension WordsViewController: CircleMenuDelegate {
     
+    func circleMenu(_: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
+        button.tintColor = UIColor.white
+        button.backgroundColor = menuItems[atIndex].color
+        
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        button.setImage(UIImage(systemName: menuItems[atIndex].icon, withConfiguration: configuration), for: .normal)
+    }
     
+    func circleMenu(_: CircleMenu, buttonDidSelected _: UIButton, atIndex: Int) {
+        addWordMenu.isSelected = false
+        if atIndex == 0 {
+            performSegue(withIdentifier: "toAddWordView", sender: nil)
+        }else if atIndex == 3 {
+            performSegue(withIdentifier: "toAddWordsByCameraView", sender: nil)
+        }
+    }
 }

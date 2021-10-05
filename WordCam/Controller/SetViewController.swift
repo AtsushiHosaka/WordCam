@@ -209,7 +209,11 @@ extension SetViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedWord = set.words[indexPath.row - 1]
+        if searchController.searchBar.text == "" {
+            selectedWord = set.words[indexPath.row - 1]
+        }else {
+            selectedWord = searchResults[indexPath.row - 1]
+        }
         performSegue(withIdentifier: "toSetWordView", sender: nil)
     }
     

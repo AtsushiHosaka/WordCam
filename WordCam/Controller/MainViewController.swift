@@ -7,15 +7,22 @@
 
 import UIKit
 import NaturalLanguage
+import CircleMenu
 
 class MainViewController: UIViewController {
     
+    let menuItems: [(icon: String, color: UIColor)] = [
+        ("pencil", MyColor.shared.mainColor),
+        ("", UIColor.clear),
+        ("", UIColor.clear),
+        ("magnifyingglass", MyColor.shared.mainColor)
+    ]
     var searchController = UISearchController(searchResultsController: nil)
     var data = [WordSet]()
     var searchResults = [WordSet]()
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var addSetBtn: UIButton!
     @IBOutlet var alertLabel: UILabel!
+    @IBOutlet var addSetMenu: CircleMenu!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +30,11 @@ class MainViewController: UIViewController {
         setupNavigationController()
         setupSearchController()
         setupTabBarController()
-        setupButton()
+        setupMenu()
         setupCollectionView()
+        setupTimeTrigger()
+        
+        makeRemindNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +60,8 @@ class MainViewController: UIViewController {
     func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        collectionView.register(UINib(nibName: "SetCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.minimumInteritemSpacing = self.view.bounds.width * 15 / 375
@@ -83,8 +95,23 @@ class MainViewController: UIViewController {
         item?.selectedImage = UIImage(named: selectedImage)?.withRenderingMode(.alwaysOriginal)
     }
     
-    func setupButton() {
-        addSetBtn.layer.cornerRadius = addSetBtn.bounds.width / 2
+    func setupMenu() {
+        addSetMenu.delegate = self
+        addSetMenu.backgroundColor = MyColor.shared.mainColor
+        addSetMenu.tintColor = UIColor.white
+        addSetMenu.setTitle("", for: .normal)
+        let normalConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        let selectedConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .large)
+        let normalImage = UIImage(systemName: "plus", withConfiguration: normalConfig)
+        let selectedImage = UIImage(systemName: "xmark", withConfiguration: selectedConfig)
+        addSetMenu.setImage(normalImage, for: .normal)
+        addSetMenu.setImage(selectedImage, for: .selected)
+        addSetMenu.layer.cornerRadius = addSetMenu.bounds.width / 2
+    }
+    
+    func setupTimeTrigger() {
+        let date = Date()
+        UserDefaults.standard.set(date, forKey: "startDate")
     }
     
     func reloadData() {
@@ -119,10 +146,6 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    @IBAction func toAddSetView() {
-        performSegue(withIdentifier: "toAddSetView", sender: nil)
-    }
-    
     func showDeleteAlert(num: Int) {
         let action = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
             self.deleteSet(num: num)
@@ -133,7 +156,11 @@ class MainViewController: UIViewController {
     
     @objc func showEditAlert(_ sender: UIButton) {
         let editAction = UIAlertAction(title: "編集", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            UserDefaults.standard.set(self.data[sender.tag].setID, forKey: "setID")
+            if self.searchController.searchBar.text == "" {
+                UserDefaults.standard.set(self.data[sender.tag].setID, forKey: "setID")
+            }else {
+                UserDefaults.standard.set(self.searchResults[sender.tag].setID, forKey: "setID")
+            }
             self.performSegue(withIdentifier: "toEditSetView", sender: nil)
         })
         let deleteAction = UIAlertAction(title: "削除", style: .destructive, handler: {(action: UIAlertAction!) -> Void in
@@ -149,14 +176,37 @@ class MainViewController: UIViewController {
     }
     
     func deleteSet(num: Int) {
-        let set = data[num]
+        var set = WordSet()
+        if searchController.searchBar.text == "" {
+            set = data[num]
+        }else {
+            set = searchResults[num]
+        }
         RealmService.shared.delete(set)
         if data.count == 1 {
             data = []
+        }
+        if searchResults.count == 1 {
             searchResults = []
         }
         
         reloadData()
+    }
+    
+    func makeRemindNotification() {
+        let content = UNMutableNotificationContent()
+        content.sound = UNNotificationSound.default
+        content.body = "前回の勉強から3日経過しました"
+        
+        let timer = 3 * 86400
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timer), repeats: false)
+        let request = UNNotificationRequest(identifier: "remindNotification", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request){ (error : Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -204,7 +254,11 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UserDefaults.standard.set(data[indexPath.row].setID, forKey: "setID")
+        if searchController.searchBar.text == "" {
+            UserDefaults.standard.set(data[indexPath.row].setID, forKey: "setID")
+        }else {
+            UserDefaults.standard.set(searchResults[indexPath.row].setID, forKey: "setID")
+        }
         performSegue(withIdentifier: "toSetView", sender: nil)
     }
 }
@@ -217,5 +271,25 @@ extension MainViewController: UISearchResultsUpdating {
         }
         
         collectionView.reloadData()
+    }
+}
+
+extension MainViewController: CircleMenuDelegate {
+    
+    func circleMenu(_: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
+        button.tintColor = UIColor.white
+        button.backgroundColor = menuItems[atIndex].color
+        
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        button.setImage(UIImage(systemName: menuItems[atIndex].icon, withConfiguration: configuration), for: .normal)
+    }
+    
+    func circleMenu(_: CircleMenu, buttonDidSelected _: UIButton, atIndex: Int) {
+        addSetMenu.isSelected = false
+        if atIndex == 0 {
+            performSegue(withIdentifier: "toAddSetView", sender: nil)
+        }else if atIndex == 3 {
+            performSegue(withIdentifier: "toSearchSetView", sender: nil)
+        }
     }
 }

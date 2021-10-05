@@ -24,7 +24,7 @@ class TimerView: UIView {
         let trackLayer = CAShapeLayer()
         let trackPath = UIBezierPath()
         trackPath.move(to: CGPoint(x: 60, y: self.bounds.height / 2))
-        trackPath.addLine(to: CGPoint(x: self.bounds.width - 25, y: self.bounds.height / 2))
+        trackPath.addLine(to: CGPoint(x: self.bounds.width - 60, y: self.bounds.height / 2))
         
         trackLayer.path = trackPath.cgPath
         trackLayer.strokeColor = CGColor(red: 65/255, green: 67/255, blue: 89/255, alpha: 1.0)
@@ -37,7 +37,7 @@ class TimerView: UIView {
         let traceLayer = CAShapeLayer()
         let tracePath = UIBezierPath()
         tracePath.move(to: CGPoint(x: 60, y: self.bounds.height / 2))
-        tracePath.addLine(to: CGPoint(x: self.bounds.width - 25, y: self.bounds.height / 2))
+        tracePath.addLine(to: CGPoint(x: self.bounds.width - 60, y: self.bounds.height / 2))
         
         traceLayer.path = trackPath.cgPath
         traceLayer.strokeColor = CGColor(red: 28/255, green: 40/255, blue: 103/255, alpha: 1.0)
@@ -49,7 +49,7 @@ class TimerView: UIView {
         
         let shapePath = UIBezierPath()
         shapePath.move(to: CGPoint(x: 60, y: self.bounds.height / 2))
-        shapePath.addLine(to: CGPoint(x: self.bounds.width - 20, y: self.bounds.height / 2))
+        shapePath.addLine(to: CGPoint(x: self.bounds.width - 60, y: self.bounds.height / 2))
         
         shapeLayer.path = shapePath.cgPath
         shapeLayer.strokeColor = CGColor(red: 188/255, green: 0, blue: 160/255, alpha: 1.0)

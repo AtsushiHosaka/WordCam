@@ -10,6 +10,7 @@ target 'WordCam' do
   pod 'SwiftDate'
   pod 'IQKeyboardManagerSwift'
   pod 'ISEmojiView'
+  pod 'CircleMenu'
 
   target 'WordCamTests' do
     inherit! :search_paths

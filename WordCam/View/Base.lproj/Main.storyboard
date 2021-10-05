@@ -40,7 +40,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7V-J0-lrS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7V-J0-lrS" customClass="CircleMenu" customModule="CircleMenu">
                                 <rect key="frame" x="297" y="651" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -48,15 +48,20 @@
                                     <constraint firstAttribute="width" constant="60" id="zd3-My-Zxe"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="plus" catalog="system">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="bold">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                    </preferredSymbolConfiguration>
                                 </state>
-                                <connections>
-                                    <action selector="addButtonPressed" destination="vmo-cR-emz" eventType="touchUpInside" id="QCM-zh-14u"/>
-                                </connections>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="buttonsCount">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="distance">
+                                        <real key="value" value="120"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2uF-FV-gWh"/>
@@ -88,7 +93,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="U7V-J0-lrS" id="1xX-QB-oUB"/>
+                        <outlet property="addWordMenu" destination="U7V-J0-lrS" id="KAr-Ib-Fzm"/>
                         <outlet property="alertLabel" destination="XYy-YF-u13" id="XAv-zP-I0N"/>
                         <outlet property="cancelBarButton" destination="3tf-ie-uX8" id="gSO-Tb-8kd"/>
                         <outlet property="editBarButton" destination="ZJI-pq-f57" id="4hC-cZ-NGb"/>
@@ -100,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VRi-tZ-WiJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1656.8" y="159.60591133004928"/>
+            <point key="canvasLocation" x="665" y="892"/>
         </scene>
         <!--Word View Controller-->
         <scene sceneID="85e-0I-Rhq">
@@ -123,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Roc-Hb-tyq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2689" y="160"/>
+            <point key="canvasLocation" x="1657" y="892"/>
         </scene>
         <!--Add Word View Controller-->
         <scene sceneID="7gA-7S-AuF">
@@ -146,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NT9-xf-Z2E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="866"/>
+            <point key="canvasLocation" x="662" y="1614"/>
         </scene>
         <!--Add Words By Camera View Controller-->
         <scene sceneID="3Kb-n5-zCI">
@@ -196,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ff7-fZ-U7n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688.8000000000002" y="864.53201970443354"/>
+            <point key="canvasLocation" x="1657" y="1614"/>
         </scene>
         <!--Input Word View Controller-->
         <scene sceneID="Q3K-e2-Krc">
@@ -225,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QbL-3n-SXh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3614" y="865"/>
+            <point key="canvasLocation" x="2689" y="1614"/>
         </scene>
         <!--Edit Set View Controller-->
         <scene sceneID="FVY-Cv-bMC">
@@ -543,85 +548,14 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="IE8-OZ-wiB" customClass="SetCollectionViewCell" customModule="WordCam" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="IE8-OZ-wiB">
                                         <rect key="frame" x="0.0" y="0.0" width="164" height="114"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rSx-Am-t6m" customClass="SetCollectionViewCell" customModule="WordCam" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="164" height="114"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fQ-Zx-eSe" customClass="GradientView" customModule="WordCam" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="164" height="114"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                                            <color key="value" red="0.33725490196078434" green="0.31764705882352939" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                                            <color key="value" red="0.20392156862745098" green="0.19215686274509802" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.45000000000000001" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJQ-Ey-eqz">
-                                                    <rect key="frame" x="15" y="57" width="134" height="33"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="27"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🥺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zL-gx-o27">
-                                                    <rect key="frame" x="10" y="10" width="36" height="38.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZN-67-dbc">
-                                                    <rect key="frame" x="19" y="91" width="126" height="13"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNG-4z-V7c">
-                                                    <rect key="frame" x="116" y="8" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="QWg-5g-Vfd"/>
-                                                        <constraint firstAttribute="height" constant="40" id="jQx-dg-pGq"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" image="ellipsis" catalog="system">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                                        </preferredSymbolConfiguration>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="rZN-67-dbc" secondAttribute="bottom" constant="10" id="NgB-Th-IaK"/>
-                                                <constraint firstItem="2zL-gx-o27" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="10" id="OAi-mV-Trn"/>
-                                                <constraint firstItem="3fQ-Zx-eSe" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" id="OUs-aB-JNC"/>
-                                                <constraint firstAttribute="trailing" secondItem="ZJQ-Ey-eqz" secondAttribute="trailing" constant="15" id="PVN-YE-m9u"/>
-                                                <constraint firstItem="3fQ-Zx-eSe" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" id="PiL-iE-K9h"/>
-                                                <constraint firstItem="ZJQ-Ey-eqz" firstAttribute="centerX" secondItem="rSx-Am-t6m" secondAttribute="centerX" id="PxG-MO-Oue"/>
-                                                <constraint firstItem="qNG-4z-V7c" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" constant="8" id="S4A-mq-0lA"/>
-                                                <constraint firstItem="ZJQ-Ey-eqz" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="15" id="UH0-4S-CX4"/>
-                                                <constraint firstItem="rZN-67-dbc" firstAttribute="top" secondItem="ZJQ-Ey-eqz" secondAttribute="bottom" constant="1" id="YEo-1f-YGq"/>
-                                                <constraint firstItem="rZN-67-dbc" firstAttribute="leading" secondItem="rSx-Am-t6m" secondAttribute="leading" constant="19" id="bnm-4n-KIB"/>
-                                                <constraint firstItem="rZN-67-dbc" firstAttribute="centerX" secondItem="rSx-Am-t6m" secondAttribute="centerX" id="cpH-fU-AqK"/>
-                                                <constraint firstItem="2zL-gx-o27" firstAttribute="top" secondItem="rSx-Am-t6m" secondAttribute="top" constant="10" id="dHG-Ct-TyC"/>
-                                                <constraint firstAttribute="trailing" secondItem="qNG-4z-V7c" secondAttribute="trailing" constant="8" id="h5c-YC-vWg"/>
-                                                <constraint firstAttribute="trailing" secondItem="rZN-67-dbc" secondAttribute="trailing" constant="19" id="keN-Xj-eAU"/>
-                                                <constraint firstAttribute="trailing" secondItem="3fQ-Zx-eSe" secondAttribute="trailing" id="n32-kF-svB"/>
-                                                <constraint firstAttribute="bottom" secondItem="3fQ-Zx-eSe" secondAttribute="bottom" id="p2N-u0-MVV"/>
-                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="164" height="114"/>
-                                        <connections>
-                                            <outlet property="correctAnsRateLabel" destination="rZN-67-dbc" id="EvO-fE-KN0"/>
-                                            <outlet property="editButton" destination="qNG-4z-V7c" id="JwE-xW-brt"/>
-                                            <outlet property="emojiLabel" destination="2zL-gx-o27" id="FlN-3v-x5I"/>
-                                            <outlet property="gradientView" destination="3fQ-Zx-eSe" id="y44-XP-ECz"/>
-                                            <outlet property="titleLabel" destination="ZJQ-Ey-eqz" id="RRJ-Mo-dsa"/>
-                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -635,7 +569,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAH-El-BSY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAH-El-BSY" customClass="CircleMenu" customModule="CircleMenu">
                                 <rect key="frame" x="297" y="651" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -646,14 +580,18 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="bold">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                    </preferredSymbolConfiguration>
                                 </state>
-                                <connections>
-                                    <action selector="toAddSetView" destination="0Ux-zr-6u0" eventType="touchUpInside" id="Piw-s2-v1m"/>
-                                </connections>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="buttonsCount">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="distance">
+                                        <real key="value" value="120"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Viq-vz-asN"/>
@@ -674,12 +612,13 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="wID-lY-oa2"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="addSetBtn" destination="mAH-El-BSY" id="8HN-VD-pxu"/>
+                        <outlet property="addSetMenu" destination="mAH-El-BSY" id="qdi-OE-o5C"/>
                         <outlet property="alertLabel" destination="kwB-1N-Mg9" id="IYK-dp-3d9"/>
                         <outlet property="collectionView" destination="M4t-HI-s8q" id="ATP-rM-9hd"/>
                         <segue destination="3aU-xI-xci" kind="show" identifier="toSetView" id="neI-rH-fhJ"/>
                         <segue destination="9hG-LR-f0D" kind="presentation" identifier="toAddSetView" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="dOy-Py-hcE"/>
                         <segue destination="vZ2-XA-SCr" kind="presentation" identifier="toEditSetView" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="dFP-El-0H3"/>
+                        <segue destination="FFj-dH-iAr" kind="show" identifier="toSearchSetView" id="HNj-WU-6V5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBm-HF-fBO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1151,6 +1090,22 @@
             </objects>
             <point key="canvasLocation" x="664" y="161"/>
         </scene>
+        <!--セットを検索-->
+        <scene sceneID="Iwd-jy-kcn">
+            <objects>
+                <viewController id="FFj-dH-iAr" customClass="SearchSetViewController" customModule="WordCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fXm-qw-djf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="leZ-xw-bAq"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="セットを検索" id="RZN-Tz-odY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pc8-HE-4L0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1657" y="160"/>
+        </scene>
         <!--Edit Set View Controller-->
         <scene sceneID="pss-0g-o7q">
             <objects>
@@ -1297,9 +1252,7 @@
     <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="home_1.png" width="2.34375" height="2.34375"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
