@@ -40,6 +40,8 @@ class WordsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         reloadNavigationController()
         reloadData()
+        
+        reloadLargeTitle()
     }
     
     func setupNavigationController() {
@@ -92,6 +94,14 @@ class WordsViewController: UIViewController {
             cancelBarButton.isEnabled = false
             cancelBarButton.tintColor = UIColor.clear
         }
+    }
+    
+    func reloadLargeTitle() {
+        print(tableView.contentOffset)
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        //tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
+        //tableView.scrollRectToVisible(CGRect(x: 0, y: -self.tableView.contentInset.top, width: 1, height: 1), animated: true)
+        print(tableView.contentOffset)
     }
     
     func reloadTableView() {
@@ -176,6 +186,7 @@ class WordsViewController: UIViewController {
             }else {
                 wordView.word = self.searchResults[selectedNum ?? 0]
             }
+            wordView.isEditable = true
         }
     }
 }

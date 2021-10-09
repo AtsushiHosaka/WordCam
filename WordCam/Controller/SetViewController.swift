@@ -7,21 +7,27 @@
 
 import UIKit
 import Charts
+import CircleMenu
 
 class SetViewController: UIViewController {
     
+    let menuItems: [(icon: String, color: UIColor)] = [
+        ("folder.fill", MyColor.shared.mainColor),
+        ("", UIColor.clear),
+        ("", UIColor.clear),
+        ("camera.fill", MyColor.shared.mainColor)
+    ]
     var searchController = UISearchController(searchResultsController: nil)
     var set = WordSet()
     var searchResults = [Word]()
     var selectedWord = Word()
-    var setID: String?
+    var setID: String = ""
     var isHistoryNil: Bool?
     var quizType: Int = 0
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
-    @IBOutlet var addAlertButton: UIButton!
     @IBOutlet var startButton: UIButton!
-    @IBOutlet var typeSelectButton: UIButton!
+    @IBOutlet var addWordMenu: CircleMenu!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +36,7 @@ class SetViewController: UIViewController {
         setupSearchController()
         setupTableView()
         setupButton()
+        setupMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +72,20 @@ class SetViewController: UIViewController {
         startButton.layer.cornerCurve = .continuous
     }
     
+    func setupMenu() {
+        addWordMenu.delegate = self
+        addWordMenu.backgroundColor = MyColor.shared.mainColor
+        addWordMenu.tintColor = UIColor.white
+        addWordMenu.setTitle("", for: .normal)
+        let normalConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        let selectedConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .large)
+        let normalImage = UIImage(systemName: "plus", withConfiguration: normalConfig)
+        let selectedImage = UIImage(systemName: "xmark", withConfiguration: selectedConfig)
+        addWordMenu.setImage(normalImage, for: .normal)
+        addWordMenu.setImage(selectedImage, for: .selected)
+        addWordMenu.layer.cornerRadius = addWordMenu.bounds.height / 2
+    }
+    
     func reloadNavigationController() {
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -75,26 +96,29 @@ class SetViewController: UIViewController {
     }
     
     func reloadData() {
-        setID = UserDefaults.standard.string(forKey: "setID")
-        set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID!) ?? WordSet()
+        setID = UserDefaults.standard.string(forKey: "setID") ?? ""
+        set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
         self.title = set.title
         
         if set.words.count == 0 {
             tableView.isHidden = true
             startButton.isHidden = true
             alertLabel.isHidden = false
-            addAlertButton.isHidden = false
         }else {
             tableView.isHidden = false
             startButton.isHidden = false
             alertLabel.isHidden = true
-            addAlertButton.isHidden = true
         }
         
         let words = Array(set.words).sorted(by: {$0.word < $1.word})
         let sortedSet = WordSet(title: set.title, color: set.color, emoji: set.emoji)
         sortedSet.correctAnsRate = set.correctAnsRate
         sortedSet.words.append(objectsIn: words)
+        
+        sortedSet.isShared = set.isShared
+        sortedSet.isOriginal = set.isOriginal
+        sortedSet.setID = setID
+        
         set = sortedSet
         
         if set.correctAnsRate.count == 0 {
@@ -106,29 +130,36 @@ class SetViewController: UIViewController {
         tableView.reloadData()
     }
     
-    @IBAction func addButtonPressed() {
-        let action1 = UIAlertAction(title: "写真から追加する", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toSelectWordByCameraView", sender: nil)
-        })
-        let action2 = UIAlertAction(title: "単語を選ぶ", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "toSelectSetWordView", sender: nil)
-        })
-        let alertSheet = MyAlert.shared.customAlert(title: "単語を追加", message: "", style: .actionSheet, action: [action1, action2])
-        present(alertSheet, animated: true, completion: nil)
-    }
-    
     @IBAction func startButtonPressed() {
-        performSegue(withIdentifier: "toQuizView", sender: nil)
-    }
-    
-    @IBAction func typeSelectButtonPressed() {
         let action1 = UIAlertAction(title: "英→和", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.quizType = 0
+            self.performSegue(withIdentifier: "toQuizView", sender: nil)
         })
         let action2 = UIAlertAction(title: "和→英", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.quizType = 1
+            self.performSegue(withIdentifier: "toQuizView", sender: nil)
         })
         let alert = MyAlert.shared.customAlert(title: "モードを選択してください", message: "", style: .actionSheet, action: [action1, action2])
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func shareButtonPressed() {
+        if !set.isOriginal {
+            showNotOriginalAlert()
+        }else if set.words.count > 10 {
+            performSegue(withIdentifier: "toShareSetView", sender: nil)
+        }else {
+            showUnableToShareAlert()
+        }
+    }
+    
+    func showUnableToShareAlert() {
+        let alert = MyAlert.shared.errorAlert(message: "単語を10個より多くしてください")
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showNotOriginalAlert() {
+        let alert = MyAlert.shared.errorAlert(message: "ダウンロードしたセットは共有できません")
         present(alert, animated: true, completion: nil)
     }
     
@@ -136,7 +167,7 @@ class SetViewController: UIViewController {
         var words = Array(set.words)
         words.remove(at: indexPath.row - 1)
         
-        guard let editedSet = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID!) else { return }
+        guard let editedSet = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) else { return }
         RealmService.shared.update(editedSet, with: ["words": words])
         
         reloadData()
@@ -146,9 +177,13 @@ class SetViewController: UIViewController {
         if segue.identifier == "toSetWordView" {
             let wordView: WordViewController = segue.destination as! WordViewController
             wordView.word = selectedWord
+            wordView.isEditable = false
         }else if segue.identifier == "toQuizView" {
             let quizView: QuizViewController = segue.destination as! QuizViewController
             quizView.type = quizType
+        }else if segue.identifier == "toShareSetView" {
+            let shareSetView: ShareSetViewController = segue.destination as! ShareSetViewController
+            shareSetView.isShared = set.isShared
         }
     }
 }
@@ -247,5 +282,25 @@ extension SetViewController: UISearchResultsUpdating {
         }
 
         tableView.reloadData()
+    }
+}
+
+extension SetViewController: CircleMenuDelegate {
+    
+    func circleMenu(_: CircleMenu, willDisplay button: UIButton, atIndex: Int) {
+        button.tintColor = UIColor.white
+        button.backgroundColor = menuItems[atIndex].color
+        
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        button.setImage(UIImage(systemName: menuItems[atIndex].icon, withConfiguration: configuration), for: .normal)
+    }
+    
+    func circleMenu(_: CircleMenu, buttonDidSelected _: UIButton, atIndex: Int) {
+        addWordMenu.isSelected = false
+        if atIndex == 0 {
+            performSegue(withIdentifier: "toSelectSetWordView", sender: nil)
+        }else if atIndex == 3 {
+            performSegue(withIdentifier: "toSelectWordByCameraView", sender: nil)
+        }
     }
 }

@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //--test
+        
         setupNavigationController()
         setupSearchController()
         setupTabBarController()
@@ -81,14 +83,14 @@ class MainViewController: UIViewController {
     }
     
     func setupTabBarController() {
-        self.tabBarController?.tabBar.shadowImage = UIImage()
-        self.tabBarController?.tabBar.backgroundImage = UIImage()
+        tabBarController?.tabBar.shadowImage = UIImage()
+        tabBarController?.tabBar.backgroundImage = UIImage()
         setTabBarImages(index: 0, image: "home_2.png", selectedImage: "home_1.png")
         setTabBarImages(index: 1, image: "words_2.png", selectedImage: "words_1.png")
     }
     
     func setTabBarImages(index: Int, image: String, selectedImage: String) {
-        let item = self.tabBarController?.tabBar.items![index]
+        let item = tabBarController?.tabBar.items![index]
         let image = UIImage(named: image)?.withRenderingMode(.alwaysOriginal)
         
         item?.image = image

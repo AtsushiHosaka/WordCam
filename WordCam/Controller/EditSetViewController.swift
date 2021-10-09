@@ -122,13 +122,9 @@ class EditSetViewController: UIViewController {
     @IBAction func editButtonPressed() {
         if nameField.text != "" && emojiField.text != "" {
             if type == 0 {
-                if isNewSetTitle(title: nameField.text!) {
-                    let set = WordSet(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
-                    RealmService.shared.create(set)
-                }else {
-                    let alert = MyAlert.shared.errorAlert(message: "その名前はもう使われています")
-                    present(alert, animated: true, completion: nil)
-                }
+                let set = WordSet(title: nameField.text!, color: selectedColor ?? 0, emoji: emojiField.text!)
+                set.isOriginal = true
+                RealmService.shared.create(set)
             }else {
                 RealmService.shared.update(set, with: ["title": nameField.text!, "color": selectedColor ?? 0, "emoji": emojiField.text!])
             }

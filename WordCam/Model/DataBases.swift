@@ -50,6 +50,11 @@ class Word: Object {
     override static func primaryKey() -> String? {
         return "wordID"
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? Word else { return false }
+        return self.word == object.word
+    }
 }
 
 class WordSet: Object {
@@ -57,6 +62,8 @@ class WordSet: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var color: Int = 0
     @objc dynamic var emoji: String = ""
+    @objc dynamic var isShared: Bool = false
+    @objc dynamic var isOriginal: Bool = false
     
     let word = LinkingObjects(fromType: Word.self, property: "sets")
     var words = List<Word>()

@@ -11,6 +11,8 @@ target 'WordCam' do
   pod 'IQKeyboardManagerSwift'
   pod 'ISEmojiView'
   pod 'CircleMenu'
+  pod 'Firebase/Database'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'WordCamTests' do
     inherit! :search_paths

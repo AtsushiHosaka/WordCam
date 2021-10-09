@@ -13,6 +13,7 @@ import NaturalLanguage
 class WordViewController: FormViewController {
     
     var word: Word?
+    var isEditable = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,14 +85,16 @@ class WordViewController: FormViewController {
                 neighborSection = Section(header: "意味が似ている単語", footer: "-取得できませんでした")
             }
             form.append(neighborSection)
-        
-        form
-            +++ Section()
-            <<< ButtonRow() {
-                $0.title = "変更を保存"
-                $0.onCellSelection {_, _ in
-                    self.saveWord()
-                }
+            
+            if isEditable {
+                form
+                    +++ Section()
+                    <<< ButtonRow() {
+                        $0.title = "変更を保存"
+                        $0.onCellSelection {_, _ in
+                            self.saveWord()
+                        }
+                    }
             }
         
         tableView.backgroundColor = MyColor.shared.backgroundColor

@@ -12,7 +12,7 @@ class MyAlert {
     static let shared = MyAlert()
     
     func errorAlert(message: String) -> UIAlertController {
-        let alert = UIAlertController(title: "エラー", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         
