@@ -59,7 +59,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="distance">
-                                        <real key="value" value="120"/>
+                                        <real key="value" value="105"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -590,7 +590,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="distance">
-                                        <real key="value" value="120"/>
+                                        <real key="value" value="105"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -656,10 +656,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADG-YA-WSO">
-                                <rect key="frame" x="112.66666666666669" y="656" width="150" height="50"/>
+                                <rect key="frame" x="142.66666666666666" y="656" width="90" height="50"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="iKW-Px-haF"/>
+                                    <constraint firstAttribute="width" constant="90" id="iKW-Px-haF"/>
                                     <constraint firstAttribute="height" constant="50" id="ivY-yA-863"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
@@ -690,7 +690,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="distance">
-                                        <real key="value" value="120"/>
+                                        <real key="value" value="105"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -932,10 +932,10 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xid-4G-mE3">
-                                <rect key="frame" x="112.66666666666669" y="630" width="150" height="50"/>
+                                <rect key="frame" x="142.66666666666666" y="656" width="90" height="50"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="ajz-ev-HHq"/>
+                                    <constraint firstAttribute="width" constant="90" id="ajz-ev-HHq"/>
                                     <constraint firstAttribute="height" constant="50" id="rqo-vT-cNg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
@@ -972,7 +972,7 @@
                             <constraint firstItem="6VM-Xm-Xgf" firstAttribute="top" secondItem="GAK-sw-Yj8" secondAttribute="top" constant="112" id="dIu-Vu-Z4i"/>
                             <constraint firstItem="6VM-Xm-Xgf" firstAttribute="trailing" secondItem="GAK-sw-Yj8" secondAttribute="trailing" id="mZ7-S7-Kos"/>
                             <constraint firstItem="6VM-Xm-Xgf" firstAttribute="leading" secondItem="GAK-sw-Yj8" secondAttribute="leading" id="nQY-mu-q2r"/>
-                            <constraint firstItem="GAK-sw-Yj8" firstAttribute="bottom" secondItem="xid-4G-mE3" secondAttribute="bottom" constant="49" id="pV6-US-gor"/>
+                            <constraint firstItem="GAK-sw-Yj8" firstAttribute="bottom" secondItem="xid-4G-mE3" secondAttribute="bottom" constant="23" id="pV6-US-gor"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title=" " id="RDg-Gq-dAx">

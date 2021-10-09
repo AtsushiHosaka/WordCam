@@ -9,6 +9,7 @@ import UIKit
 
 class SearchedSetViewController: UIViewController {
     
+    var type = "default"
     var setData = WordSet()
     var words = [Word]()
     var selectedNum = 0
@@ -48,7 +49,8 @@ class SearchedSetViewController: UIViewController {
     
     func showAddAlert() {
         let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
-            SetDownloader.shared.addNewSet(setData: self.setData)
+            
+            SetDownloader.shared.addNewSet(path: self.type, setData: self.setData)
             self.navigationController?.popViewController(animated: true)
         })
         let alert = MyAlert.shared.customAlert(title: "このセットを追加しますか？", message: "", style: .alert, action: [action])

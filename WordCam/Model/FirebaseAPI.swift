@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import SwiftyJSON
 
 struct FirebaseAPI {
     
@@ -39,11 +40,11 @@ struct FirebaseAPI {
         }
     }
     
-    func addFavorite(ID: String) {
-        ref.child("original").child(ID).child("favorite").observeSingleEvent(of: .value) { (Snapshot) in
+    func addFavorite(path: String, ID: String) {
+        ref.child(path).child(ID).child("favorite").observeSingleEvent(of: .value) { (Snapshot) in
             if let data = Snapshot.value {
-                let data = data as! Int
-                ref.child(ID).updateChildValues(["favorite": data + 1])
+                let data = Int(JSON(data).rawString() ?? "0") ?? 0
+                ref.child(path).child(ID).updateChildValues(["favorite": data + 1])
             }else{
                 print("error")
             }

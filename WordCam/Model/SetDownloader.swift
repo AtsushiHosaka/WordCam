@@ -11,8 +11,8 @@ struct SetDownloader {
     
     static let shared = SetDownloader()
     
-    func addNewSet(setData: WordSet) {
-        FirebaseAPI.shared.addFavorite(ID: setData.setID)
+    func addNewSet(path: String, setData: WordSet) {
+        FirebaseAPI.shared.addFavorite(path: path, ID: setData.setID)
         
         let newSet = WordSet(title: setData.title, color: setData.color, emoji: setData.emoji)
         newSet.isOriginal = false

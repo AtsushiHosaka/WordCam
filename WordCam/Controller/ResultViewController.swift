@@ -91,19 +91,20 @@ class ResultViewController: UIViewController {
         guard let set = set else { return }
         var setCorrectAnsRates = Array(set.correctAnsRate)
         setCorrectAnsRates.append(history)
-        RealmService.shared.update(set, with: ["correctAnsRate": setCorrectAnsRates])
+        let average = (set.correctAnsRateAverage + correctAnsRate!) / Double(setCorrectAnsRates.count)
+        RealmService.shared.update(set, with: ["correctAnsRate": setCorrectAnsRates, "correctAnsRateAverage": average])
         
         for word in set.words {
-            var history = WordAnsHistory()
+            var rate: Double = 1
             if wrongWords.contains(word) {
-                history = WordAnsHistory(date: Date(), rate: 0)
-            }else {
-                history = WordAnsHistory(date: Date(), rate: 1)
+                rate = 0
             }
+            let history = WordAnsHistory(date: Date(), rate: rate)
             
             var wordCorrectAnsRates = Array(word.correctAnsRate)
             wordCorrectAnsRates.append(history)
-            RealmService.shared.update(word, with: ["correctAnsRate": wordCorrectAnsRates])
+            let average = (word.correctAnsRateAverage + rate) / Double(wordCorrectAnsRates.count)
+            RealmService.shared.update(word, with: ["correctAnsRate": wordCorrectAnsRates, "correctAnsRateAverage": average])
         }
     }
     

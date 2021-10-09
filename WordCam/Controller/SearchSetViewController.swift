@@ -19,6 +19,7 @@ class SearchSetViewController: UIViewController {
             }
         }
     }
+    var type = "default"
     var selectedNum = 0
     var searchController = UISearchController(searchResultsController: nil)
     @IBOutlet var collectionView: UICollectionView!
@@ -28,16 +29,24 @@ class SearchSetViewController: UIViewController {
         
         setupNavigationController()
         setupCollectionView()
+        setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        readDefaultSets()
+        if searchController.searchBar.text!.count == 36 {
+            readOriginalSet(ID: searchController.searchBar.text!)
+        }else {
+            readDefaultSets()
+        }
     }
     
     func setupNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.sizeToFit()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func setupCollectionView() {
@@ -63,9 +72,18 @@ class SearchSetViewController: UIViewController {
         collectionView.collectionViewLayout = collectionLayout
     }
     
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.backgroundColor = MyColor.shared.backgroundColor
+        searchController.searchBar.barTintColor = MyColor.shared.backgroundColor
+        
+        navigationItem.searchController = searchController
+    }
+    
     func addSet(selectedNum: Int) {
         let setData = data[selectedNum]
-        SetDownloader.shared.addNewSet(setData: setData)
+        SetDownloader.shared.addNewSet(path: type, setData: setData)
     }
     
     func readDefaultSets() {
@@ -101,6 +119,7 @@ class SearchSetViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let setViewController: SearchedSetViewController = segue.destination as! SearchedSetViewController
         setViewController.setData = data[selectedNum]
+        setViewController.type = type
     }
 }
 
@@ -128,5 +147,26 @@ extension SearchSetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedNum = indexPath.row
         performSegue(withIdentifier: "toSearchedSetView", sender: nil)
+    }
+}
+
+extension SearchSetViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+//        searchResults = data.filter { set in
+//            return set.title.contains(searchController.searchBar.text!)
+//        }
+        
+        if searchController.searchBar.text!.count == 36 {
+            if type == "default" {
+                type = "original"
+                readOriginalSet(ID: searchController.searchBar.text!)
+            }
+        }else {
+            if type == "original" {
+                type = "default"
+                readDefaultSets()
+            }
+        }
     }
 }

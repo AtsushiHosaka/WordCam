@@ -48,6 +48,12 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.sizeToFit()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(self.showSortTypeAlert(_:)))
+        tapGesture.delegate = self
+        navigationController?.navigationItem.titleView?.addGestureRecognizer(tapGesture)
     }
     
     func setupSearchController() {
@@ -127,16 +133,17 @@ class MainViewController: UIViewController {
             alertLabel.isHidden = true
         }
         
+        let words = RealmService.shared.realm.objects(Word.self)
         let histories = RealmService.shared.realm.objects(WordAnsHistory.self)
-        if histories.count > 20 {
+        if words.count > 20 && histories.count > 60 {
             if RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: "auto") != nil {
                 addAutoSet(isExist: true)
             }else {
                 addAutoSet(isExist: false)
             }
+        }else {
+            collectionView.reloadData()
         }
-        
-        collectionView.reloadData()
     }
     
     func reloadView() {
@@ -174,7 +181,29 @@ class MainViewController: UIViewController {
     
     func addAutoSet(isExist: Bool) {
         var words = Array(RealmService.shared.realm.objects(Word.self))
-        words.sort(by: {$0.word < $1.word})
+        words.sort(by: {$0.correctAnsRateAverage < $1.correctAnsRateAverage})
+        let newWords = Array(words[0..<10])
+        
+        if isExist {
+            let autoSet = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: "auto")
+            RealmService.shared.update(autoSet!, with: ["words": newWords])
+        }else {
+            let autoSet = WordSet(title: "苦手な単語", color: Int.random(in: (0...7)), emoji: "⚙️")
+            autoSet.setID = "auto"
+            RealmService.shared.create(autoSet)
+            RealmService.shared.addWordsToSet(setID: "auto", words: newWords)
+        }
+        
+        collectionView.reloadData()
+    }
+    
+    func showAddAutoSetAlert() {
+        let alert = MyAlert.shared.errorAlert(message: "セット「苦手な単語」が自動で追加されました")
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func showSortTypeAlert(_ sender: UITapGestureRecognizer) {
+        
     }
     
     func deleteSet(num: Int) {
@@ -294,4 +323,8 @@ extension MainViewController: CircleMenuDelegate {
             performSegue(withIdentifier: "toSearchSetView", sender: nil)
         }
     }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    
 }

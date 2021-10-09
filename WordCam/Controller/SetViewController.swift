@@ -146,6 +146,8 @@ class SetViewController: UIViewController {
     @IBAction func shareButtonPressed() {
         if !set.isOriginal {
             showNotOriginalAlert()
+        }else if setID == "auto" {
+            showAutoSetAlert()
         }else if set.words.count > 10 {
             performSegue(withIdentifier: "toShareSetView", sender: nil)
         }else {
@@ -160,6 +162,11 @@ class SetViewController: UIViewController {
     
     func showNotOriginalAlert() {
         let alert = MyAlert.shared.errorAlert(message: "ダウンロードしたセットは共有できません")
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showAutoSetAlert() {
+        let alert = MyAlert.shared.errorAlert(message: "自動生成のセットは共有できません")
         present(alert, animated: true, completion: nil)
     }
     

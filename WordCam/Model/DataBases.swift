@@ -32,6 +32,7 @@ class Meaning: Object {
 class Word: Object {
     @objc dynamic var wordID = UUID().uuidString
     @objc dynamic var word: String = ""
+    @objc dynamic var correctAnsRateAverage: Double = 0
     var meanings = List<Meaning>()
     
     let sets = List<WordSet>()
@@ -64,6 +65,7 @@ class WordSet: Object {
     @objc dynamic var emoji: String = ""
     @objc dynamic var isShared: Bool = false
     @objc dynamic var isOriginal: Bool = false
+    @objc dynamic var correctAnsRateAverage: Double = 0
     
     let word = LinkingObjects(fromType: Word.self, property: "sets")
     var words = List<Word>()

@@ -23,7 +23,7 @@ class SetCollectionViewCell: UICollectionViewCell {
             gradientView.startColor = MyColor.shared.colorUI(num: setData.color, type: 0)
             gradientView.endColor = MyColor.shared.colorUI(num: setData.color, type: 1)
             gradientView.layer.setNeedsDisplay()
-            correctAnsRateLabel.text = String(Int((setData.correctAnsRate.last?.rate ?? 0) * 100)) + "%"
+            correctAnsRateLabel.text = String(Int(setData.correctAnsRateAverage * 100)) + "%"
         }
     }
     
