@@ -40,8 +40,9 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        reloadData()
+        checkAutoSet()
         reloadNavigationController()
+        reloadData()
     }
     
     func setupNavigationController() {
@@ -132,7 +133,10 @@ class MainViewController: UIViewController {
             collectionView.isHidden = false
             alertLabel.isHidden = true
         }
-        
+        collectionView.reloadData()
+    }
+    
+    func checkAutoSet() {
         let words = RealmService.shared.realm.objects(Word.self)
         let histories = RealmService.shared.realm.objects(WordAnsHistory.self)
         if words.count > 20 && histories.count > 60 {
@@ -141,8 +145,6 @@ class MainViewController: UIViewController {
             }else {
                 addAutoSet(isExist: false)
             }
-        }else {
-            collectionView.reloadData()
         }
     }
     
@@ -190,11 +192,11 @@ class MainViewController: UIViewController {
         }else {
             let autoSet = WordSet(title: "苦手な単語", color: Int.random(in: (0...7)), emoji: "⚙️")
             autoSet.setID = "auto"
+            autoSet.isOriginal = true
             RealmService.shared.create(autoSet)
             RealmService.shared.addWordsToSet(setID: "auto", words: newWords)
+            showAddAutoSetAlert()
         }
-        
-        collectionView.reloadData()
     }
     
     func showAddAutoSetAlert() {

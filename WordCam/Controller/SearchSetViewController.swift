@@ -84,6 +84,7 @@ class SearchSetViewController: UIViewController {
     func addSet(selectedNum: Int) {
         let setData = data[selectedNum]
         SetDownloader.shared.addNewSet(path: type, setData: setData)
+        showFinishAlert()
     }
     
     func readDefaultSets() {
@@ -104,6 +105,15 @@ class SearchSetViewController: UIViewController {
         })
         let alert = MyAlert.shared.customAlert(title: "このセットを追加しますか？", message: "", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showFinishAlert() {
+        let alert = UIAlertController(title: "完了しました！", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
     func showErrorAlert() {

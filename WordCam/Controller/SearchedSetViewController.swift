@@ -51,10 +51,20 @@ class SearchedSetViewController: UIViewController {
         let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
             
             SetDownloader.shared.addNewSet(path: self.type, setData: self.setData)
-            self.navigationController?.popViewController(animated: true)
+            self.showFinishAlert()
         })
         let alert = MyAlert.shared.customAlert(title: "このセットを追加しますか？", message: "", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showFinishAlert() {
+        let alert = UIAlertController(title: "完了しました！", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alert.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
