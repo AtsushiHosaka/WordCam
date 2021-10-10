@@ -39,7 +39,7 @@ struct SetSearcher {
             parsedSetsData.append((wordSet, favor))
         }
         
-        parsedSetsData.sort(by: { $0.favor > $1.favor })
+        parsedSetsData.sort(by: { $0.set.title < $1.set.title })
         
         var parsedData = [WordSet]()
         for parsedSetData in parsedSetsData {
@@ -52,7 +52,7 @@ struct SetSearcher {
     func parseSetData(ID: String, data: JSON) -> WordSet {
         let title = data["title"].rawString() ?? ""
         let color = Int(data["color"].rawString() ?? "0") ?? 0
-        let emoji = data["emoji"].rawString() ?? "🤯"
+        let emoji = data["emoji"].rawString() ?? ""
         let words = parseWordsData(data: data["words"])
         
         let wordSet = WordSet(title: title, color: color, emoji: emoji)

@@ -173,11 +173,14 @@ class WordViewController: FormViewController {
             RealmService.shared.delete(meaning)
         }
         
+        for history in Array((word ?? Word()).correctAnsRate) {
+            RealmService.shared.delete(history)
+        }
+        
         guard let word = word else { return }
         RealmService.shared.delete(word)
         
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 

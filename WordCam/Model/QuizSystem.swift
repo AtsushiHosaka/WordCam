@@ -148,7 +148,6 @@ struct QuizSystem {
                     if w1[i-1] == w2[j-1] {
                         dp[i][j] = min(dp[i][j], dp[i-1][j-1])
                     }
-                    
                     else {
                         dp[i][j] = min(dp[i][j], dp[i-1][j-1]+1)
                     }
@@ -171,10 +170,10 @@ struct QuizSystem {
                              Meaning(meaning: "乗客", type: 1, parentWord: "passenger"),
                              Meaning(meaning: "材料", type: 1, parentWord: "stuff"),
                              Meaning(meaning: "成分", type: 1, parentWord: "component"),
-                             Meaning(meaning: "〜を防ぐ", type: 2, parentWord: "prevent"),
-                             Meaning(meaning: "〜を用意する", type: 2, parentWord: "prepare"),
-                             Meaning(meaning: "〜を与える", type: 2, parentWord: "give"),
-                             Meaning(meaning: "〜を選ぶ", type: 2, parentWord: "choose"),
+                             Meaning(meaning: "を防ぐ", type: 2, parentWord: "prevent"),
+                             Meaning(meaning: "を用意する", type: 2, parentWord: "prepare"),
+                             Meaning(meaning: "を与える", type: 2, parentWord: "give"),
+                             Meaning(meaning: "を選ぶ", type: 2, parentWord: "choose"),
                              Meaning(meaning: "以前の", type: 3, parentWord: "previous"),
                              Meaning(meaning: "最近の", type: 3, parentWord: "recent"),
                              Meaning(meaning: "特定の", type: 3, parentWord: "specific"),
@@ -191,10 +190,10 @@ struct QuizSystem {
                              Meaning(meaning: "あなたの", type: 6, parentWord: "your"),
                              Meaning(meaning: "それを", type: 6, parentWord: "its"),
                              Meaning(meaning: "私たち自身", type: 6, parentWord: "own"),
-                             Meaning(meaning: "〜までずっと", type: 7, parentWord: "until"),
-                             Meaning(meaning: "〜を横切って", type: 7, parentWord: "across"),
-                             Meaning(meaning: "〜のあちこちに", type: 7, parentWord: "around"),
-                             Meaning(meaning: "〜について", type: 7, parentWord: "about"),
+                             Meaning(meaning: "までずっと", type: 7, parentWord: "until"),
+                             Meaning(meaning: "を横切って", type: 7, parentWord: "across"),
+                             Meaning(meaning: "のあちこちに", type: 7, parentWord: "around"),
+                             Meaning(meaning: "について", type: 7, parentWord: "about"),
                              Meaning(meaning: "その", type: 8, parentWord: "the"),
                              Meaning(meaning: "例の", type: 8, parentWord: "the"),
                              Meaning(meaning: "あるひとつの", type: 8, parentWord: "a"),

@@ -85,7 +85,6 @@ class EditSetViewController: UIViewController {
         if type == 1 {
             let setID = UserDefaults.standard.string(forKey: "setID")
             set = RealmService.shared.realm.object(ofType: WordSet.self, forPrimaryKey: setID) ?? WordSet()
-            
             selectedColor = set.color
         }
     }
@@ -141,21 +140,6 @@ class EditSetViewController: UIViewController {
         reloadCollectionView!()
         self.dismiss(animated: true, completion: nil)
     }
-    
-    func isNewSetTitle(title: String) -> Bool {
-        let sets = RealmService.shared.realm.objects(WordSet.self)
-        var titles = [String]()
-        for set in sets {
-            titles.append(set.title)
-        }
-        
-        if !titles.contains(title) {
-            return true
-        }else {
-            return false
-        }
-    }
-
 }
 
 extension EditSetViewController: UICollectionViewDataSource {

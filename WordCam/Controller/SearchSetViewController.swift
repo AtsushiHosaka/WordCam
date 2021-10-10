@@ -179,10 +179,6 @@ extension SearchSetViewController: UICollectionViewDelegate {
 extension SearchSetViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-//        searchResults = data.filter { set in
-//            return set.title.contains(searchController.searchBar.text!)
-//        }
-        
         if searchController.searchBar.text!.count == 36 {
             if type == "default" {
                 type = "original"

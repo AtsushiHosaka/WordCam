@@ -28,8 +28,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //--test
-        
         setupNavigationController()
         setupSearchController()
         setupTabBarController()
@@ -220,7 +218,12 @@ class MainViewController: UIViewController {
         }else {
             set = searchResults[num]
         }
+        
+        for history in Array(set.correctAnsRate) {
+            RealmService.shared.delete(history)
+        }
         RealmService.shared.delete(set)
+        
         if data.count == 1 {
             data = []
         }

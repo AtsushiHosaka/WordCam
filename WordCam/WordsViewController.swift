@@ -41,12 +41,10 @@ class WordsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         reloadNavigationController()
         reloadData()
-        
-        //reloadLargeTitle()
     }
     
     func setupNavigationController() {
-        //navigationController?.navigationBar.sizeToFit()
+        navigationController?.navigationBar.sizeToFit()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.hidesSearchBarWhenScrolling = false
     }
@@ -84,11 +82,7 @@ class WordsViewController: UIViewController {
     }
     
     func reloadNavigationController() {
-        //navigationController?.navigationBar.sizeToFit()
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        
-        navigationController?.navigationBar.sizeToFit()
         
         if isEditMode {
             editBarButton.title = "削除"
@@ -99,16 +93,6 @@ class WordsViewController: UIViewController {
             cancelBarButton.isEnabled = false
             cancelBarButton.tintColor = UIColor.clear
         }
-    }
-    
-    func reloadLargeTitle() {
-        print(tableView.contentOffset)
-        //tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        //tableView.contentOffset = CGPoint(x: 0, y: -self.tableView.contentInset.top)
-        //navigationController?.navigationBar.sizeToFit()
-        //tableView.scrollRectToVisible(CGRect(x: 0, y: -2 * self.tableView.contentInset.top, width: 1, height: 1), animated: true)
-        navigationController?.navigationBar.sizeToFit()
-        print(tableView.contentOffset)
     }
     
     func reloadTableView() {
@@ -186,6 +170,10 @@ class WordsViewController: UIViewController {
             
             for meaning in Array(word.meanings) {
                 RealmService.shared.delete(meaning)
+            }
+            
+            for history in Array(word.correctAnsRate) {
+                RealmService.shared.delete(history)
             }
             RealmService.shared.delete(word)
         }

@@ -148,10 +148,6 @@ extension SelectSetWordViewController: UITableViewDataSource {
     }
 }
 
-extension SelectSetWordViewController: UITableViewDelegate {
-    
-}
-
 extension SelectSetWordViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
@@ -161,6 +157,10 @@ extension SelectSetWordViewController: UISearchResultsUpdating {
 
         tableView.reloadData()
     }
+}
+
+extension SelectSetWordViewController: UITableViewDelegate {
+    
 }
 
 extension SelectSetWordViewController: UIGestureRecognizerDelegate {
