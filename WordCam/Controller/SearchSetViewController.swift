@@ -77,14 +77,21 @@ class SearchSetViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.backgroundColor = MyColor.shared.backgroundColor
         searchController.searchBar.barTintColor = MyColor.shared.backgroundColor
+        searchController.searchBar.placeholder = "IDで検索"
         
         navigationItem.searchController = searchController
     }
     
     func addSet(selectedNum: Int) {
         let setData = data[selectedNum]
-        SetDownloader.shared.addNewSet(path: type, setData: setData)
-        showFinishAlert()
+        let sets = Array(RealmService.shared.realm.objects(WordSet.self))
+        
+        if sets.contains(setData) {
+            showUnableAlert()
+        }else {
+            SetDownloader.shared.addNewSet(path: type, setData: setData)
+            showFinishAlert()
+        }
     }
     
     func readDefaultSets() {
@@ -123,6 +130,15 @@ class SearchSetViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             alert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func showUnableAlert() {
+        let alert = UIAlertController(title: "このセットはすでに追加されています", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.dismiss(animated: true, completion: nil)
         }
     }
     

@@ -15,6 +15,7 @@ struct SetDownloader {
         FirebaseAPI.shared.addFavorite(path: path, ID: setData.setID)
         
         let newSet = WordSet(title: setData.title, color: setData.color, emoji: setData.emoji)
+        newSet.setID = setData.setID
         newSet.isOriginal = false
         RealmService.shared.create(newSet)
         

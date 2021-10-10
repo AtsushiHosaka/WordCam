@@ -22,6 +22,7 @@ class WordsViewController: UIViewController {
     var searchResults = [Word]()
     var isEditMode: Bool = false
     var selectedNum: Int?
+    var sortType: Int = 0
     @IBOutlet var tableView: UITableView!
     @IBOutlet var alertLabel: UILabel!
     @IBOutlet var editBarButton: UIBarButtonItem!
@@ -124,9 +125,8 @@ class WordsViewController: UIViewController {
             tableView.isHidden = false
             alertLabel.isHidden = true
             
-            data = Array(words).sorted(by: {$0.word < $1.word})
-            
-            tableView.reloadData()
+            data = Array(words)
+            sortData()
         }
     }
     
@@ -148,6 +148,19 @@ class WordsViewController: UIViewController {
         isEditMode = false
         reloadNavigationController()
         reloadTableView()
+    }
+    
+    @IBAction func sortButtonPressed() {
+        let action1 = UIAlertAction(title: "辞書順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 0
+            self.sortData()
+        })
+        let action2 = UIAlertAction(title: "苦手順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 1
+            self.sortData()
+        })
+        let alert = MyAlert.shared.customAlert(title: "並び替え", message: "", style: .actionSheet, action: [action1, action2])
+        present(alert, animated: true, completion: nil)
     }
     
     func showErrorAlert() {
@@ -182,6 +195,14 @@ class WordsViewController: UIViewController {
         }
         
         reloadData()
+    }
+    
+    func sortData() {
+        data.sort(by: { $0.word < $1.word })
+        if sortType == 1 {
+            data.sort(by: { $0.correctAnsRateAverage < $1.correctAnsRateAverage })
+        }
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

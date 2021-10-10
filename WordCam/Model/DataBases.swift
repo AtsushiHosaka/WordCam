@@ -83,6 +83,11 @@ class WordSet: Object {
     override static func primaryKey() -> String? {
         return "setID"
     }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? WordSet else { return false }
+        return self.setID == object.setID
+    }
 }
 
 class WordAnsHistory: Object {

@@ -79,16 +79,25 @@
                     </view>
                     <navigationItem key="navigationItem" title="単語一覧" id="OYs-2d-HKS">
                         <barButtonItem key="backBarButtonItem" title=" " id="cUJ-sf-BxY"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="3tf-ie-uX8">
+                        <leftBarButtonItems>
+                            <barButtonItem title="編集" id="ZJI-pq-f57">
+                                <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="editButtonPressed" destination="vmo-cR-emz" id="8d5-3y-fgA"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="cancel" id="3tf-ie-uX8">
+                                <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed" destination="vmo-cR-emz" id="UvC-Ou-gff"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" id="6QV-YX-mSU">
+                            <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="large"/>
                             <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="cancelButtonPressed" destination="vmo-cR-emz" id="UvC-Ou-gff"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="編集" id="ZJI-pq-f57">
-                            <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="editButtonPressed" destination="vmo-cR-emz" id="8d5-3y-fgA"/>
+                                <action selector="sortButtonPressed" destination="vmo-cR-emz" id="K32-M7-NOW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -497,13 +506,21 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="単語を追加" id="21h-fe-40b">
-                        <barButtonItem key="backBarButtonItem" title="＜" id="84i-Wx-Atz"/>
-                        <barButtonItem key="rightBarButtonItem" title="追加" id="8cj-8j-Yrx">
-                            <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="addButtonPressed" destination="k16-B9-mgg" id="5eI-oe-Z95"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="66I-Yu-lKP">
+                                <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="large"/>
+                                <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="sortButtonPressed" destination="k16-B9-mgg" id="GLz-d5-cvr"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="追加" id="8cj-8j-Yrx">
+                                <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="addButtonPressed" destination="k16-B9-mgg" id="5eI-oe-Z95"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="8cj-8j-Yrx" id="vsZ-ym-GkC"/>
@@ -611,6 +628,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="セット一覧" id="nYG-99-yin">
                         <barButtonItem key="backBarButtonItem" title=" " id="wID-lY-oa2"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="IrF-cJ-kxC">
+                            <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="sortButtonPressed" destination="0Ux-zr-6u0" id="52w-cx-Qao"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addSetMenu" destination="mAH-El-BSY" id="qdi-OE-o5C"/>
@@ -1195,7 +1219,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IBS-li-S6F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688.8000000000002" y="159.60591133004928"/>
+            <point key="canvasLocation" x="3612" y="160"/>
         </scene>
         <!--Searched Set View Controller-->
         <scene sceneID="9el-B1-L2Z">
@@ -1246,7 +1270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fuv-vr-XU6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2689" y="892"/>
+            <point key="canvasLocation" x="2689" y="160"/>
         </scene>
         <!--Word View Controller-->
         <scene sceneID="ttb-1f-Xpl">
@@ -1262,7 +1286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsT-8L-PxS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3612" y="892"/>
+            <point key="canvasLocation" x="2689" y="892"/>
         </scene>
         <!--Edit Set View Controller-->
         <scene sceneID="pss-0g-o7q">
@@ -1409,6 +1433,7 @@
     </scenes>
     <color key="tintColor" red="0.10980392160000001" green="0.15686274510000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="home_1.png" width="2.34375" height="2.34375"/>
         <image name="rectangle.on.rectangle.fill" catalog="system" width="128" height="97"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

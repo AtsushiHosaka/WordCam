@@ -40,15 +40,12 @@ class ShareSetViewController: UIViewController {
     }
     
     func reloadLabel() {
-        //部分列？
-        let from = setID.index(setID.startIndex, offsetBy: 9)
-        let to = setID.index(setID.startIndex, offsetBy: 22)
-        let text = String(setID[from...to])
-        IDLabel.text = text
+        IDLabel.text = String(setID.prefix(18)) + "\n" + String(setID.suffix(18))
     }
     
     @IBAction func copyID() {
         UIPasteboard.general.string = setID
+        showCopiedAlert()
     }
     
     func showShareAlert() {
@@ -63,6 +60,15 @@ class ShareSetViewController: UIViewController {
         })
         let alert = MyAlert.shared.customAlert(title: "セットを共有しますか？", message: "", style: .alert, action: [action, cancel])
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showCopiedAlert() {
+        let alert = UIAlertController(title: "IDがコピーされました", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
     func updateRealmData() {

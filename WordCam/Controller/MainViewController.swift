@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
         ("magnifyingglass", MyColor.shared.mainColor)
     ]
     var searchController = UISearchController(searchResultsController: nil)
+    var sortType: Int = 0
     var data = [WordSet]()
     var searchResults = [WordSet]()
     @IBOutlet var collectionView: UICollectionView!
@@ -49,12 +50,6 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.sizeToFit()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(
-                    target: self,
-                    action: #selector(self.showSortTypeAlert(_:)))
-        tapGesture.delegate = self
-        navigationController?.navigationItem.titleView?.addGestureRecognizer(tapGesture)
     }
     
     func setupSearchController() {
@@ -133,7 +128,8 @@ class MainViewController: UIViewController {
             collectionView.isHidden = false
             alertLabel.isHidden = true
         }
-        collectionView.reloadData()
+        
+        sortData()
     }
     
     func checkAutoSet() {
@@ -155,6 +151,19 @@ class MainViewController: UIViewController {
     
     func reloadNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    @IBAction func sortButtonPressed() {
+        let action1 = UIAlertAction(title: "辞書順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 0
+            self.sortData()
+        })
+        let action2 = UIAlertAction(title: "苦手順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 1
+            self.sortData()
+        })
+        let alert = MyAlert.shared.customAlert(title: "並び替え", message: "", style: .actionSheet, action: [action1, action2])
+        present(alert, animated: true, completion: nil)
     }
     
     func showDeleteAlert(num: Int) {
@@ -204,10 +213,6 @@ class MainViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func showSortTypeAlert(_ sender: UITapGestureRecognizer) {
-        
-    }
-    
     func deleteSet(num: Int) {
         var set = WordSet()
         if searchController.searchBar.text == "" {
@@ -224,6 +229,14 @@ class MainViewController: UIViewController {
         }
         
         reloadData()
+    }
+    
+    func sortData() {
+        data.sort(by: { $0.title < $1.title })
+        if sortType == 1 {
+            data.sort(by: { $0.correctAnsRateAverage < $1.correctAnsRateAverage })
+        }
+        collectionView.reloadData()
     }
     
     func makeRemindNotification() {

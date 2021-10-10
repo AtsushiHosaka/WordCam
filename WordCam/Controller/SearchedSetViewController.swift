@@ -47,11 +47,21 @@ class SearchedSetViewController: UIViewController {
         showAddAlert()
     }
     
+    @objc func addSet() {
+        let sets = Array(RealmService.shared.realm.objects(WordSet.self))
+        
+        if sets.contains(setData) {
+            showUnableAlert()
+        }else {
+            SetDownloader.shared.addNewSet(path: type, setData: setData)
+            showFinishAlert()
+        }
+    }
+    
     func showAddAlert() {
         let action = UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) -> Void in
             
-            SetDownloader.shared.addNewSet(path: self.type, setData: self.setData)
-            self.showFinishAlert()
+            self.addSet()
         })
         let alert = MyAlert.shared.customAlert(title: "このセットを追加しますか？", message: "", style: .alert, action: [action])
         present(alert, animated: true, completion: nil)
@@ -64,6 +74,15 @@ class SearchedSetViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             alert.dismiss(animated: true, completion: nil)
             self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func showUnableAlert() {
+        let alert = UIAlertController(title: "このセットはすでに追加されています", message: "", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            alert.dismiss(animated: true, completion: nil)
         }
     }
     

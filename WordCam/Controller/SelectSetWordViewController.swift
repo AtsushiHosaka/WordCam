@@ -11,6 +11,7 @@ class SelectSetWordViewController: UIViewController {
     
     var searchController = UISearchController(searchResultsController: nil)
     var setID: String?
+    var sortType: Int = 0
     var set = WordSet()
     var data = [Word]()
     var searchResults = [Word]()
@@ -81,8 +82,7 @@ class SelectSetWordViewController: UIViewController {
             }
         }
         
-        data.sort(by: {$0.word < $1.word})
-        tableView.reloadData()
+        sortData()
     }
     
     func showErrorAlert(message: String) {
@@ -103,6 +103,27 @@ class SelectSetWordViewController: UIViewController {
         
         RealmService.shared.addWordsToSet(setID: setID ?? "", words: words)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func sortButtonPressed() {
+        let action1 = UIAlertAction(title: "辞書順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 0
+            self.sortData()
+        })
+        let action2 = UIAlertAction(title: "苦手順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+            self.sortType = 1
+            self.sortData()
+        })
+        let alert = MyAlert.shared.customAlert(title: "並び替え", message: "", style: .actionSheet, action: [action1, action2])
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func sortData() {
+        data.sort(by: { $0.word < $1.word })
+        if sortType == 1 {
+            data.sort(by: { $0.correctAnsRateAverage < $1.correctAnsRateAverage })
+        }
+        tableView.reloadData()
     }
 }
 
@@ -140,4 +161,8 @@ extension SelectSetWordViewController: UISearchResultsUpdating {
 
         tableView.reloadData()
     }
+}
+
+extension SelectSetWordViewController: UIGestureRecognizerDelegate {
+    
 }
