@@ -7,8 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D04DBBC2710884A0094B748 /* ShareSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04DBBB2710884A0094B748 /* ShareSetViewController.swift */; };
+		0D220EF726B8396700ECE350 /* WordChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D220EF526B8396700ECE350 /* WordChartCell.swift */; };
+		0D220EF826B8396700ECE350 /* WordChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D220EF626B8396700ECE350 /* WordChartCell.xib */; };
+		0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D24760A26DC8DE9004CD47C /* MeaningCell.swift */; };
+		0D24760D26DC8DE9004CD47C /* MeaningCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D24760B26DC8DE9004CD47C /* MeaningCell.xib */; };
 		0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488B026632DE600D7A6FF /* SetViewController.swift */; };
-		0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* ColorModel.swift */; };
+		0D2488C126634EA600D7A6FF /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2488C026634EA600D7A6FF /* MyColor.swift */; };
+		0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27E9D626AC5388001E094E /* WordViewController.swift */; };
+		0D27E9F126AD350D001E094E /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27E9F026AD350D001E094E /* RealmService.swift */; };
+		0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */; };
+		0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */; };
+		0D3F54F226E20B7800F8E2E6 /* MyAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */; };
+		0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */; };
+		0D554767268837F600967CB1 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D554766268837F600967CB1 /* WordsViewController.swift */; };
+		0D55477026883DF200967CB1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0D55476F26883DF200967CB1 /* Charts */; };
+		0D5547872688514700967CB1 /* SetChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5547852688514700967CB1 /* SetChartCell.swift */; };
+		0D5547882688514700967CB1 /* SetChartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5547862688514700967CB1 /* SetChartCell.xib */; };
+		0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7C92D626BAD141009B8236 /* AddWordViewController.swift */; };
+		0D8255D1270C48C600BD707D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D8255D0270C48C600BD707D /* GoogleService-Info.plist */; };
+		0D8255D3270CB47F00BD707D /* SearchSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */; };
+		0D8255D6270CB60F00BD707D /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */; };
+		0D8255D7270CB60F00BD707D /* SetCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */; };
+		0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */; };
+		0D9DBBED26FA2A6B00CECB40 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */; };
+		0DAA71B0270D7B380092F6B4 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA71AF270D7B380092F6B4 /* FirebaseAPI.swift */; };
+		0DAA71B2270D87230092F6B4 /* SetSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA71B1270D87230092F6B4 /* SetSearcher.swift */; };
+		0DAA71B4270D97580092F6B4 /* SearchedSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA71B3270D97580092F6B4 /* SearchedSetViewController.swift */; };
+		0DAA71B6270DA2C30092F6B4 /* SetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA71B5270DA2C30092F6B4 /* SetDownloader.swift */; };
 		0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E526500D2E0091D80F /* AppDelegate.swift */; };
 		0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */; };
 		0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE4E926500D2E0091D80F /* MainViewController.swift */; };
@@ -19,9 +45,17 @@
 		0DAAE50826500D2F0091D80F /* WordCamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAAE50726500D2F0091D80F /* WordCamUITests.swift */; };
 		0DAAE51A26500F6B0091D80F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51926500F6B0091D80F /* Realm */; };
 		0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DAAE51B26500F6B0091D80F /* RealmSwift */; };
-		0DCB74C82650BF7F001A795C /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* WordModel.swift */; };
-		0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */; };
-		0DCB74D82650EEB0001A795C /* SetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74D72650EEB0001A795C /* SetsModel.swift */; };
+		0DB10F6026C8D17300A3C8D7 /* AddWordsByCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */; };
+		0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */; };
+		0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */; };
+		0DC406F526CFEAC2001AA2E6 /* EditSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */; };
+		0DCB74C82650BF7F001A795C /* DataBases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB74C72650BF7E001A795C /* DataBases.swift */; };
+		0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */; };
+		0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */; };
+		0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA0EE026B9950B00630FAA /* QuizViewController.swift */; };
+		540D7D9207053B7B654496D9 /* Pods_WordCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7546CE90892F54F697E829A /* Pods_WordCam.framework */; };
+		6001CEE1C1010D5C588E5BAD /* Pods_WordCamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */; };
+		E66D30B9845A3DF4143C33A7 /* Pods_WordCam_WordCamUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +75,47 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0D91B278268812EE00A1C82F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0D04DBBB2710884A0094B748 /* ShareSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSetViewController.swift; sourceTree = "<group>"; };
+		0D220EF526B8396700ECE350 /* WordChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordChartCell.swift; sourceTree = "<group>"; };
+		0D220EF626B8396700ECE350 /* WordChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordChartCell.xib; sourceTree = "<group>"; };
+		0D24760A26DC8DE9004CD47C /* MeaningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeaningCell.swift; sourceTree = "<group>"; };
+		0D24760B26DC8DE9004CD47C /* MeaningCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeaningCell.xib; sourceTree = "<group>"; };
 		0D2488B026632DE600D7A6FF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
-		0D2488C026634EA600D7A6FF /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
+		0D2488C026634EA600D7A6FF /* MyColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
+		0D27E9D626AC5388001E094E /* WordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewController.swift; sourceTree = "<group>"; };
+		0D27E9F026AD350D001E094E /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSetWordViewController.swift; sourceTree = "<group>"; };
+		0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlert.swift; sourceTree = "<group>"; };
+		0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWordByCameraViewController.swift; sourceTree = "<group>"; };
+		0D554766268837F600967CB1 /* WordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordsViewController.swift; path = ../WordsViewController.swift; sourceTree = "<group>"; };
+		0D5547852688514700967CB1 /* SetChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetChartCell.swift; sourceTree = "<group>"; };
+		0D5547862688514700967CB1 /* SetChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetChartCell.xib; sourceTree = "<group>"; };
+		0D7C92D626BAD141009B8236 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		0D8255D0270C48C600BD707D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetViewController.swift; sourceTree = "<group>"; };
+		0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetCollectionViewCell.xib; sourceTree = "<group>"; };
+		0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSystem.swift; sourceTree = "<group>"; };
+		0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		0DAA71AF270D7B380092F6B4 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		0DAA71B1270D87230092F6B4 /* SetSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSearcher.swift; sourceTree = "<group>"; };
+		0DAA71B3270D97580092F6B4 /* SearchedSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedSetViewController.swift; sourceTree = "<group>"; };
+		0DAA71B5270DA2C30092F6B4 /* SetDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDownloader.swift; sourceTree = "<group>"; };
 		0DAAE4E226500D2D0091D80F /* WordCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE4E526500D2E0091D80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,9 +130,23 @@
 		0DAAE50326500D2F0091D80F /* WordCamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordCamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAAE50726500D2F0091D80F /* WordCamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCamUITests.swift; sourceTree = "<group>"; };
 		0DAAE50926500D2F0091D80F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0DCB74C72650BF7E001A795C /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
-		0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
-		0DCB74D72650EEB0001A795C /* SetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsModel.swift; sourceTree = "<group>"; };
+		0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordsByCameraViewController.swift; sourceTree = "<group>"; };
+		0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputWordViewController.swift; sourceTree = "<group>"; };
+		0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGoogleTranslate.swift; sourceTree = "<group>"; };
+		0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSetViewController.swift; sourceTree = "<group>"; };
+		0DCB74C72650BF7E001A795C /* DataBases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBases.swift; sourceTree = "<group>"; };
+		0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultChartView.swift; sourceTree = "<group>"; };
+		0DFA0EE026B9950B00630FAA /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.release.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.release.xcconfig"; sourceTree = "<group>"; };
+		4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.debug.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam.debug.xcconfig"; path = "Target Support Files/Pods-WordCam/Pods-WordCam.debug.xcconfig"; sourceTree = "<group>"; };
+		B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCam-WordCamUITests.release.xcconfig"; path = "Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam_WordCamUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.release.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.release.xcconfig"; sourceTree = "<group>"; };
+		D7546CE90892F54F697E829A /* Pods_WordCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordCamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordCamTests.debug.xcconfig"; path = "Target Support Files/Pods-WordCamTests/Pods-WordCamTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +155,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DAAE51C26500F6B0091D80F /* RealmSwift in Frameworks */,
+				0D55477026883DF200967CB1 /* Charts in Frameworks */,
 				0DAAE51A26500F6B0091D80F /* Realm in Frameworks */,
+				540D7D9207053B7B654496D9 /* Pods_WordCam.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6001CEE1C1010D5C588E5BAD /* Pods_WordCamTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66D30B9845A3DF4143C33A7 /* Pods_WordCam_WordCamUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,8 +183,28 @@
 		0D2488B826632E0400D7A6FF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0D7C92D626BAD141009B8236 /* AddWordViewController.swift */,
+				0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */,
+				0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */,
+				0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */,
+				0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */,
 				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
+				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
+				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
+				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
+				0DAA71B3270D97580092F6B4 /* SearchedSetViewController.swift */,
+				0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */,
+				0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */,
+				0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */,
+				0D5547852688514700967CB1 /* SetChartCell.swift */,
+				0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */,
 				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
+				0D04DBBB2710884A0094B748 /* ShareSetViewController.swift */,
+				0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */,
+				0D27E9D626AC5388001E094E /* WordViewController.swift */,
+				0D554766268837F600967CB1 /* WordsViewController.swift */,
+				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
+				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -102,10 +212,15 @@
 		0D2488B926632E1700D7A6FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0DCB74C72650BF7E001A795C /* WordModel.swift */,
-				0DCB74D72650EEB0001A795C /* SetsModel.swift */,
-				0DCB74D22650C818001A795C /* SetCollectionViewCell.swift */,
-				0D2488C026634EA600D7A6FF /* ColorModel.swift */,
+				0DCB74C72650BF7E001A795C /* DataBases.swift */,
+				0DAA71AF270D7B380092F6B4 /* FirebaseAPI.swift */,
+				0D2488C026634EA600D7A6FF /* MyColor.swift */,
+				0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */,
+				0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */,
+				0D27E9F026AD350D001E094E /* RealmService.swift */,
+				0DAA71B5270DA2C30092F6B4 /* SetDownloader.swift */,
+				0DAA71B1270D87230092F6B4 /* SetSearcher.swift */,
+				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -117,6 +232,8 @@
 				0DAAE4FB26500D2F0091D80F /* WordCamTests */,
 				0DAAE50626500D2F0091D80F /* WordCamUITests */,
 				0DAAE4E326500D2D0091D80F /* Products */,
+				2B10DA4D1176340726CC2D6B /* Pods */,
+				5378FCB463B201BC39862583 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,11 +253,12 @@
 				0DAAE4E526500D2E0091D80F /* AppDelegate.swift */,
 				0DAAE4E726500D2E0091D80F /* SceneDelegate.swift */,
 				0D2488B926632E1700D7A6FF /* Model */,
+				0DE831D926C9FFF80074234C /* View */,
 				0D2488B826632E0400D7A6FF /* Controller */,
-				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
 				0DAAE4EE26500D2F0091D80F /* Assets.xcassets */,
 				0DAAE4F026500D2F0091D80F /* LaunchScreen.storyboard */,
 				0DAAE4F326500D2F0091D80F /* Info.plist */,
+				0D8255D0270C48C600BD707D /* GoogleService-Info.plist */,
 			);
 			path = WordCam;
 			sourceTree = "<group>";
@@ -163,6 +281,41 @@
 			path = WordCamUITests;
 			sourceTree = "<group>";
 		};
+		0DE831D926C9FFF80074234C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0DAAE4EB26500D2E0091D80F /* Main.storyboard */,
+				0D5547862688514700967CB1 /* SetChartCell.xib */,
+				0D8255D5270CB60F00BD707D /* SetCollectionViewCell.xib */,
+				0D220EF626B8396700ECE350 /* WordChartCell.xib */,
+				0D24760B26DC8DE9004CD47C /* MeaningCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2B10DA4D1176340726CC2D6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */,
+				41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */,
+				4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */,
+				B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */,
+				EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */,
+				D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5378FCB463B201BC39862583 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D7546CE90892F54F697E829A /* Pods_WordCam.framework */,
+				B9528B3F7D8763D9840078A8 /* Pods_WordCam_WordCamUITests.framework */,
+				E4436A7CE8019B31BD6EE537 /* Pods_WordCamTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,9 +323,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE50C26500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCam" */;
 			buildPhases = (
+				FA3CBFEAA2569F170373705D /* [CP] Check Pods Manifest.lock */,
 				0DAAE4DE26500D2D0091D80F /* Sources */,
 				0DAAE4DF26500D2D0091D80F /* Frameworks */,
 				0DAAE4E026500D2D0091D80F /* Resources */,
+				0D91B278268812EE00A1C82F /* Embed Frameworks */,
+				635A9CBF0C219942720AC897 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +338,7 @@
 			packageProductDependencies = (
 				0DAAE51926500F6B0091D80F /* Realm */,
 				0DAAE51B26500F6B0091D80F /* RealmSwift */,
+				0D55476F26883DF200967CB1 /* Charts */,
 			);
 			productName = WordCam;
 			productReference = 0DAAE4E226500D2D0091D80F /* WordCam.app */;
@@ -191,6 +348,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE50F26500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCamTests" */;
 			buildPhases = (
+				1FBB6A23E62E1AAC138297CF /* [CP] Check Pods Manifest.lock */,
 				0DAAE4F426500D2F0091D80F /* Sources */,
 				0DAAE4F526500D2F0091D80F /* Frameworks */,
 				0DAAE4F626500D2F0091D80F /* Resources */,
@@ -209,9 +367,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DAAE51226500D2F0091D80F /* Build configuration list for PBXNativeTarget "WordCamUITests" */;
 			buildPhases = (
+				5D3F16E6F596810A2D277288 /* [CP] Check Pods Manifest.lock */,
 				0DAAE4FF26500D2F0091D80F /* Sources */,
 				0DAAE50026500D2F0091D80F /* Frameworks */,
 				0DAAE50126500D2F0091D80F /* Resources */,
+				F914532B7327A1253E3936D1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,6 +416,7 @@
 			mainGroup = 0DAAE4D926500D2D0091D80F;
 			packageReferences = (
 				0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				0D55476E26883DF200967CB1 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 0DAAE4E326500D2D0091D80F /* Products */;
 			projectDirPath = "";
@@ -273,9 +434,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D220EF826B8396700ECE350 /* WordChartCell.xib in Resources */,
+				0D5547882688514700967CB1 /* SetChartCell.xib in Resources */,
 				0DAAE4F226500D2F0091D80F /* LaunchScreen.storyboard in Resources */,
 				0DAAE4EF26500D2F0091D80F /* Assets.xcassets in Resources */,
 				0DAAE4ED26500D2E0091D80F /* Main.storyboard in Resources */,
+				0D8255D7270CB60F00BD707D /* SetCollectionViewCell.xib in Resources */,
+				0D24760D26DC8DE9004CD47C /* MeaningCell.xib in Resources */,
+				0D8255D1270C48C600BD707D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,19 +461,147 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1FBB6A23E62E1AAC138297CF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordCamTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D3F16E6F596810A2D277288 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordCam-WordCamUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		635A9CBF0C219942720AC897 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordCam/Pods-WordCam-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F914532B7327A1253E3936D1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordCam-WordCamUITests/Pods-WordCam-WordCamUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA3CBFEAA2569F170373705D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WordCam-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0DAAE4DE26500D2D0091D80F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3DCD4126BFAAAE009FF616 /* ResultViewController.swift in Sources */,
+				0DB10F6026C8D17300A3C8D7 /* AddWordsByCameraViewController.swift in Sources */,
+				0D04DBBC2710884A0094B748 /* ShareSetViewController.swift in Sources */,
+				0DC406F526CFEAC2001AA2E6 /* EditSetViewController.swift in Sources */,
+				0DFA0EE126B9950B00630FAA /* QuizViewController.swift in Sources */,
 				0D2488B126632DE600D7A6FF /* SetViewController.swift in Sources */,
+				0DB10F6226C8D6DE00A3C8D7 /* InputWordViewController.swift in Sources */,
+				0D27E9D726AC5388001E094E /* WordViewController.swift in Sources */,
 				0DAAE4EA26500D2E0091D80F /* MainViewController.swift in Sources */,
+				0D541E8926DF6896001C50DF /* SelectWordByCameraViewController.swift in Sources */,
+				0DAA71B6270DA2C30092F6B4 /* SetDownloader.swift in Sources */,
+				0D9DBBED26FA2A6B00CECB40 /* TimerView.swift in Sources */,
 				0DAAE4E626500D2E0091D80F /* AppDelegate.swift in Sources */,
-				0D2488C126634EA600D7A6FF /* ColorModel.swift in Sources */,
+				0DAA71B0270D7B380092F6B4 /* FirebaseAPI.swift in Sources */,
+				0D24760C26DC8DE9004CD47C /* MeaningCell.swift in Sources */,
+				0D2488C126634EA600D7A6FF /* MyColor.swift in Sources */,
+				0D8255D6270CB60F00BD707D /* SetCollectionViewCell.swift in Sources */,
+				0D7C92D726BAD141009B8236 /* AddWordViewController.swift in Sources */,
+				0DBE72A626F2139E00371F68 /* SwiftGoogleTranslate.swift in Sources */,
+				0DAA71B4270D97580092F6B4 /* SearchedSetViewController.swift in Sources */,
+				0DAA71B2270D87230092F6B4 /* SetSearcher.swift in Sources */,
+				0DD0C6AD26DB506A00C5EB33 /* GradientView.swift in Sources */,
 				0DAAE4E826500D2E0091D80F /* SceneDelegate.swift in Sources */,
-				0DCB74C82650BF7F001A795C /* WordModel.swift in Sources */,
-				0DCB74D82650EEB0001A795C /* SetsModel.swift in Sources */,
-				0DCB74D32650C818001A795C /* SetCollectionViewCell.swift in Sources */,
+				0D8255D3270CB47F00BD707D /* SearchSetViewController.swift in Sources */,
+				0DDB931D26F8BCDB008C1DBC /* ResultChartView.swift in Sources */,
+				0D9DBBEB26FA205F00CECB40 /* QuizSystem.swift in Sources */,
+				0D554767268837F600967CB1 /* WordsViewController.swift in Sources */,
+				0D3DEB6326BF8E69009B324F /* SelectSetWordViewController.swift in Sources */,
+				0D5547872688514700967CB1 /* SetChartCell.swift in Sources */,
+				0D220EF726B8396700ECE350 /* WordChartCell.swift in Sources */,
+				0DCB74C82650BF7F001A795C /* DataBases.swift in Sources */,
+				0D3F54F226E20B7800F8E2E6 /* MyAlert.swift in Sources */,
+				0D27E9F126AD350D001E094E /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +707,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -468,7 +762,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -480,6 +774,7 @@
 		};
 		0DAAE50D26500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 612FCE136E1E610E56B9D1DC /* Pods-WordCam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -499,6 +794,7 @@
 		};
 		0DAAE50E26500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41F969A08C550B5B3F4A2ABC /* Pods-WordCam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -518,6 +814,7 @@
 		};
 		0DAAE51026500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EBAC5E408A95318CB989922C /* Pods-WordCamTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -540,6 +837,7 @@
 		};
 		0DAAE51126500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D455261C361835392FFEDBD9 /* Pods-WordCamTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -562,6 +860,7 @@
 		};
 		0DAAE51326500D2F0091D80F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4828BB93B27E35B1B98D3AD8 /* Pods-WordCam-WordCamUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -582,6 +881,7 @@
 		};
 		0DAAE51426500D2F0091D80F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8690692F80F6A8B10BBB8AD /* Pods-WordCam-WordCamUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -642,6 +942,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0D55476E26883DF200967CB1 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 		0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa";
@@ -653,6 +961,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0D55476F26883DF200967CB1 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D55476E26883DF200967CB1 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		0DAAE51926500F6B0091D80F /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0DAAE51826500F6B0091D80F /* XCRemoteSwiftPackageReference "realm-cocoa" */;

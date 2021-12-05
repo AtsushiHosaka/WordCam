@@ -7,11 +7,13 @@
 
 import UIKit
 import RealmSwift
+import IQKeyboardManagerSwift
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -22,6 +24,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         Realm.Configuration.defaultConfiguration = config
         // Override point for customization after application launch.
+        
+        IQKeyboardManager.shared.enable = true
+        
+        SwiftGoogleTranslate.shared.start(with: "AIzaSyDyWT-LAuZluEbWrUWzE5_yHuWr-E8Xwk4")
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
+                (granted, _) in
+            if granted{
+                UNUserNotificationCenter.current().delegate = self
+            } else {
+                print("notification is not allowed")
+            }
+        }
+        
+        FirebaseApp.configure()
+        
         return true
     }
 
@@ -39,6 +57,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+        
+    }
+ }
