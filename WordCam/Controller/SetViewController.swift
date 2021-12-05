@@ -48,7 +48,8 @@ class SetViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.sizeToFit()
     }
     
     func setupSearchController() {

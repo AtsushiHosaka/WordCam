@@ -152,7 +152,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func sortButtonPressed() {
-        let action1 = UIAlertAction(title: "辞書順", style: .default, handler: {(action: UIAlertAction!) -> Void in
+        let action1 = UIAlertAction(title: "名前順", style: .default, handler: {(action: UIAlertAction!) -> Void in
             self.sortType = 0
             self.sortData()
         })

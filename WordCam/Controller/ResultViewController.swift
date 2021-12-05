@@ -116,7 +116,6 @@ class ResultViewController: UIViewController {
         let startDate = UserDefaults.standard.object(forKey: "startDate") as! Date
         let dateDiffer = Date() - startDate
         let timer = 86400 - ((dateDiffer.hour ?? 0) * 3600 + (dateDiffer.minute ?? 0) * 60 + (dateDiffer.second ?? 0))
-        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timer), repeats: false)
         let request = UNNotificationRequest(identifier: "setNotification", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request){ (error : Error?) in

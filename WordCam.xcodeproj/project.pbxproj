@@ -186,18 +186,25 @@
 				0D7C92D626BAD141009B8236 /* AddWordViewController.swift */,
 				0DB10F5F26C8D17300A3C8D7 /* AddWordsByCameraViewController.swift */,
 				0DC406F426CFEAC2001AA2E6 /* EditSetViewController.swift */,
+				0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */,
 				0DB10F6126C8D6DE00A3C8D7 /* InputWordViewController.swift */,
 				0DAAE4E926500D2E0091D80F /* MainViewController.swift */,
 				0DFA0EE026B9950B00630FAA /* QuizViewController.swift */,
+				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
 				0D3DCD4026BFAAAE009FF616 /* ResultViewController.swift */,
 				0DAA71B3270D97580092F6B4 /* SearchedSetViewController.swift */,
 				0D8255D2270CB47F00BD707D /* SearchSetViewController.swift */,
 				0D3DEB6226BF8E69009B324F /* SelectSetWordViewController.swift */,
 				0D541E8826DF6896001C50DF /* SelectWordByCameraViewController.swift */,
+				0D5547852688514700967CB1 /* SetChartCell.swift */,
+				0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */,
 				0D2488B026632DE600D7A6FF /* SetViewController.swift */,
 				0D04DBBB2710884A0094B748 /* ShareSetViewController.swift */,
+				0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */,
 				0D27E9D626AC5388001E094E /* WordViewController.swift */,
 				0D554766268837F600967CB1 /* WordsViewController.swift */,
+				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
+				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -207,20 +214,13 @@
 			children = (
 				0DCB74C72650BF7E001A795C /* DataBases.swift */,
 				0DAA71AF270D7B380092F6B4 /* FirebaseAPI.swift */,
-				0DD0C6AC26DB506A00C5EB33 /* GradientView.swift */,
 				0D2488C026634EA600D7A6FF /* MyColor.swift */,
 				0D3F54F126E20B7800F8E2E6 /* MyAlert.swift */,
 				0D9DBBEA26FA205F00CECB40 /* QuizSystem.swift */,
 				0D27E9F026AD350D001E094E /* RealmService.swift */,
-				0DDB931C26F8BCDB008C1DBC /* ResultChartView.swift */,
-				0D5547852688514700967CB1 /* SetChartCell.swift */,
-				0D8255D4270CB60F00BD707D /* SetCollectionViewCell.swift */,
 				0DAA71B5270DA2C30092F6B4 /* SetDownloader.swift */,
 				0DAA71B1270D87230092F6B4 /* SetSearcher.swift */,
 				0DBE72A526F2139E00371F68 /* SwiftGoogleTranslate.swift */,
-				0D9DBBEC26FA2A6B00CECB40 /* TimerView.swift */,
-				0D220EF526B8396700ECE350 /* WordChartCell.swift */,
-				0D24760A26DC8DE9004CD47C /* MeaningCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

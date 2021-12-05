@@ -1,0 +1,6 @@
+framework module Pods_WordCamTests {
+  umbrella header "Pods-WordCamTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
